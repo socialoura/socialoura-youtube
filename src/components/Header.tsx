@@ -41,30 +41,28 @@ export default function Header({ lang }: HeaderProps) {
   return (
     <header className="w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-24 sm:h-28">
+        <div className="flex items-center h-24 sm:h-28">
+          {/* Logo - Left */}
           <div className="flex items-center">
             <Link 
               href={`/${lang}`}
-              className="flex items-center gap-3 transition-all group"
+              className="flex items-center transition-all group"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24">
+              <div className="relative w-24 h-24 sm:w-32 sm:h-32">
                 <Image
                   src="/img/a-modern-flat-vector-logo-design-featuri_ZEbfVp__QiK-0wr5MrgGJg_ZFPYEbSKRM6a11TOK-IQCQ-removebg-preview.png"
                   alt="Socialoura"
-                  width={96}
-                  height={96}
+                  width={128}
+                  height={128}
                   className="group-hover:scale-105 transition-transform"
                 />
               </div>
-              <span className="text-2xl font-black text-gray-900 dark:text-white">
-                Socialoura
-              </span>
             </Link>
           </div>
           
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
+          {/* Desktop Navigation - Centered */}
+          <nav className="hidden md:flex items-center gap-6 flex-1 justify-center">
             <Link
               href={`/${lang}/i`}
               className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
@@ -90,10 +88,14 @@ export default function Header({ lang }: HeaderProps) {
               {lang === 'en' ? 'Contact' : 'Contact'}
             </Link>
             
-            {/* Language Switcher - Single Toggle */}
+          </nav>
+
+          {/* Right side - Language & Theme */}
+          <div className="hidden md:flex items-center gap-4">
+            {/* Language Switcher */}
             <Link
               href={toggleLanguage()}
-              className="ml-4 pl-4 border-l border-gray-300 dark:border-gray-700 px-2 py-1 rounded-md transition-all hover:scale-110 flex items-center"
+              className="px-2 py-1 rounded-md transition-all hover:scale-110 flex items-center"
               aria-label={lang === 'en' ? 'Passer au français' : 'Switch to English'}
               title={lang === 'en' ? 'Français' : 'English'}
             >
@@ -110,10 +112,10 @@ export default function Header({ lang }: HeaderProps) {
             
             {/* Theme Toggle */}
             <ThemeToggle />
-          </nav>
+          </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-3">
+          <div className="flex md:hidden items-center gap-3 ml-auto">
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
