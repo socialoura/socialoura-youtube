@@ -84,10 +84,11 @@ function PaymentForm({
   const t = text[language];
 
   const formatAmount = (amount: number, currency: string) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: currency.toUpperCase(),
-    }).format(amount / 100);
+    const value = amount / 100;
+    if (currency.toLowerCase() === 'eur') {
+      return `${value.toFixed(2)}€`;
+    }
+    return `$${value.toFixed(2)}`;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

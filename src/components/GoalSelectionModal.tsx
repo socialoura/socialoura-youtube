@@ -294,10 +294,10 @@ export default function GoalSelectionModal({
                       +{goal.followers.toLocaleString()}
                     </div>
                     <div className="text-xl font-bold text-indigo-600 dark:text-indigo-400">
-                      {goal.price.toFixed(2)}€
+                      {language === 'fr' ? `${goal.price.toFixed(2)}€` : `$${goal.price.toFixed(2)}`}
                     </div>
                     <div className="text-xs text-gray-500 dark:text-gray-400 line-through">
-                      {goal.originalPrice.toFixed(1)}€
+                      {language === 'fr' ? `${goal.originalPrice.toFixed(1)}€` : `$${goal.originalPrice.toFixed(1)}`}
                     </div>
                   </div>
                 </button>
@@ -340,7 +340,7 @@ export default function GoalSelectionModal({
                       {customFollowers.toLocaleString()} followers
                     </span>
                     <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
-                      €{calculateCustomPrice(customFollowers)}
+                      {language === 'fr' ? `€${calculateCustomPrice(customFollowers)}` : `$${calculateCustomPrice(customFollowers)}`}
                     </span>
                   </div>
                   

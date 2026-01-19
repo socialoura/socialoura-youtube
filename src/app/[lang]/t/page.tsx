@@ -48,7 +48,7 @@ export default function TikTokPage({ params }: PageProps) {
   };
 
   const handleContinue = () => {
-    if (username.trim().length >= 3) {
+    if (username.trim().length > 0) {
       setIsGoalModalOpen(true);
     }
   };
@@ -336,10 +336,10 @@ export default function TikTokPage({ params }: PageProps) {
                 </div>
                 <button
                   onClick={handleContinue}
-                  disabled={username.trim().length < 3}
-                  className="rounded-lg bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 px-8 py-3 text-base font-bold text-white dark:text-black transition-colors disabled:bg-gray-400 dark:disabled:bg-gray-600 disabled:cursor-not-allowed uppercase tracking-wide"
+                  className="relative overflow-hidden rounded-xl bg-gradient-to-r from-cyan-500 via-purple-600 to-pink-500 px-10 py-4 text-base font-bold text-white shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-105 transition-all duration-300 uppercase tracking-wide group"
                 >
-                  {t.hero.cta}
+                  <span className="relative z-10">{t.hero.cta}</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </button>
               </div>
             </div>
@@ -431,9 +431,10 @@ export default function TikTokPage({ params }: PageProps) {
           <div className="mt-16 text-center">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-              className="rounded-lg bg-black dark:bg-white hover:bg-gray-800 dark:hover:bg-gray-100 px-8 py-3 text-base font-bold text-white dark:text-black transition-colors uppercase tracking-wide"
+              className="relative overflow-hidden rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 px-10 py-4 text-base font-bold text-white shadow-lg shadow-pink-500/30 hover:shadow-xl hover:shadow-pink-500/40 hover:scale-105 transition-all duration-300 uppercase tracking-wide group"
             >
-              {t.howItWorks.cta}
+              <span className="relative z-10">{t.howItWorks.cta}</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-pink-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </button>
           </div>
         </div>
