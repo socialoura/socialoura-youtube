@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Language } from '@/i18n/config';
 import Link from 'next/link';
-import { Plus, Minus, Camera, Music, BarChart3, Calendar, MessageCircle, HeadphonesIcon } from 'lucide-react';
+import { Plus, Minus, Camera, Music, BarChart3, Calendar, MessageCircle, HeadphonesIcon, Instagram } from 'lucide-react';
 
 interface PageProps {
   params: { lang: string };
@@ -202,70 +202,134 @@ export default function HomePage({ params }: PageProps) {
             </div>
           </div>
           <div className="flex-1 flex items-center justify-center mt-16 sm:mt-24 lg:mt-0 lg:ml-10">
-            <div className="w-full h-full flex items-center justify-center">
-              {/* Animated Social Media Dashboard Mockup */}
-              <div className="relative w-full max-w-lg">
-                {/* Background Glow */}
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 blur-3xl rounded-full" />
-                
-                {/* Main Visual Container */}
+            <div className="relative w-full max-w-xl">
+              {/* Animated Background Orbs */}
+              <div className="absolute -top-20 -right-20 w-72 h-72 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-full blur-3xl animate-pulse-glow" />
+              <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-gradient-to-br from-indigo-500/30 to-purple-500/30 rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '1.5s' }} />
+              
+              {/* Rotating Ring */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="w-80 h-80 border-2 border-dashed border-purple-500/20 rounded-full animate-rotate-slow" />
+              </div>
+              
+              {/* Large Instagram Logo - Top Left */}
+              <div className="absolute -top-8 left-0 w-20 h-20 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 rounded-2xl shadow-2xl shadow-pink-500/40 flex items-center justify-center animate-float transform -rotate-12 hover:rotate-0 transition-transform duration-300">
+                <Instagram className="w-10 h-10 text-white" />
+              </div>
+              
+              {/* Large TikTok Logo - Top Right */}
+              <div className="absolute -top-4 right-4 w-20 h-20 bg-black rounded-2xl shadow-2xl shadow-cyan-500/30 flex items-center justify-center animate-float-delayed transform rotate-12 hover:rotate-0 transition-transform duration-300 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 via-transparent to-pink-500 opacity-60" />
+                <svg viewBox="0 0 24 24" className="w-10 h-10 text-white relative z-10" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
+              </div>
+              
+              {/* Central Phone Mockup */}
+              <div className="relative z-10 flex items-center justify-center">
                 <div className="relative">
-                  {/* Floating Cards Animation */}
-                  <div className="relative aspect-square w-full">
-                    {/* Central Profile Card */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-48 h-48 bg-gradient-to-br from-purple-600 to-pink-600 rounded-3xl shadow-2xl flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
-                        <BarChart3 className="w-20 h-20 text-white" />
+                  {/* Phone Frame */}
+                  <div className="w-56 h-[420px] bg-gradient-to-b from-gray-800 to-gray-900 rounded-[3rem] p-2 shadow-2xl shadow-purple-500/20 animate-bounce-gentle">
+                    <div className="w-full h-full bg-gradient-to-br from-gray-900 via-purple-900/50 to-gray-900 rounded-[2.5rem] overflow-hidden relative">
+                      {/* Phone Notch */}
+                      <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full" />
+                      
+                      {/* Phone Screen Content */}
+                      <div className="pt-12 px-4 pb-4 h-full flex flex-col">
+                        {/* Profile Section */}
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center">
+                            <span className="text-white text-lg font-bold">S</span>
+                          </div>
+                          <div>
+                            <div className="text-white font-semibold text-sm">@socialoura</div>
+                            <div className="text-purple-300 text-xs">Pro Account</div>
+                          </div>
+                        </div>
+                        
+                        {/* Stats Grid */}
+                        <div className="grid grid-cols-3 gap-2 mb-4">
+                          <div className="bg-white/10 backdrop-blur rounded-xl p-2 text-center">
+                            <div className="text-white font-bold text-lg">12.5K</div>
+                            <div className="text-purple-300 text-[10px]">Followers</div>
+                          </div>
+                          <div className="bg-white/10 backdrop-blur rounded-xl p-2 text-center">
+                            <div className="text-white font-bold text-lg">847</div>
+                            <div className="text-purple-300 text-[10px]">Posts</div>
+                          </div>
+                          <div className="bg-white/10 backdrop-blur rounded-xl p-2 text-center">
+                            <div className="text-white font-bold text-lg">98%</div>
+                            <div className="text-purple-300 text-[10px]">Growth</div>
+                          </div>
+                        </div>
+                        
+                        {/* Growth Chart */}
+                        <div className="flex-1 bg-white/5 backdrop-blur rounded-2xl p-3 relative overflow-hidden">
+                          <div className="text-purple-300 text-xs mb-2">Growth Analytics</div>
+                          <div className="flex items-end gap-1 h-24">
+                            {[40, 55, 45, 70, 60, 85, 75, 95, 88, 100].map((height, i) => (
+                              <div 
+                                key={i} 
+                                className="flex-1 bg-gradient-to-t from-purple-600 to-pink-500 rounded-t-sm opacity-80"
+                                style={{ height: `${height}%`, animationDelay: `${i * 0.1}s` }}
+                              />
+                            ))}
+                          </div>
+                          {/* Shimmer Effect */}
+                          <div className="absolute inset-0 animate-shimmer opacity-30" />
+                        </div>
                       </div>
                     </div>
-                    
-                    {/* Floating elements */}
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-pink-400 to-purple-500 rounded-2xl shadow-lg animate-float" style={{ animationDelay: '0s' }} />
-                    <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-br from-indigo-400 to-purple-500 rounded-full blur-3xl opacity-30 animate-pulse" />
-                    <div className="absolute top-1/2 right-0 w-32 h-32 bg-gradient-to-br from-pink-400 to-purple-500 rounded-full blur-3xl opacity-20" />
-                    
-                    {/* Floating Cards */}
-                    <div className="relative w-full h-full">
-                      {/* Instagram Card */}
-                      <div className="absolute top-10 left-0 bg-white dark:bg-gray-800 rounded-xl p-4 shadow-2xl transform rotate-3 hover:rotate-0 transition-transform">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-                            <Camera className="w-6 h-6 text-white" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-gray-900 dark:text-white">Instagram</div>
-                            <div className="text-xs text-gray-500 dark:text-gray-400">+2.5K followers</div>
-                          </div>
-                        </div>
+                  </div>
+                  
+                  {/* Floating Notification Cards */}
+                  {/* Instagram Notification - Top Left */}
+                  <div className="absolute -top-4 -left-20 bg-white dark:bg-gray-800 rounded-2xl p-3 shadow-2xl shadow-purple-500/20 animate-float border border-purple-100 dark:border-purple-900/50">
+                    <div className="flex items-center gap-2">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center">
+                        <Instagram className="w-5 h-5 text-white" />
                       </div>
-                      
-                      {/* TikTok Card */}
-                      <div className="absolute top-1/3 right-0 bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 border border-gray-200 dark:border-gray-700 animate-float-delayed">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center">
-                            <Music className="w-6 h-6 text-white" />
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-gray-900 dark:text-white">TikTok</div>
-                            <div className="text-xs text-gray-500 dark:text-gray-400">+5.2K followers</div>
-                          </div>
-                        </div>
+                      <div>
+                        <div className="text-xs font-bold text-gray-900 dark:text-white">+2,847</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400">New followers</div>
                       </div>
-                      
-                      {/* Engagement Stats */}
-                      <div className="absolute bottom-10 left-0 bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-4 border border-gray-200 dark:border-gray-700">
-                        <div className="flex items-center gap-6">
-                          <div>
-                            <div className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">98%</div>
-                            <div className="text-xs text-gray-500 dark:text-gray-400">Engagement</div>
-                          </div>
-                          <div className="h-8 w-px bg-gray-300 dark:bg-gray-600" />
-                          <div>
-                            <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">24/7</div>
-                            <div className="text-xs text-gray-500 dark:text-gray-400">Active</div>
-                          </div>
-                        </div>
+                    </div>
+                  </div>
+                  
+                  {/* TikTok Notification - Top Right */}
+                  <div className="absolute top-16 -right-24 bg-white dark:bg-gray-800 rounded-2xl p-3 shadow-2xl shadow-pink-500/20 animate-float-delayed border border-pink-100 dark:border-pink-900/50">
+                    <div className="flex items-center gap-2">
+                      <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 via-transparent to-pink-500 opacity-60" />
+                        <svg viewBox="0 0 24 24" className="w-5 h-5 text-white relative z-10" fill="currentColor">
+                          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                        </svg>
                       </div>
+                      <div>
+                        <div className="text-xs font-bold text-gray-900 dark:text-white">+15.2K</div>
+                        <div className="text-[10px] text-gray-500 dark:text-gray-400">Views today</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Engagement Card - Bottom Left */}
+                  <div className="absolute bottom-20 -left-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl p-3 shadow-2xl shadow-indigo-500/30 animate-float" style={{ animationDelay: '0.5s' }}>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
+                        <BarChart3 className="w-4 h-4 text-white" />
+                      </div>
+                      <div>
+                        <div className="text-white font-bold text-sm">+340%</div>
+                        <div className="text-indigo-200 text-[10px]">Engagement</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Live Badge - Bottom Right */}
+                  <div className="absolute bottom-8 -right-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full px-4 py-2 shadow-lg shadow-green-500/30 animate-pulse">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-white rounded-full animate-ping" />
+                      <span className="text-white text-xs font-bold">LIVE</span>
                     </div>
                   </div>
                 </div>
