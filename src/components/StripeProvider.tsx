@@ -62,14 +62,51 @@ export default function StripeProvider({
       return {
         clientSecret,
         appearance: {
-          theme: 'stripe' as const,
+          theme: 'night' as const,
           variables: {
-            colorPrimary: '#4F46E5', // Indigo-600
-            colorBackground: '#ffffff',
-            colorText: '#1f2937',
+            colorPrimary: '#a855f7', // Purple-500
+            colorBackground: '#1f2937', // Gray-800
+            colorText: '#f3f4f6', // Gray-100
+            colorTextSecondary: '#9ca3af', // Gray-400
             colorDanger: '#ef4444',
             fontFamily: 'system-ui, sans-serif',
-            borderRadius: '8px',
+            borderRadius: '12px',
+            colorInputBackground: '#374151', // Gray-700
+            colorInputText: '#f3f4f6', // Gray-100
+          },
+          rules: {
+            '.Input': {
+              backgroundColor: '#374151',
+              border: '1px solid #4b5563',
+              color: '#f3f4f6',
+            },
+            '.Input:focus': {
+              border: '1px solid #a855f7',
+              boxShadow: '0 0 0 1px #a855f7',
+            },
+            '.Label': {
+              color: '#9ca3af',
+            },
+            '.Tab': {
+              backgroundColor: '#374151',
+              border: '1px solid #4b5563',
+              color: '#9ca3af',
+            },
+            '.Tab:hover': {
+              backgroundColor: '#4b5563',
+              color: '#f3f4f6',
+            },
+            '.Tab--selected': {
+              backgroundColor: '#a855f7',
+              border: '1px solid #a855f7',
+              color: '#ffffff',
+            },
+            '.TabIcon': {
+              fill: '#9ca3af',
+            },
+            '.TabIcon--selected': {
+              fill: '#ffffff',
+            },
           },
         },
       };

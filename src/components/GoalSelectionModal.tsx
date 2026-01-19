@@ -316,7 +316,7 @@ export default function GoalSelectionModal({
               </div>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-6">
-                {goals.map((goal, index) => (
+                {goals.map((goal) => (
                 <button
                   key={goal.followers}
                   onClick={() => handleGoalSelect(goal)}

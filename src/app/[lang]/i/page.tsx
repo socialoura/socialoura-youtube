@@ -5,7 +5,7 @@ import { Language } from '@/i18n/config';
 import GoalSelectionModal from '@/components/GoalSelectionModal';
 import PaymentModal from '@/components/PaymentModal';
 import OrderSuccessModal from '@/components/OrderSuccessModal';
-import { Bot, Clock, Shield, Package, Megaphone, BarChart3, Plus, Minus } from 'lucide-react';
+import { Bot, Clock, Shield, Package, Megaphone, BarChart3 } from 'lucide-react';
 import Image from 'next/image';
 
 interface PageProps {
@@ -33,10 +33,6 @@ export default function InstagramPage({ params }: PageProps) {
   const [paymentIntentId, setPaymentIntentId] = useState('');
   const [showToast, setShowToast] = useState(false);
   const [openDifferenceIndex, setOpenDifferenceIndex] = useState<number | null>(null);
-
-  const toggleDifference = (index: number) => {
-    setOpenDifferenceIndex(openDifferenceIndex === index ? null : index);
-  };
 
   const getCurrency = () => (lang === 'fr' ? 'eur' : 'usd');
 
