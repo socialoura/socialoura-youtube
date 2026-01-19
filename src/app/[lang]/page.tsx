@@ -241,17 +241,17 @@ export default function HomePage({ params }: PageProps) {
           </div>
           
           {/* Right Content - Phone Mockup */}
-          <div className="flex-1 flex items-center justify-center mt-16 lg:mt-0">
+          <div className="flex-1 flex items-center justify-center mt-12 lg:mt-0">
             <div className="relative w-full max-w-md">
-              {/* Animated Background Orbs */}
-              <div className="absolute -top-20 -right-20 w-72 h-72 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full blur-3xl animate-pulse" />
-              <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }} />
+              {/* Animated Background Orbs - Hidden on small screens */}
+              <div className="hidden sm:block absolute -top-20 -right-20 w-72 h-72 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full blur-3xl animate-pulse" />
+              <div className="hidden sm:block absolute -bottom-20 -left-20 w-64 h-64 bg-gradient-to-br from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }} />
               
               {/* Central Phone Mockup */}
               <div className="relative z-10 flex items-center justify-center">
                 <div className="relative">
                   {/* Phone Frame */}
-                  <div className="w-64 h-[480px] bg-gradient-to-b from-gray-800 to-gray-900 rounded-[3rem] p-2 shadow-2xl shadow-purple-500/20">
+                  <div className="w-52 h-[400px] sm:w-64 sm:h-[480px] bg-gradient-to-b from-gray-800 to-gray-900 rounded-[2.5rem] sm:rounded-[3rem] p-2 shadow-2xl shadow-purple-500/20">
                     <div className="w-full h-full bg-gradient-to-br from-gray-900 via-purple-900/30 to-gray-900 rounded-[2.5rem] overflow-hidden relative border border-gray-700">
                       {/* Phone Notch */}
                       <div className="absolute top-2 left-1/2 -translate-x-1/2 w-20 h-6 bg-black rounded-full" />
@@ -302,8 +302,8 @@ export default function HomePage({ params }: PageProps) {
                     </div>
                   </div>
                   
-                  {/* Floating Notification Cards */}
-                  <div className="absolute -top-4 -left-16 bg-gray-800 rounded-2xl p-3 shadow-2xl shadow-purple-500/20 border border-gray-700">
+                  {/* Floating Notification Cards - Hidden on mobile */}
+                  <div className="hidden sm:block absolute -top-4 -left-16 bg-gray-800 rounded-2xl p-3 shadow-2xl shadow-purple-500/20 border border-gray-700">
                     <div className="flex items-center gap-2">
                       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center">
                         <Instagram className="w-5 h-5 text-white" />
@@ -315,7 +315,7 @@ export default function HomePage({ params }: PageProps) {
                     </div>
                   </div>
                   
-                  <div className="absolute top-20 -right-20 bg-gray-800 rounded-2xl p-3 shadow-2xl shadow-cyan-500/20 border border-gray-700">
+                  <div className="hidden sm:block absolute top-20 -right-20 bg-gray-800 rounded-2xl p-3 shadow-2xl shadow-cyan-500/20 border border-gray-700">
                     <div className="flex items-center gap-2">
                       <div className="w-10 h-10 rounded-xl bg-black flex items-center justify-center">
                         <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="currentColor">
@@ -329,7 +329,7 @@ export default function HomePage({ params }: PageProps) {
                     </div>
                   </div>
                   
-                  <div className="absolute bottom-24 -left-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl p-3 shadow-2xl shadow-purple-500/30">
+                  <div className="hidden sm:block absolute bottom-24 -left-12 bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl p-3 shadow-2xl shadow-purple-500/30">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
                         <BarChart3 className="w-4 h-4 text-white" />
@@ -341,7 +341,7 @@ export default function HomePage({ params }: PageProps) {
                     </div>
                   </div>
                   
-                  <div className="absolute bottom-12 -right-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full px-4 py-2 shadow-lg shadow-green-500/30">
+                  <div className="hidden sm:block absolute bottom-12 -right-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full px-4 py-2 shadow-lg shadow-green-500/30">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-white rounded-full animate-ping" />
                       <span className="text-white text-xs font-bold">LIVE</span>

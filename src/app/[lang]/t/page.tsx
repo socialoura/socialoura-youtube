@@ -311,13 +311,13 @@ export default function TikTokPage({ params }: PageProps) {
               </svg>
             </div>
             
-            <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl md:text-6xl mb-4 leading-tight">
+            <h1 className="text-3xl font-black tracking-tight text-white sm:text-4xl md:text-5xl lg:text-6xl mb-4 leading-tight">
               {t.hero.title}
             </h1>
-            <h1 className="text-4xl font-black tracking-tight sm:text-5xl md:text-6xl mb-8 leading-tight bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-black tracking-tight sm:text-4xl md:text-5xl lg:text-6xl mb-6 sm:mb-8 leading-tight bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               {t.hero.platform}
             </h1>
-            <p className="text-lg leading-relaxed text-gray-400 max-w-2xl mx-auto mb-10">
+            <p className="text-base sm:text-lg leading-relaxed text-gray-400 max-w-2xl mx-auto mb-8 sm:mb-10 px-2">
               {t.hero.subtitle}
             </p>
             
