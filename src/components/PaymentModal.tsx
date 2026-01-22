@@ -137,18 +137,18 @@ function PaymentForm({
   };
 
   return (
-    <div className="relative p-4 sm:p-6 md:p-8">
+    <div className="p-6">
       {/* Header */}
-      <div className="text-center mb-6">
-        <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
           {paymentStatus === 'success' ? t.titleSuccess : t.title}
         </h2>
         {productName && paymentStatus !== 'success' && (
-          <p className="text-sm text-gray-400 mb-2">
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
             {productName}
           </p>
         )}
-        <p className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+        <p className="mt-1 text-lg font-semibold text-indigo-600 dark:text-indigo-400">
           {formatAmount(amount, currency)}
         </p>
       </div>
@@ -156,23 +156,21 @@ function PaymentForm({
       {/* Success State */}
       {paymentStatus === 'success' && (
         <div className="text-center py-8">
-          <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg shadow-green-500/30">
-            <CheckCircle className="h-10 w-10 text-white" />
-          </div>
-          <h3 className="text-xl font-bold text-white mb-2">
+          <CheckCircle className="mx-auto h-16 w-16 text-green-500 mb-4" />
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
             {t.paymentComplete}
           </h3>
-          <p className="text-gray-400 mb-4">
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
             {t.paymentSuccessDesc}
           </p>
           {paymentIntentId && (
-            <p className="text-xs text-gray-500 mb-6 font-mono bg-gray-800/50 rounded-lg px-3 py-2 inline-block">
-              {t.paymentId} {paymentIntentId.slice(0, 20)}...
+            <p className="text-xs text-gray-500 dark:text-gray-500 mb-6 font-mono">
+              {t.paymentId} {paymentIntentId}
             </p>
           )}
           <button
             onClick={handleClose}
-            className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-purple-500 hover:via-pink-500 hover:to-purple-500 text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg shadow-purple-500/25"
+            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
           >
             {t.close}
           </button>
@@ -181,16 +179,14 @@ function PaymentForm({
 
       {/* Error State */}
       {paymentStatus === 'error' && errorMessage && (
-        <div className="mb-6 rounded-xl bg-red-500/10 border border-red-500/30 p-4">
-          <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-red-500/20 flex items-center justify-center flex-shrink-0">
-              <AlertCircle className="h-4 w-4 text-red-400" />
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-red-400">
+        <div className="mb-6 rounded-lg bg-red-50 dark:bg-red-900/20 p-4 ring-1 ring-red-200 dark:ring-red-800">
+          <div className="flex items-start">
+            <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+            <div className="ml-3">
+              <h3 className="text-sm font-medium text-red-800 dark:text-red-200">
                 {t.paymentFailed}
               </h3>
-              <p className="mt-1 text-sm text-red-300/80">
+              <p className="mt-1 text-sm text-red-700 dark:text-red-300">
                 {errorMessage}
               </p>
             </div>
@@ -205,10 +201,8 @@ function PaymentForm({
             {!elementsReady && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
-                    <Loader2 className="animate-spin h-6 w-6 text-white" />
-                  </div>
-                  <p className="text-sm text-gray-400">
+                  <Loader2 className="animate-spin h-8 w-8 mx-auto text-indigo-600 dark:text-indigo-400 mb-2" />
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
                     {t.loadingForm}
                   </p>
                 </div>
@@ -229,17 +223,17 @@ function PaymentForm({
           </div>
 
           {/* Terms Checkbox */}
-          <div className="mb-6 flex items-start gap-3 p-4 rounded-xl bg-gray-800/30 border border-gray-700/50">
+          <div className="mb-6 flex items-start">
             <input
               type="checkbox"
               id="terms"
               checked={acceptedTerms}
               onChange={(e) => setAcceptedTerms(e.target.checked)}
-              className="mt-0.5 h-5 w-5 text-purple-600 focus:ring-purple-500 bg-gray-700 border-gray-600 rounded cursor-pointer"
+              className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
             />
-            <label htmlFor="terms" className="text-sm text-gray-400 cursor-pointer">
+            <label htmlFor="terms" className="ml-2 text-sm text-gray-600 dark:text-gray-400">
               {t.termsLabel}{' '}
-              <a href="#" className="text-purple-400 hover:text-purple-300 underline">
+              <a href="#" className="text-indigo-600 dark:text-indigo-400 hover:underline">
                 {t.termsLink}
               </a>
               .
@@ -250,39 +244,34 @@ function PaymentForm({
           <button
             type="submit"
             disabled={!stripe || !elements || isProcessing || !elementsReady || !acceptedTerms}
-            className="w-full relative overflow-hidden bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-purple-500 hover:via-pink-500 hover:to-purple-500 disabled:from-gray-600 disabled:via-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] disabled:shadow-none disabled:hover:scale-100 flex items-center justify-center gap-2"
+            className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:bg-gray-400 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center"
           >
             {isProcessing ? (
               <>
-                <Loader2 className="animate-spin h-5 w-5" />
+                <Loader2 className="animate-spin h-5 w-5 mr-2" />
                 {t.processing}
               </>
             ) : (
-              <>
-                {t.payButton} {formatAmount(amount, currency)}
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </>
+              `${t.payButton} ${formatAmount(amount, currency)}`
             )}
           </button>
 
           {/* Trust Badges */}
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-gray-500">
-            <div className="flex items-center gap-1.5">
-              <svg className="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+          <div className="mt-6 flex items-center justify-center gap-6 text-xs text-gray-500 dark:text-gray-400">
+            <div className="flex items-center gap-1">
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <span>{t.safeTransaction}</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <svg className="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <div className="flex items-center gap-1">
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
               </svg>
               <span>{t.secureEncryption}</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <svg className="h-4 w-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+            <div className="flex items-center gap-1">
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <span>{t.serviceGuaranteed}</span>
@@ -440,44 +429,38 @@ export default function PaymentModal({
       role="dialog"
       aria-modal="true"
     >
-      {/* Backdrop with blur */}
+      {/* Backdrop with fade animation */}
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-out ${
+        className={`fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75 transition-opacity duration-300 ease-out ${
           isAnimating ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={handleOverlayClick}
       />
 
-      {/* Modal Container */}
-      <div className="flex min-h-full items-center justify-center p-4">
+      {/* Modal Container with slide and fade animation */}
+      <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
         <div
-          className={`relative transform overflow-hidden rounded-3xl bg-gradient-to-b from-gray-900 to-gray-950 text-left shadow-2xl shadow-purple-500/10 transition-all duration-300 ease-out w-full max-w-lg border border-gray-800 ${
+          className={`relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all duration-300 ease-out sm:my-8 sm:w-full sm:max-w-lg ${
             isAnimating 
-              ? 'opacity-100 translate-y-0 scale-100' 
-              : 'opacity-0 translate-y-4 scale-95'
+              ? 'opacity-100 translate-y-0 sm:scale-100' 
+              : 'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
           }`}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Decorative gradient orbs */}
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-600/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-pink-600/20 rounded-full blur-3xl pointer-events-none" />
-          
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 w-10 h-10 rounded-full bg-gray-800/50 hover:bg-gray-700/50 flex items-center justify-center text-gray-400 hover:text-white transition-all z-10 backdrop-blur-sm"
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors z-10"
             aria-label="Close"
           >
-            <X className="h-5 w-5" />
+            <X className="h-6 w-6" />
           </button>
 
           {/* Loading State */}
           {isLoading && (
-            <div className="relative p-12 text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
-                <Loader2 className="animate-spin h-8 w-8 text-white" />
-              </div>
-              <p className="text-gray-400">
+            <div className="p-12 text-center">
+              <Loader2 className="animate-spin h-12 w-12 mx-auto text-indigo-600 dark:text-indigo-400 mb-4" />
+              <p className="text-sm text-gray-600 dark:text-gray-400">
                 {t.initializingPayment}
               </p>
             </div>
@@ -485,20 +468,18 @@ export default function PaymentModal({
 
           {/* Error State */}
           {error && !isLoading && (
-            <div className="relative p-8">
+            <div className="p-6">
               <div className="text-center py-8">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center">
-                  <AlertCircle className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">
+                <AlertCircle className="mx-auto h-16 w-16 text-red-500 mb-4" />
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
                   {t.paymentSetupFailed}
                 </h3>
-                <p className="text-gray-400 mb-6">
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
                   {error}
                 </p>
                 <button
                   onClick={onClose}
-                  className="w-full bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-xl transition-colors"
+                  className="w-full bg-gray-600 hover:bg-gray-500 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
                 >
                   {t.close}
                 </button>

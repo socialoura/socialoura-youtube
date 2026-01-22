@@ -282,19 +282,19 @@ export default function GoalSelectionModal({
             <X className="h-5 w-5" />
           </button>
 
-          <div className="relative p-4 sm:p-6 md:p-8">
+          <div className="relative p-8">
             {/* Header with username badge */}
-            <div className="text-center mb-6 sm:mb-8">
-              <div className="inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2 sm:py-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-xl sm:rounded-2xl mb-4 sm:mb-6 backdrop-blur-sm">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center shadow-lg shadow-purple-500/30">
-                  <span className="text-white text-lg sm:text-xl font-bold">{username.charAt(0).toUpperCase()}</span>
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl mb-6 backdrop-blur-sm">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center shadow-lg shadow-purple-500/30">
+                  <span className="text-white text-xl font-bold">{username.charAt(0).toUpperCase()}</span>
                 </div>
                 <div className="text-left">
-                  <div className="text-[10px] sm:text-xs text-gray-400 uppercase tracking-wider">Account</div>
-                  <div className="text-base sm:text-lg font-bold text-white">@{username}</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider">Account</div>
+                  <div className="text-lg font-bold text-white">@{username}</div>
                 </div>
               </div>
-              <h2 className="text-2xl sm:text-3xl font-black text-white mb-2">
+              <h2 className="text-3xl font-black text-white mb-2">
                 {t.title}
               </h2>
               <p className="text-gray-400 text-sm">
@@ -315,35 +315,35 @@ export default function GoalSelectionModal({
                 <div className="text-gray-400">No pricing options available</div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-6">
-                {goals.map((goal) => (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                {goals.map((goal, index) => (
                 <button
                   key={goal.followers}
                   onClick={() => handleGoalSelect(goal)}
-                  className={`relative p-3 sm:p-4 rounded-xl sm:rounded-2xl border transition-all duration-300 group ${
+                  className={`relative p-4 rounded-2xl border transition-all duration-300 group ${
                     selectedGoal?.followers === goal.followers
                       ? 'border-purple-500 bg-purple-500/10 shadow-lg shadow-purple-500/20 scale-[1.02]'
                       : 'border-gray-700/50 bg-gray-800/30 hover:border-gray-600 hover:bg-gray-800/50'
                   }`}
                 >
                   {goal.popular && (
-                    <div className="absolute -top-2 sm:-top-3 left-1/2 -translate-x-1/2">
-                      <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[8px] sm:text-[10px] font-bold px-2 sm:px-3 py-0.5 sm:py-1 rounded-full whitespace-nowrap uppercase tracking-wider shadow-lg shadow-purple-500/30">
+                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                      <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] font-bold px-3 py-1 rounded-full whitespace-nowrap uppercase tracking-wider shadow-lg shadow-purple-500/30">
                         {t.mostPopular}
                       </span>
                     </div>
                   )}
                   <div className="text-center">
-                    <div className="inline-flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 text-[9px] sm:text-[10px] font-bold mb-1 sm:mb-2">
+                    <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 text-[10px] font-bold mb-2">
                       <span>-{goal.discount}%</span>
                     </div>
-                    <div className="text-lg sm:text-2xl font-black text-white mb-1 group-hover:text-purple-300 transition-colors">
+                    <div className="text-2xl font-black text-white mb-1 group-hover:text-purple-300 transition-colors">
                       +{goal.followers.toLocaleString()}
                     </div>
-                    <div className="text-base sm:text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    <div className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                       {language === 'fr' ? `${goal.price.toFixed(2)}€` : `$${goal.price.toFixed(2)}`}
                     </div>
-                    <div className="text-[10px] sm:text-xs text-gray-500 line-through">
+                    <div className="text-xs text-gray-500 line-through">
                       {language === 'fr' ? `${goal.originalPrice.toFixed(1)}€` : `$${goal.originalPrice.toFixed(1)}`}
                     </div>
                   </div>
