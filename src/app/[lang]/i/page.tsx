@@ -107,11 +107,11 @@ export default function InstagramPage({ params }: PageProps) {
   const content = {
     en: {
       hero: {
-        title: 'BOOST YOUR VISIBILITY ON',
+        title: 'ELEVATE YOUR PRESENCE ON',
         platform: 'INSTAGRAM',
-        subtitle: 'No bots. No fake accounts. Only real visibility through our private partner network — fully compliant with platform policies.',
+        subtitle: 'Professional marketing solutions through our exclusive partner network — designed to expand your reach authentically.',
         badges: [
-          { text: 'No bots, no automation' },
+          { text: '100% Authentic approach' },
           { text: 'Safe & Private' },
           { text: 'Customer-approved' },
         ],
@@ -121,18 +121,18 @@ export default function InstagramPage({ params }: PageProps) {
         title: 'What makes Socialoura different?',
         cards: [
           {
-            title: 'No bots. No automation.',
-            description: 'We promote your content through real people in our partner network. Every interaction is genuine and compliant with platform guidelines.',
+            title: 'Authentic Marketing Only',
+            description: 'We promote your content through real partnerships and strategic collaborations. Every interaction is genuine and compliant with platform guidelines.',
             icon: 'Bot'
           },
           {
-            title: 'Time-saving visibility',
-            description: 'Focus on creating great content while we handle the promotion. Our manual outreach saves you hours of networking time.',
+            title: 'Time-saving solutions',
+            description: 'Focus on creating great content while we handle the marketing strategy. Our professional approach saves you hours of networking time.',
             icon: 'Clock'
           },
           {
             title: 'Build credibility the right way',
-            description: 'Authentic promotion through trusted channels builds real authority and engagement with your target audience.',
+            description: 'Strategic promotion through trusted channels builds real authority and engagement with your target audience.',
             icon: 'Shield'
           },
         ],
@@ -143,19 +143,19 @@ export default function InstagramPage({ params }: PageProps) {
           {
             number: '1',
             title: 'CHOOSE YOUR PACKAGE',
-            description: 'Select the level of visibility support that aligns with your goals. Our plan offers manual promotion through our private partner network.',
+            description: 'Select the marketing support level that aligns with your goals. Our plans offer professional promotion through our exclusive partner network.',
             icon: 'Package'
           },
           {
             number: '2',
-            title: 'WE PROMOTE YOUR CONTENT',
+            title: 'WE MARKET YOUR CONTENT',
             description: 'We share your content through selected platforms, creators, and communities to reach people genuinely interested in your niche.',
             icon: 'Megaphone'
           },
           {
             number: '3',
             title: 'TRACK THE IMPACT',
-            description: 'Monitor your results through your dashboard as your content reaches new audiences and builds stronger visibility — all while staying compliant.',
+            description: 'Monitor your results through your dashboard as your content reaches new audiences and builds stronger visibility.',
             icon: 'BarChart3'
           },
         ],
@@ -168,7 +168,7 @@ export default function InstagramPage({ params }: PageProps) {
           'Stronger presence across platforms',
           'Earn audience trust through consistent exposure',
           'Reach more people interested in your niche',
-          'Compliant and safe process',
+          'Professional and safe process',
         ],
       },
       pricing: {
@@ -181,27 +181,27 @@ export default function InstagramPage({ params }: PageProps) {
             '24h trial to explore all features',
             'Audience research and targeting',
             'Content placement guidance',
-            'Human-led promotional outreach',
+            'Professional promotional outreach',
             'Strategic recommendations to improve reach',
           ],
           cta: 'SUBSCRIBE NOW',
         },
       },
       finalCta: {
-        title: 'Much more than just a solution. A true partner in your growth.',
+        title: 'Much more than just a solution. A true partner in your success.',
         cta: 'START IT NOW',
       },
       compliance: {
-        text: 'Compliance Disclaimer: we do not engage in or support the sale of followers, likes, or paid engagement. All services are based on organic outreach and visibility strategies in accordance with platform policies and terms.',
+        text: 'Compliance Disclaimer: All our services are based on authentic marketing strategies and visibility solutions in accordance with platform policies and terms of service.',
       },
     },
     fr: {
       hero: {
-        title: 'BOOSTEZ VOTRE VISIBILITÉ SUR',
+        title: 'ÉLEVEZ VOTRE PRÉSENCE SUR',
         platform: 'INSTAGRAM',
-        subtitle: 'Pas de bots. Pas de faux comptes. Seulement une visibilité réelle via notre réseau de partenaires privés — entièrement conforme aux politiques de la plateforme.',
+        subtitle: 'Solutions marketing professionnelles via notre réseau de partenaires exclusif — conçues pour étendre votre portée de manière authentique.',
         badges: [
-          { text: 'Pas de bots, pas d\'automation' },
+          { text: 'Approche 100% authentique' },
           { text: 'Sûr et Privé' },
           { text: 'Approuvé par les clients' },
         ],
@@ -211,18 +211,18 @@ export default function InstagramPage({ params }: PageProps) {
         title: 'Qu\'est-ce qui rend Socialoura différent ?',
         cards: [
           {
-            title: 'Pas de bots. Pas d\'automation.',
-            description: 'Nous promouvons votre contenu via de vraies personnes dans notre réseau partenaire. Chaque interaction est authentique et conforme aux directives de la plateforme.',
+            title: 'Marketing authentique uniquement',
+            description: 'Nous promouvons votre contenu via de vrais partenariats et collaborations stratégiques. Chaque interaction est authentique et conforme aux directives de la plateforme.',
             icon: 'Bot'
           },
           {
-            title: 'Visibilité efficace sans perte de temps',
-            description: 'Concentrez-vous sur la création de contenu de qualité pendant que nous gérons la promotion. Notre approche manuelle vous fait gagner des heures de réseautage.',
+            title: 'Solutions qui font gagner du temps',
+            description: 'Concentrez-vous sur la création de contenu de qualité pendant que nous gérons la stratégie marketing. Notre approche professionnelle vous fait gagner des heures.',
             icon: 'Clock'
           },
           {
             title: 'Construisez votre crédibilité de la bonne manière',
-            description: 'Une promotion authentique via des canaux de confiance construit une vraie autorité et un engagement avec votre audience cible.',
+            description: 'Une promotion stratégique via des canaux de confiance construit une vraie autorité et un engagement avec votre audience cible.',
             icon: 'Shield'
           },
         ],
@@ -233,7 +233,7 @@ export default function InstagramPage({ params }: PageProps) {
           {
             number: '1',
             title: 'CHOISISSEZ VOTRE FORFAIT',
-            description: 'Sélectionnez le niveau de support de visibilité qui correspond à vos objectifs. Notre plan offre une promotion manuelle via notre réseau partenaire privé.',
+            description: 'Sélectionnez le niveau de support marketing qui correspond à vos objectifs. Nos plans offrent une promotion professionnelle via notre réseau partenaire exclusif.',
             icon: 'Package'
           },
           {
@@ -245,7 +245,7 @@ export default function InstagramPage({ params }: PageProps) {
           {
             number: '3',
             title: 'SUIVEZ L\'IMPACT',
-            description: 'Surveillez vos résultats via votre tableau de bord pendant que votre contenu atteint de nouvelles audiences et construit une visibilité plus forte — tout en restant conforme.',
+            description: 'Surveillez vos résultats via votre tableau de bord pendant que votre contenu atteint de nouvelles audiences et construit une visibilité plus forte.',
             icon: 'BarChart3'
           },
         ],
@@ -258,7 +258,7 @@ export default function InstagramPage({ params }: PageProps) {
           'Présence plus forte sur les plateformes',
           'Gagnez la confiance de votre audience par une exposition cohérente',
           'Atteignez plus de personnes intéressées par votre niche',
-          'Processus conforme et sécurisé',
+          'Processus professionnel et sécurisé',
         ],
       },
       pricing: {
@@ -271,18 +271,18 @@ export default function InstagramPage({ params }: PageProps) {
             'Essai de 24h pour explorer toutes les fonctionnalités',
             'Recherche et ciblage d\'audience',
             'Conseils pour le placement de contenu',
-            'Promotion manuelle dirigée par des humains',
+            'Promotion professionnelle',
             'Recommandations stratégiques pour améliorer la portée',
           ],
           cta: 'S\'ABONNER MAINTENANT',
         },
       },
       finalCta: {
-        title: 'Bien plus qu\'une simple solution. Un véritable partenaire dans votre croissance.',
+        title: 'Bien plus qu\'une simple solution. Un véritable partenaire dans votre succès.',
         cta: 'COMMENCEZ DÈS MAINTENANT',
       },
       compliance: {
-        text: 'Avertissement de conformité : nous ne nous engageons pas et ne soutenons pas la vente d\'abonnés, de j\'aime ou d\'engagement payé. Tous les services sont basés sur des stratégies de sensibilisation organique et de visibilité conformes aux politiques et conditions de la plateforme.',
+        text: 'Avertissement de conformité : Tous nos services sont basés sur des stratégies marketing authentiques et des solutions de visibilité conformes aux politiques et conditions de la plateforme.',
       },
     },
   };

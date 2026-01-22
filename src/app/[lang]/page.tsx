@@ -20,8 +20,8 @@ export default function HomePage({ params }: PageProps) {
   const content = {
     en: {
       hero: {
-        headline: 'Grow Your Social Media Presence',
-        subheadline: 'Supercharge your Instagram and TikTok accounts with our powerful automation tools',
+        headline: 'Elevate Your Social Media Presence',
+        subheadline: 'Professional marketing solutions to help your Instagram and TikTok accounts reach their full potential',
         instagramCta: 'Instagram',
         tiktokCta: 'TikTok',
       },
@@ -30,28 +30,28 @@ export default function HomePage({ params }: PageProps) {
         subtitle: 'Everything you need to succeed on social media',
         items: [
           {
-            title: 'Instagram Growth',
-            description: 'Automate your Instagram engagement and grow your followers organically with targeted interactions.',
+            title: 'Instagram Marketing',
+            description: 'Strategic marketing campaigns to expand your Instagram reach and connect with your ideal audience.',
             icon: Camera,
           },
           {
-            title: 'TikTok Automation',
-            description: 'Boost your TikTok presence with smart automation that engages your target audience effectively.',
+            title: 'TikTok Promotion',
+            description: 'Professional promotion strategies to increase your TikTok visibility and audience engagement.',
             icon: Music,
           },
           {
             title: 'Analytics Dashboard',
-            description: 'Track your growth with detailed analytics and insights to optimize your social media strategy.',
+            description: 'Track your progress with detailed analytics and insights to optimize your social media strategy.',
             icon: BarChart3,
           },
           {
-            title: 'Content Scheduling',
-            description: 'Plan and schedule your posts in advance to maintain a consistent presence on your channels.',
+            title: 'Content Strategy',
+            description: 'Plan and organize your content in advance to maintain a consistent presence on your channels.',
             icon: Calendar,
           },
           {
-            title: 'Engagement Tools',
-            description: 'Automated likes, comments, and follows to increase your visibility and reach.',
+            title: 'Audience Development',
+            description: 'Build meaningful connections with your target audience to increase your visibility and reach.',
             icon: MessageCircle,
           },
           {
@@ -66,12 +66,12 @@ export default function HomePage({ params }: PageProps) {
         subtitle: 'Everything you need to know about our services',
         items: [
           {
-            question: 'Is it safe to use automation tools?',
-            answer: 'Yes, our tools are designed to mimic natural human behavior and comply with platform guidelines to keep your account safe.',
+            question: 'Is your service safe for my account?',
+            answer: 'Yes, our marketing strategies are designed to comply with platform guidelines and best practices to keep your account secure.',
           },
           {
             question: 'How quickly will I see results?',
-            answer: 'Most users see noticeable growth within the first 2-4 weeks, with consistent increases over time.',
+            answer: 'Most clients see noticeable improvements within the first 2-4 weeks, with consistent progress over time.',
           },
           {
             question: 'Can I cancel my subscription anytime?',
@@ -83,7 +83,7 @@ export default function HomePage({ params }: PageProps) {
           },
           {
             question: 'What makes you different from competitors?',
-            answer: 'We focus on organic growth with smart targeting, provide superior customer support, and offer transparent pricing with no hidden costs.',
+            answer: 'We focus on authentic audience development with strategic targeting, provide superior customer support, and offer transparent pricing with no hidden costs.',
           },
           {
             question: 'Which platforms do you support?',
@@ -94,8 +94,8 @@ export default function HomePage({ params }: PageProps) {
     },
     fr: {
       hero: {
-        headline: 'Développez Votre Présence Sur Les Réseaux Sociaux',
-        subheadline: 'Boostez vos comptes Instagram et TikTok avec nos outils d\'automatisation puissants',
+        headline: 'Élevez Votre Présence Sur Les Réseaux Sociaux',
+        subheadline: 'Solutions marketing professionnelles pour aider vos comptes Instagram et TikTok à atteindre leur plein potentiel',
         instagramCta: 'Instagram',
         tiktokCta: 'TikTok',
       },
@@ -104,28 +104,28 @@ export default function HomePage({ params }: PageProps) {
         subtitle: 'Tout ce dont vous avez besoin pour réussir sur les réseaux sociaux',
         items: [
           {
-            title: 'Croissance Instagram',
-            description: 'Automatisez votre engagement Instagram et développez vos abonnés de manière organique avec des interactions ciblées.',
+            title: 'Marketing Instagram',
+            description: 'Campagnes marketing stratégiques pour étendre votre portée Instagram et connecter avec votre audience idéale.',
             icon: Camera,
           },
           {
-            title: 'Automatisation TikTok',
-            description: 'Boostez votre présence TikTok avec une automatisation intelligente qui engage efficacement votre public cible.',
+            title: 'Promotion TikTok',
+            description: 'Stratégies de promotion professionnelles pour augmenter votre visibilité TikTok et l\'engagement de votre audience.',
             icon: Music,
           },
           {
             title: 'Tableau de Bord Analytique',
-            description: 'Suivez votre croissance avec des analyses et des informations détaillées pour optimiser votre stratégie.',
+            description: 'Suivez vos progrès avec des analyses et des informations détaillées pour optimiser votre stratégie.',
             icon: BarChart3,
           },
           {
-            title: 'Planification de Contenu',
-            description: 'Planifiez et programmez vos publications à l\'avance pour maintenir une présence cohérente.',
+            title: 'Stratégie de Contenu',
+            description: 'Planifiez et organisez votre contenu à l\'avance pour maintenir une présence cohérente.',
             icon: Calendar,
           },
           {
-            title: 'Outils d\'Engagement',
-            description: 'J\'aime, commentaires et abonnements automatisés pour augmenter votre visibilité et votre portée.',
+            title: 'Développement d\'Audience',
+            description: 'Construisez des connexions significatives avec votre audience cible pour augmenter votre visibilité.',
             icon: MessageCircle,
           },
           {
@@ -140,12 +140,12 @@ export default function HomePage({ params }: PageProps) {
         subtitle: 'Tout ce que vous devez savoir sur nos services',
         items: [
           {
-            question: 'Est-il sûr d\'utiliser des outils d\'automatisation ?',
-            answer: 'Oui, nos outils sont conçus pour imiter le comportement humain naturel et respecter les directives des plateformes pour protéger votre compte.',
+            question: 'Votre service est-il sûr pour mon compte ?',
+            answer: 'Oui, nos stratégies marketing sont conçues pour respecter les directives des plateformes et les meilleures pratiques pour garder votre compte sécurisé.',
           },
           {
             question: 'À quelle vitesse verrai-je des résultats ?',
-            answer: 'La plupart des utilisateurs constatent une croissance notable dans les 2 à 4 premières semaines, avec des augmentations constantes au fil du temps.',
+            answer: 'La plupart des clients constatent des améliorations notables dans les 2 à 4 premières semaines, avec des progrès constants au fil du temps.',
           },
           {
             question: 'Puis-je annuler mon abonnement à tout moment ?',
@@ -157,7 +157,7 @@ export default function HomePage({ params }: PageProps) {
           },
           {
             question: 'Qu\'est-ce qui vous différencie de la concurrence ?',
-            answer: 'Nous nous concentrons sur la croissance organique avec un ciblage intelligent, offrons un support client supérieur et proposons des prix transparents sans frais cachés.',
+            answer: 'Nous nous concentrons sur le développement d\'audience authentique avec un ciblage stratégique, offrons un support client supérieur et proposons des prix transparents sans frais cachés.',
           },
           {
             question: 'Quelles plateformes supportez-vous ?',

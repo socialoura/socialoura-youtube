@@ -49,7 +49,7 @@ export default function ContactPage({ params }: PageProps) {
         },
         address: {
           label: 'Address',
-          value: '123 Social Street, Digital City, DC 12345',
+          value: '128 Rue La Boétie, 75008 Paris, France',
         },
       },
       responseTime: {
@@ -91,7 +91,7 @@ export default function ContactPage({ params }: PageProps) {
         },
         address: {
           label: 'Adresse',
-          value: '123 Rue Sociale, Ville Digitale, DC 12345',
+          value: '128 Rue La Boétie, 75008 Paris, France',
         },
       },
       responseTime: {
