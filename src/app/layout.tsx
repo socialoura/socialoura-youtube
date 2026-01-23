@@ -24,6 +24,18 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        {/* Google Ads Global Site Tag */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17898687645"></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-17898687645');
+            `,
+          }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
