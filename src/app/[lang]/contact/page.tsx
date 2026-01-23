@@ -45,7 +45,7 @@ export default function ContactPage({ params }: PageProps) {
         },
         phone: {
           label: 'Phone',
-          value: '+1 (555) 123-4567',
+          value: '+33 1 84 80 00 00',
         },
         address: {
           label: 'Address',
@@ -87,7 +87,7 @@ export default function ContactPage({ params }: PageProps) {
         },
         phone: {
           label: 'Téléphone',
-          value: '+1 (555) 123-4567',
+          value: '+33 1 84 80 00 00',
         },
         address: {
           label: 'Adresse',
