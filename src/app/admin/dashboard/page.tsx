@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Trash2, Plus, Save, LogOut, Instagram, Music, AlertCircle, Settings, ShoppingCart, Eye, EyeOff } from 'lucide-react';
+import { Trash2, Plus, Save, LogOut, Instagram, Music, AlertCircle, Settings, ShoppingCart, Eye, EyeOff, BarChart3 } from 'lucide-react';
+import AnalyticsDashboard from '@/components/admin/AnalyticsDashboard';
 
 interface Goal {
   followers: string;
@@ -39,7 +40,7 @@ interface OrderDeleteConfirmation {
   username: string;
 }
 
-type TabType = 'pricing' | 'settings' | 'orders';
+type TabType = 'pricing' | 'settings' | 'orders' | 'analytics';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -88,7 +89,7 @@ export default function AdminDashboard() {
 
     if (activeTab === 'pricing') {
       fetchPricing();
-    } else if (activeTab === 'orders') {
+    } else if (activeTab === 'orders' || activeTab === 'analytics') {
       fetchOrders();
     } else if (activeTab === 'settings') {
       fetchStripeSettings();
@@ -433,6 +434,17 @@ export default function AdminDashboard() {
             >
               <ShoppingCart className="w-5 h-5" />
               Orders
+            </button>
+            <button
+              onClick={() => setActiveTab('analytics')}
+              className={`flex-1 flex items-center justify-center gap-2 px-6 py-4 text-sm font-medium transition-all ${
+                activeTab === 'analytics'
+                  ? 'text-purple-600 dark:text-purple-400 border-b-2 border-purple-600 dark:border-purple-400 bg-purple-50 dark:bg-purple-900/20'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700/50'
+              }`}
+            >
+              <BarChart3 className="w-5 h-5" />
+              Analytics
             </button>
           </div>
         </div>
@@ -901,6 +913,10 @@ export default function AdminDashboard() {
               </div>
             )}
           </div>
+        )}
+
+        {activeTab === 'analytics' && (
+          <AnalyticsDashboard orders={orders} totalVisitors={1000} />
         )}
 
         {deleteConfirmation.isOpen && (
