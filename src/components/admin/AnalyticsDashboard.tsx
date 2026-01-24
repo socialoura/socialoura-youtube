@@ -104,13 +104,46 @@ export default function AnalyticsDashboard({ orders, totalVisitors = 0 }: Analyt
   const averageCart = useMemo(() => {
     if (orders.length === 0) return '0.00';
     const total = orders.reduce((sum, order) => sum + (Number(order.price) || Number(order.amount) || 0), 0);
-    return total.toFixed(2);
+    return (total / orders.length).toFixed(2);
   }, [orders]);
 
   // Total revenue
   const totalRevenue = useMemo(() => {
     const total = orders.reduce((sum, order) => sum + (Number(order.price) || Number(order.amount) || 0), 0);
     return total.toFixed(2);
+  }, [orders]);
+
+  // Revenue by period
+  const revenueByPeriod = useMemo(() => {
+    const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+    let today = 0;
+    let week = 0;
+    let month = 0;
+
+    orders.forEach(order => {
+      const orderDate = new Date(order.created_at);
+      const amount = Number(order.price) || Number(order.amount) || 0;
+
+      if (orderDate >= todayStart) {
+        today += amount;
+      }
+      if (orderDate >= weekAgo) {
+        week += amount;
+      }
+      if (orderDate >= monthAgo) {
+        month += amount;
+      }
+    });
+
+    return {
+      today: today.toFixed(2),
+      week: week.toFixed(2),
+      month: month.toFixed(2),
+    };
   }, [orders]);
 
   // Conversion rate
@@ -150,6 +183,31 @@ export default function AnalyticsDashboard({ orders, totalVisitors = 0 }: Analyt
 
   return (
     <div className="space-y-8">
+      {/* Revenue Summary */}
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+          💰 Revenue Summary
+        </h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl p-4 text-white">
+            <p className="text-yellow-100 text-xs font-medium uppercase">Today</p>
+            <p className="text-2xl font-bold mt-1">€{revenueByPeriod.today}</p>
+          </div>
+          <div className="bg-gradient-to-br from-blue-400 to-indigo-500 rounded-xl p-4 text-white">
+            <p className="text-blue-100 text-xs font-medium uppercase">Last 7 Days</p>
+            <p className="text-2xl font-bold mt-1">€{revenueByPeriod.week}</p>
+          </div>
+          <div className="bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl p-4 text-white">
+            <p className="text-purple-100 text-xs font-medium uppercase">Last 30 Days</p>
+            <p className="text-2xl font-bold mt-1">€{revenueByPeriod.month}</p>
+          </div>
+          <div className="bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl p-4 text-white">
+            <p className="text-green-100 text-xs font-medium uppercase">All Time</p>
+            <p className="text-2xl font-bold mt-1">€{totalRevenue}</p>
+          </div>
+        </div>
+      </div>
+
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Total Revenue */}
