@@ -251,7 +251,7 @@ function PaymentForm({
       {paymentStatus !== 'success' && (
         <form onSubmit={handleSubmit}>
           {/* Payment Element Container */}
-          <div className="mb-6 relative min-h-[200px] bg-gray-50 dark:bg-gray-700/30 rounded-2xl p-4 border border-gray-200 dark:border-gray-600/50">
+          <div className="mb-6 relative min-h-[200px] bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-600 shadow-sm">
             {!elementsReady && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
