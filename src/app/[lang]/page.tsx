@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Plus, Minus, Camera, Music, BarChart3, Calendar, MessageCircle, HeadphonesIcon, Instagram } from 'lucide-react';
 import ChatWidget from '@/components/ChatWidget';
 import ReviewsSection from '@/components/ReviewsSection';
+import TrustedBrands from '@/components/TrustedBrands';
 
 interface PageProps {
   params: { lang: string };
@@ -447,6 +448,9 @@ export default function HomePage({ params }: PageProps) {
           </dl>
         </div>
       </section>
+
+      {/* Trusted Brands */}
+      <TrustedBrands lang={lang} />
 
       {/* Reviews Section */}
       <ReviewsSection lang={lang} platform="all" />
