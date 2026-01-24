@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Language } from '@/i18n/config';
-import { Plus, Minus, HelpCircle, MessageCircle, Mail, Clock } from 'lucide-react';
+import { Plus, Minus, HelpCircle, Mail, Clock } from 'lucide-react';
 import ChatWidget from '@/components/ChatWidget';
 
 interface PageProps {
