@@ -432,7 +432,7 @@ export default function PaymentModal({
         const newAmount = Math.max(amount - discountCents, 50); // Minimum 50 cents
         setDiscount(discountCents);
         setFinalAmount(newAmount);
-        setPromoSuccess(`${promoCode.toUpperCase()} ${t.promoApplied}`);
+        setPromoSuccess(`${promoCode.toUpperCase()}`);
         // Reset client secret to create new payment intent with discounted amount
         setClientSecret(null);
       } else {
