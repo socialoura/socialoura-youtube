@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Language } from '@/i18n/config';
 import { useRouter } from 'next/navigation';
 import { Plus, Minus, BarChart3, Calendar, MessageCircle, HeadphonesIcon, Play, CheckCircle2, ArrowRight, ShieldCheck, Zap, X } from 'lucide-react';
@@ -22,6 +22,12 @@ export default function HomePage({ params }: PageProps) {
   const [selectedPack, setSelectedPack] = useState<{ views: number; amount: number } | null>(null);
   const [checkoutDetails, setCheckoutDetails] = useState<{ email: string; youtubeVideoUrl: string } | null>(null);
   const [heroSelectionError, setHeroSelectionError] = useState<string>('');
+  const [regularPacks, setRegularPacks] = useState<Array<{ views: number; label: string; amount: number; original?: number; badge?: string }>>([
+    { views: 100, label: '100', amount: 149 },
+    { views: 1000, label: '1.0k', amount: 440, original: 650, badge: lang === 'fr' ? '-32%' : 'save 32%' },
+    { views: 2500, label: '2.5k', amount: 1090, original: 1600, badge: lang === 'fr' ? '-32%' : 'save 32%' },
+    { views: 5000, label: '5.0k', amount: 2198, original: 3300, badge: lang === 'fr' ? '-33%' : 'save 33%' },
+  ]);
 
   const toggleFaq = (index: number) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
@@ -38,6 +44,67 @@ export default function HomePage({ params }: PageProps) {
   };
 
   const getCurrency = () => (lang === 'fr' ? 'eur' : 'usd');
+
+  const formatViewsLabel = (views: number) => {
+    if (views >= 1000) {
+      const value = views / 1000;
+      const decimals = Number.isInteger(value) ? 0 : 1;
+      return `${value.toFixed(decimals)}k`;
+    }
+    return views.toString();
+  };
+
+  useEffect(() => {
+    let cancelled = false;
+
+    type RegularPack = { views: number; label: string; amount: number; original?: number; badge?: string };
+
+    const fetchPricing = async () => {
+      try {
+        const response = await fetch('/api/admin/pricing');
+        if (!response.ok) return;
+
+        const data = await response.json();
+        const platformGoals: Array<{ followers: string; price: string }> = data.youtube || data.instagram || [];
+        if (!platformGoals.length) return;
+
+        const dynamicPacks = platformGoals.reduce<RegularPack[]>((acc, goal, index) => {
+          const views = parseInt(goal.followers, 10);
+          const priceFloat = parseFloat(goal.price);
+          if (!Number.isFinite(views) || !Number.isFinite(priceFloat)) return acc;
+
+          const amount = Math.round(priceFloat * 100);
+          const label = formatViewsLabel(views);
+          const discountPercentage = 50 + index * 5;
+          const original = index >= 1 ? Math.round((priceFloat / (1 - discountPercentage / 100)) * 100) : undefined;
+          const badge = index >= 1 ? (lang === 'fr' ? `-${discountPercentage}%` : `save ${discountPercentage}%`) : undefined;
+
+          acc.push({ views, label, amount, original, badge });
+          return acc;
+        }, []);
+
+        if (!dynamicPacks.length) return;
+
+        if (!cancelled) {
+          setRegularPacks(dynamicPacks);
+          setSelectedPack((prev) => {
+            if (!prev) return prev;
+            const updated = dynamicPacks.find((pack) => pack.views === prev.views);
+            if (!updated) return prev;
+            if (updated.amount === prev.amount) return prev;
+            return { views: prev.views, amount: updated.amount };
+          });
+        }
+      } catch {
+        // ignore and keep fallback
+      }
+    };
+
+    fetchPricing();
+    return () => {
+      cancelled = true;
+    };
+  }, [lang]);
 
   const handlePaymentSuccess = async (paymentIntentIdParam: string) => {
     setIsPaymentModalOpen(false);
@@ -206,13 +273,6 @@ export default function HomePage({ params }: PageProps) {
     }
     return `$${value.toFixed(2)}`;
   };
-
-  const regularPacks: Array<{ views: number; label: string; amount: number; original?: number; badge?: string }> = [
-    { views: 100, label: '100', amount: 149 },
-    { views: 1000, label: '1.0k', amount: 440, original: 650, badge: lang === 'fr' ? '-32%' : 'save 32%' },
-    { views: 2500, label: '2.5k', amount: 1090, original: 1600, badge: lang === 'fr' ? '-32%' : 'save 32%' },
-    { views: 5000, label: '5.0k', amount: 2198, original: 3300, badge: lang === 'fr' ? '-33%' : 'save 33%' },
-  ];
 
   return (
     <div className="bg-white dark:bg-gray-950">
@@ -804,7 +864,7 @@ export default function HomePage({ params }: PageProps) {
           onClose={() => setIsPaymentModalOpen(false)}
           onCollectedDetails={(details) => setCheckoutDetails(details)}
           onSuccess={handlePaymentSuccess}
-          productName={`YouTube visibility package (+${selectedPack.views})`}
+          productName={`Regular Views — ${formatViewsLabel(selectedPack.views)} ${lang === 'fr' ? 'vues' : 'views'}`}
           language={lang}
           orderDetails={{
             platform: 'youtube',
