@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllOrders, initDatabase } from '@/lib/db';
+import { getAllOrders, initDatabase, isDBConfigured } from '@/lib/db';
+
+export const dynamic = 'force-dynamic';
 
 // Initialize database on module load
 initDatabase().catch(console.error);
@@ -15,11 +17,6 @@ const memoryOrders: Array<{
   payment_intent_id: string | null;
   created_at: string;
 }> = [];
-
-// Check if database is configured
-const isDBConfigured = () => {
-  return !!(process.env.DB_HOST || process.env.DATABASE_URL);
-};
 
 // Verify admin token
 function verifyToken(token: string | null): boolean {

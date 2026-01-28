@@ -1,13 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAdminByUsername, initDatabase } from '@/lib/db';
+import { getAdminByUsername, initDatabase, isDBConfigured } from '@/lib/db';
+
+export const dynamic = 'force-dynamic';
 
 // Initialize database on module load
 initDatabase().catch(console.error);
-
-// Check if database is configured
-const isDBConfigured = () => {
-  return !!(process.env.POSTGRES_URL || process.env.DATABASE_URL);
-};
 
 export async function POST(request: NextRequest) {
   try {

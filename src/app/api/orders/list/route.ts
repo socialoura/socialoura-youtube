@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { initDatabase } from '@/lib/db';
 import { sql } from '@vercel/postgres';
 
+export const dynamic = 'force-dynamic';
+
 // Initialize database on module load
 initDatabase().catch(console.error);
 
@@ -27,7 +29,7 @@ export async function GET(request: NextRequest) {
 
     // Fetch all orders
     const result = await sql`
-      SELECT id, username, platform, followers, amount, payment_id, status, created_at 
+      SELECT id, username, platform, followers, amount, payment_id, status, youtube_video_url, created_at 
       FROM orders 
       ORDER BY created_at DESC
     `;

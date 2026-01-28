@@ -1,13 +1,11 @@
 import { NextResponse } from 'next/server';
-import { getStripeSettings } from '@/lib/db';
+import { getStripeSettings, isDBConfigured } from '@/lib/db';
 
 export async function GET() {
   try {
-    // Get Stripe settings from database
-    const dbSettings = await getStripeSettings();
-    
-    // Use database key if available, otherwise fall back to env variable
-    const publishableKey = dbSettings.publishableKey || process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+    const envKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+    const dbSettings = isDBConfigured() ? await getStripeSettings() : { publishableKey: null };
+    const publishableKey = dbSettings.publishableKey || envKey;
     
     if (!publishableKey) {
       return NextResponse.json(

@@ -1,39 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPricing, setPricing, initDatabase } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 // Initialize database on module load
 initDatabase().catch(console.error);
 
 // Default pricing data
 const DEFAULT_PRICING = {
-  instagram: [
-    { followers: '100', price: '1.90' },
-    { followers: '250', price: '3.90' },
-    { followers: '500', price: '5.90' },
-    { followers: '1000', price: '9.90' },
-    { followers: '2500', price: '19.90' },
-    { followers: '5000', price: '34.90' },
-    { followers: '10000', price: '59.90' },
-    { followers: '25000', price: '80.00' },
-  ],
-  tiktok: [
-    { followers: '100', price: '2.90' },
-    { followers: '250', price: '5.90' },
-    { followers: '500', price: '9.90' },
-    { followers: '1000', price: '16.90' },
-    { followers: '2500', price: '34.90' },
-    { followers: '5000', price: '64.90' },
-    { followers: '10000', price: '99.90' },
-    { followers: '25000', price: '175.00' },
+  youtube: [
+    { followers: '1000', price: '4.90' },
+    { followers: '2500', price: '9.90' },
+    { followers: '5000', price: '17.90' },
+    { followers: '10000', price: '29.90' },
+    { followers: '25000', price: '59.90' },
+    { followers: '50000', price: '99.90' },
   ],
 };
 
 // In-memory fallback for development without database
-let memoryStore: { instagram: Array<{ followers: string; price: string }>; tiktok: Array<{ followers: string; price: string }> } | null = null;
+let memoryStore: { youtube: Array<{ followers: string; price: string }> } | null = null;
 
 // Check if database is configured
 const isDBConfigured = () => {
-  return !!(process.env.DB_HOST || process.env.DATABASE_URL);
+  return !!process.env.POSTGRES_URL;
 };
 
 // Storage abstraction
@@ -51,8 +41,8 @@ const storage = {
       return memoryStore;
     }
   },
-  
-  async set(_key: string, value: { instagram: Array<{ followers: string; price: string }>; tiktok: Array<{ followers: string; price: string }> }) {
+
+  async set(_key: string, value: { youtube: Array<{ followers: string; price: string }> }) {
     if (isDBConfigured()) {
       try {
         await setPricing(value);
@@ -89,7 +79,15 @@ export async function GET() {
     // Try to read from storage
     const pricing = await storage.get();
     if (pricing) {
-      return NextResponse.json(pricing);
+      // Backward compatibility: if DB has instagram/tiktok shape, map to youtube.
+      const typedPricing = pricing as Record<string, Array<{ followers: string; price: string }>>;
+      if (typedPricing.youtube) {
+        return NextResponse.json({ youtube: typedPricing.youtube });
+      }
+      if (typedPricing.instagram) {
+        return NextResponse.json({ youtube: typedPricing.instagram });
+      }
+      return NextResponse.json(DEFAULT_PRICING);
     }
     // If no data in storage, return default pricing
     return NextResponse.json(DEFAULT_PRICING);
@@ -115,10 +113,12 @@ async function updatePricing(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { instagram, tiktok } = body;
+    const { youtube, instagram } = body;
+
+    const normalizedYoutube = youtube || instagram;
 
     // Validate data
-    if (!instagram || !tiktok || !Array.isArray(instagram) || !Array.isArray(tiktok)) {
+    if (!normalizedYoutube || !Array.isArray(normalizedYoutube)) {
       return NextResponse.json(
         { error: 'Invalid pricing data format' },
         { status: 400 }
@@ -126,7 +126,7 @@ async function updatePricing(request: NextRequest) {
     }
 
     // Save to storage
-    await storage.set('pricing-data', { instagram, tiktok });
+    await storage.set('pricing-data', { youtube: normalizedYoutube });
 
     return NextResponse.json({ success: true, message: 'Pricing updated successfully' });
   } catch (error) {

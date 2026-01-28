@@ -16,7 +16,7 @@ interface GoalSelectionModalProps {
   onClose: () => void;
   onSelectGoal: (goal: FollowerGoal, email: string) => void;
   username: string;
-  platform: 'instagram' | 'tiktok';
+  platform: 'youtube' | 'instagram' | 'tiktok';
   language?: 'en' | 'fr';
 }
 
@@ -43,9 +43,9 @@ export default function GoalSelectionModal({
       emailLabel: 'Email address',
       emailPlaceholder: 'your@email.com',
       continue: 'Continue',
-      disclaimer: `**Socialoura is fully aligned with the terms of service of ${platform === 'instagram' ? 'Instagram' : 'TikTok'} and Google Ads. Our approach is based on authentic marketing strategies and professional partnerships.**`,
+      disclaimer: '**YouTube Vues is fully aligned with the terms of service of YouTube and Google Ads. Our approach is based on authentic marketing strategies and professional partnerships.**',
       disclaimerPart2: 'We enhance your profile\'s visibility by sharing your content through our global partner network, including real creators, mobile platforms, influencer groups, and niche communities. The package you select defines the level of exposure delivered through these partnerships.',
-      disclaimerPart3: '**Disclaimer:** Visibility results depend on your content quality, niche relevance, and consistency. While Socialoura provides exposure tools, we do not promise specific performance metrics.',
+      disclaimerPart3: '**Disclaimer:** Results depend on your content quality, niche relevance, and consistency. While YouTube Vues provides exposure tools, we do not promise specific performance metrics.',
       mostPopular: 'Most popular',
       custom: 'Custom',
       customFollowers: 'Custom package',
@@ -56,9 +56,9 @@ export default function GoalSelectionModal({
       emailLabel: 'Adresse e-mail',
       emailPlaceholder: 'votre@email.com',
       continue: 'Continuer',
-      disclaimer: `**Socialoura est entièrement conforme aux conditions d'utilisation de ${platform === 'instagram' ? 'Instagram' : 'TikTok'} et Google Ads. Notre approche est basée sur des stratégies marketing authentiques et des partenariats professionnels.**`,
+      disclaimer: '**YouTube Vues est entièrement conforme aux conditions d\'utilisation de YouTube et Google Ads. Notre approche est basée sur des stratégies marketing authentiques et des partenariats professionnels.**',
       disclaimerPart2: '**Nous améliorons la visibilité de votre profil en partageant votre contenu à travers notre réseau mondial de partenaires, incluant de vrais créateurs, des plateformes mobiles, des groupes d\'influenceurs et des communautés de niche. Le forfait que vous sélectionnez définit le niveau d\'exposition fourni par ces partenariats.**',
-      disclaimerPart3: '**Avertissement :** Les résultats de visibilité dépendent de la qualité de votre contenu, de la pertinence de votre niche et de votre régularité. Bien que Socialoura fournisse des outils d\'exposition, nous ne promettons pas de mesures de performance spécifiques.',
+      disclaimerPart3: '**Avertissement :** Les résultats de visibilité dépendent de la qualité de votre contenu, de la pertinence de votre niche et de votre régularité. Bien que YouTube Vues fournisse des outils d\'exposition, nous ne promettons pas de mesures de performance spécifiques.',
       mostPopular: 'Plus populaire',
       custom: 'Personnalisé',
       customFollowers: 'Forfait personnalisé',
@@ -71,29 +71,14 @@ export default function GoalSelectionModal({
   // Calculate custom price based on followers using real pricing data
   const calculateCustomPrice = (followers: number): number => {
     // Price points based on actual pricing (Instagram)
-    const pricePoints = platform === 'instagram' 
-      ? [
-          { followers: 100, price: 1.90 },
-          { followers: 250, price: 3.90 },
-          { followers: 500, price: 5.90 },
-          { followers: 1000, price: 9.90 },
-          { followers: 2500, price: 19.90 },
-          { followers: 5000, price: 34.90 },
-          { followers: 10000, price: 59.90 },
-          { followers: 25000, price: 80.00 },
-          { followers: 50000, price: 150.00 },
-        ]
-      : [
-          { followers: 100, price: 2.90 },
-          { followers: 250, price: 5.90 },
-          { followers: 500, price: 8.90 },
-          { followers: 1000, price: 14.90 },
-          { followers: 2500, price: 29.90 },
-          { followers: 5000, price: 49.90 },
-          { followers: 10000, price: 89.90 },
-          { followers: 25000, price: 120.00 },
-          { followers: 50000, price: 200.00 },
-        ];
+    const pricePoints = [
+      { followers: 1000, price: 4.90 },
+      { followers: 2500, price: 9.90 },
+      { followers: 5000, price: 17.90 },
+      { followers: 10000, price: 29.90 },
+      { followers: 25000, price: 59.90 },
+      { followers: 50000, price: 99.90 },
+    ];
 
     // Find the two price points to interpolate between
     for (let i = 0; i < pricePoints.length - 1; i++) {
@@ -119,7 +104,7 @@ export default function GoalSelectionModal({
         const response = await fetch('/api/admin/pricing');
         if (response.ok) {
           const data = await response.json();
-          const platformGoals = platform === 'instagram' ? data.instagram : data.tiktok;
+          const platformGoals = data.youtube || data.instagram || [];
           
           // Convert API data to FollowerGoal format
           const formattedGoals: FollowerGoal[] = platformGoals.map((goal: { followers: string; price: string }, index: number) => {

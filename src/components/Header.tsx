@@ -52,7 +52,7 @@ export default function Header({ lang }: HeaderProps) {
               <div className="relative w-24 h-24 sm:w-32 sm:h-32">
                 <Image
                   src="/img/a-modern-flat-vector-logo-design-featuri_ZEbfVp__QiK-0wr5MrgGJg_ZFPYEbSKRM6a11TOK-IQCQ-removebg-preview.png"
-                  alt="Socialoura"
+                  alt="YouTube Vues"
                   width={128}
                   height={128}
                   priority
@@ -66,16 +66,10 @@ export default function Header({ lang }: HeaderProps) {
           {/* Desktop Navigation - Centered */}
           <nav className="hidden md:flex items-center gap-8 flex-1 justify-center">
             <Link
-              href={`/${lang}/i`}
+              href={`/${lang}/packs`}
               className="text-base font-semibold text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
-              {lang === 'en' ? 'Instagram' : 'Instagram'}
-            </Link>
-            <Link
-              href={`/${lang}/t`}
-              className="text-base font-semibold text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-            >
-              {lang === 'en' ? 'TikTok' : 'TikTok'}
+              {lang === 'en' ? 'Packs' : 'Packs'}
             </Link>
             <Link
               href={`/${lang}/pricing`}
@@ -143,18 +137,11 @@ export default function Header({ lang }: HeaderProps) {
           <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-800">
             <nav className="flex flex-col space-y-4">
               <Link
-                href={`/${lang}/i`}
+                href={`/${lang}/packs`}
                 className="text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {lang === 'en' ? 'Instagram' : 'Instagram'}
-              </Link>
-              <Link
-                href={`/${lang}/t`}
-                className="text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {lang === 'en' ? 'TikTok' : 'TikTok'}
+                {lang === 'en' ? 'Packs' : 'Packs'}
               </Link>
               <Link
                 href={`/${lang}/pricing`}

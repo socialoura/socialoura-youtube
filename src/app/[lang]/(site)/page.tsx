@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Language } from '@/i18n/config';
 import Link from 'next/link';
-import { Plus, Minus, Camera, Music, BarChart3, Calendar, MessageCircle, HeadphonesIcon, Instagram } from 'lucide-react';
+import { Plus, Minus, BarChart3, Calendar, MessageCircle, HeadphonesIcon } from 'lucide-react';
 import ChatWidget from '@/components/ChatWidget';
 import ReviewsSection from '@/components/ReviewsSection';
 import TrustedBrands from '@/components/TrustedBrands';
@@ -23,38 +23,27 @@ export default function HomePage({ params }: PageProps) {
   const content = {
     en: {
       hero: {
-        headline: 'Elevate Your Social Media Presence',
-        subheadline: 'Professional marketing solutions to help your Instagram and TikTok accounts reach their full potential',
-        instagramCta: 'Instagram',
-        tiktokCta: 'TikTok',
+        headline: 'Boost Your YouTube Views',
+        subheadline: 'Choose a pack, enter your YouTube video link, and get fast delivery with secure payment.',
+        cta: 'Buy YouTube views',
       },
       services: {
         title: 'Our Services',
         subtitle: 'Everything you need to succeed on social media',
         items: [
           {
-            title: 'Instagram Marketing',
-            description: 'Strategic marketing campaigns to expand your Instagram reach and connect with your ideal audience.',
-            icon: Camera,
-          },
-          {
-            title: 'TikTok Promotion',
-            description: 'Professional promotion strategies to increase your TikTok visibility and audience engagement.',
-            icon: Music,
-          },
-          {
-            title: 'Analytics Dashboard',
-            description: 'Track your progress with detailed analytics and insights to optimize your social media strategy.',
+            title: 'YouTube Views Packs',
+            description: 'Select a views pack tailored to your goals and get a structured delivery process.',
             icon: BarChart3,
           },
           {
-            title: 'Content Strategy',
-            description: 'Plan and organize your content in advance to maintain a consistent presence on your channels.',
+            title: 'Fast Delivery',
+            description: 'Orders start quickly after payment and are delivered progressively for a natural-looking result.',
             icon: Calendar,
           },
           {
-            title: 'Audience Development',
-            description: 'Build meaningful connections with your target audience to increase your visibility and reach.',
+            title: 'Secure Payments',
+            description: 'Checkout securely with Stripe. No password is needed, only your video link.',
             icon: MessageCircle,
           },
           {
@@ -90,50 +79,39 @@ export default function HomePage({ params }: PageProps) {
           },
           {
             question: 'Which platforms do you support?',
-            answer: 'Currently, we support Instagram and TikTok, with plans to expand to more platforms in the near future.',
+            answer: 'We currently support YouTube video views packs.',
           },
         ],
       },
     },
     fr: {
       hero: {
-        headline: 'Élevez Votre Présence Sur Les Réseaux Sociaux',
-        subheadline: 'Solutions marketing professionnelles pour aider vos comptes Instagram et TikTok à atteindre leur plein potentiel',
-        instagramCta: 'Instagram',
-        tiktokCta: 'TikTok',
+        headline: 'Augmente tes vues YouTube',
+        subheadline: 'Choisis un pack, colle le lien de ta vidéo YouTube, et profite d\'une livraison rapide avec paiement sécurisé.',
+        cta: 'Acheter des vues',
       },
       services: {
         title: 'Nos Services',
         subtitle: 'Tout ce dont vous avez besoin pour réussir sur les réseaux sociaux',
         items: [
           {
-            title: 'Marketing Instagram',
-            description: 'Campagnes marketing stratégiques pour étendre votre portée Instagram et connecter avec votre audience idéale.',
-            icon: Camera,
-          },
-          {
-            title: 'Promotion TikTok',
-            description: 'Stratégies de promotion professionnelles pour augmenter votre visibilité TikTok et l\'engagement de votre audience.',
-            icon: Music,
-          },
-          {
-            title: 'Tableau de Bord Analytique',
-            description: 'Suivez vos progrès avec des analyses et des informations détaillées pour optimiser votre stratégie.',
+            title: 'Packs de vues YouTube',
+            description: 'Choisissez un pack adapté à vos objectifs et profitez d\'une livraison structurée.',
             icon: BarChart3,
           },
           {
-            title: 'Stratégie de Contenu',
-            description: 'Planifiez et organisez votre contenu à l\'avance pour maintenir une présence cohérente.',
+            title: 'Livraison rapide',
+            description: 'Les commandes démarrent rapidement après paiement et sont livrées progressivement.',
             icon: Calendar,
           },
           {
-            title: 'Développement d\'Audience',
-            description: 'Construisez des connexions significatives avec votre audience cible pour augmenter votre visibilité.',
+            title: 'Paiement sécurisé',
+            description: 'Paiement sécurisé via Stripe. Aucun mot de passe requis, seulement le lien de la vidéo.',
             icon: MessageCircle,
           },
           {
             title: 'Support 24/7',
-            description: 'Notre équipe d\'assistance dédiée est toujours prête à vous aider à maximiser vos résultats.',
+            description: 'Notre équipe d\'assistance est disponible pour t\'aider à maximiser tes résultats.',
             icon: HeadphonesIcon,
           },
         ],
@@ -164,7 +142,7 @@ export default function HomePage({ params }: PageProps) {
           },
           {
             question: 'Quelles plateformes supportez-vous ?',
-            answer: 'Actuellement, nous supportons Instagram et TikTok, avec des plans d\'expansion vers d\'autres plateformes dans un avenir proche.',
+            answer: 'Nous proposons actuellement des packs de vues pour les vidéos YouTube.',
           },
         ],
       },
@@ -199,27 +177,16 @@ export default function HomePage({ params }: PageProps) {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
               <Link
-                href={`/${lang}/i`}
-                className="group relative overflow-hidden rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 px-8 py-4 text-base font-bold text-white shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/40 hover:scale-[1.02] transition-all duration-300 flex items-center gap-3"
+                href={`/${lang}/packs`}
+                className="group relative overflow-hidden rounded-xl bg-red-600 hover:bg-red-700 px-8 py-4 text-base font-bold text-white shadow-lg shadow-red-500/25 hover:shadow-xl hover:shadow-red-500/40 hover:scale-[1.02] transition-all duration-300 flex items-center gap-3"
               >
-                <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
-                  <Instagram className="w-5 h-5 text-white" />
-                </div>
-                <span>{t.hero.instagramCta}</span>
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </Link>
-              <Link
-                href={`/${lang}/t`}
-                className="group relative overflow-hidden rounded-xl bg-gray-800 border border-gray-700 hover:border-cyan-500/50 px-8 py-4 text-base font-bold text-white shadow-lg hover:shadow-xl hover:shadow-cyan-500/20 hover:scale-[1.02] transition-all duration-300 flex items-center gap-3"
-              >
-                <div className="w-8 h-8 rounded-lg bg-black flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center">
                   <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="currentColor">
-                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                    <path d="M10 8.5V15.5L16 12L10 8.5Z" />
+                    <path d="M21 12c0-2.5-.2-4.2-.5-5.3a2.5 2.5 0 0 0-1.8-1.8C17.6 4.6 12 4.6 12 4.6s-5.6 0-6.7.3A2.5 2.5 0 0 0 3.5 6.7C3.2 7.8 3 9.5 3 12s.2 4.2.5 5.3a2.5 2.5 0 0 0 1.8 1.8c1.1.3 6.7.3 6.7.3s5.6 0 6.7-.3a2.5 2.5 0 0 0 1.8-1.8c.3-1.1.5-2.8.5-5.3Z" fillRule="evenodd" clipRule="evenodd" opacity="0.25" />
                   </svg>
                 </div>
-                <span>{t.hero.tiktokCta}</span>
+                <span>{t.hero.cta}</span>
                 <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -263,11 +230,13 @@ export default function HomePage({ params }: PageProps) {
                       <div className="pt-12 px-4 pb-4 h-full flex flex-col">
                         {/* Profile Section */}
                         <div className="flex items-center gap-3 mb-4">
-                          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center shadow-lg shadow-purple-500/30">
-                            <span className="text-white text-lg font-bold">S</span>
+                          <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center shadow-lg shadow-red-500/30">
+                            <svg viewBox="0 0 24 24" className="w-6 h-6 text-white" fill="currentColor">
+                              <path d="M10 8.5V15.5L16 12L10 8.5Z" />
+                            </svg>
                           </div>
                           <div>
-                            <div className="text-white font-semibold text-sm">@socialoura</div>
+                            <div className="text-white font-semibold text-sm">@youtubevues</div>
                             <div className="text-purple-400 text-xs">Pro Account</div>
                           </div>
                         </div>
@@ -308,8 +277,10 @@ export default function HomePage({ params }: PageProps) {
                   {/* Floating Notification Cards */}
                   <div className="absolute -top-4 -left-16 bg-gray-800 rounded-2xl p-3 shadow-2xl shadow-purple-500/20 border border-gray-700">
                     <div className="flex items-center gap-2">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center">
-                        <Instagram className="w-5 h-5 text-white" />
+                      <div className="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center">
+                        <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="currentColor">
+                          <path d="M10 8.5V15.5L16 12L10 8.5Z" />
+                        </svg>
                       </div>
                       <div>
                         <div className="text-xs font-bold text-white">+2,847</div>

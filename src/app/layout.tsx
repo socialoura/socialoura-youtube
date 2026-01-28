@@ -10,10 +10,10 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Socialoura - Boost Your Social Media Growth",
-  description: "Grow your Instagram and TikTok followers with Socialoura. Safe, reliable, and effective social media growth service.",
-  keywords: ["social media", "instagram followers", "tiktok followers", "social growth", "socialoura"],
-  authors: [{ name: "Socialoura" }],
+  title: "YouTube Vues - Achetez des vues YouTube",
+  description: "Augmentez vos vues YouTube avec YouTube Vues. Choisissez un pack, paiement sécurisé, livraison rapide.",
+  keywords: ["youtube vues", "acheter des vues youtube", "vues youtube", "promotion youtube", "youtube"],
+  authors: [{ name: "YouTube Vues" }],
 };
 
 export default function RootLayout({

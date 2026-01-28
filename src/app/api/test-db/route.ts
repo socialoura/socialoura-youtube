@@ -8,6 +8,17 @@ export async function GET() {
       POSTGRES_URL: !!process.env.POSTGRES_URL,
     };
 
+    if (!envCheck.POSTGRES_URL) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Database connection not configured',
+          envCheck,
+        },
+        { status: 500 }
+      );
+    }
+
     // Test the connection
     const result = await sql`SELECT 1 as test`;
     

@@ -12,6 +12,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (pathname === '/en/i' || pathname === '/fr/i' || pathname === '/en/t' || pathname === '/fr/t' || pathname === '/en/select' || pathname === '/fr/select') {
+    const langPrefix = pathname.startsWith('/fr') ? '/fr' : '/en';
+    return NextResponse.redirect(new URL(`${langPrefix}/packs`, request.url));
+  }
+
   // Check if the pathname is just '/'
   if (pathname === '/') {
     // Redirect to default locale
@@ -33,6 +38,7 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
+    '/',
     // Skip all internal paths (_next)
     '/((?!_next|api|favicon.ico|.*\\..*|fonts).*)',
   ],

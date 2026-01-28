@@ -9,16 +9,13 @@ export default function Footer({ lang }: FooterProps) {
   const currentYear = new Date().getFullYear();
   
   const footerText = lang === 'en' 
-    ? `© ${currentYear} Socialoura. All rights reserved.`
-    : `© ${currentYear} Socialoura. Tous droits réservés.`;
+    ? `© ${currentYear} YouTube Vues. All rights reserved.`
+    : `© ${currentYear} YouTube Vues. Tous droits réservés.`;
     
   const linksTitle = lang === 'en' ? 'Quick Links' : 'Liens rapides';
-  const aboutText = lang === 'en' ? 'About' : 'À propos';
   const contactText = lang === 'en' ? 'Contact' : 'Contact';
-  const privacyText = lang === 'en' ? 'Privacy' : 'Confidentialité';
   const faqText = 'FAQ';
-  const instagramText = lang === 'en' ? 'Instagram' : 'Instagram';
-  const tiktokText = lang === 'en' ? 'TikTok' : 'TikTok';
+  const packsText = lang === 'en' ? 'Packs' : 'Packs';
 
   return (
     <footer className="w-full border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
@@ -28,13 +25,13 @@ export default function Footer({ lang }: FooterProps) {
             <div className="flex items-center gap-3 mb-4">
               <Image
                 src="/img/a-modern-flat-vector-logo-design-featuri_ZEbfVp__QiK-0wr5MrgGJg_ZFPYEbSKRM6a11TOK-IQCQ-removebg-preview.png"
-                alt="Socialoura Logo"
+                alt="YouTube Vues Logo"
                 width={48}
                 height={48}
                 className="w-12 h-12"
               />
               <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                Socialoura
+                YouTube Vues
               </h3>
             </div>
             <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -49,26 +46,10 @@ export default function Footer({ lang }: FooterProps) {
             <ul className="space-y-2">
               <li>
                 <a 
-                  href={`/${lang}/i`}
+                  href={`/${lang}/packs`}
                   className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
-                  {instagramText}
-                </a>
-              </li>
-              <li>
-                <a 
-                  href={`/${lang}/t`}
-                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                >
-                  {tiktokText}
-                </a>
-              </li>
-              <li>
-                <a 
-                  href={`/${lang}/about`}
-                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                >
-                  {aboutText}
+                  {packsText}
                 </a>
               </li>
               <li>
@@ -77,14 +58,6 @@ export default function Footer({ lang }: FooterProps) {
                   className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
                   {contactText}
-                </a>
-              </li>
-              <li>
-                <a 
-                  href={`/${lang}/privacy`}
-                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                >
-                  {privacyText}
                 </a>
               </li>
               <li>

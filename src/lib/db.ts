@@ -1,6 +1,14 @@
 import { sql } from '@vercel/postgres';
 
+export function isDBConfigured() {
+  return !!process.env.POSTGRES_URL;
+}
+
 export async function initDatabase() {
+  if (!isDBConfigured()) {
+    return;
+  }
+
   try {
     // Create pricing table if it doesn't exist
     await sql`
@@ -47,6 +55,7 @@ export async function initDatabase() {
     try {
       await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS order_status VARCHAR(50) DEFAULT 'pending'`;
       await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS notes TEXT DEFAULT ''`;
+      await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS youtube_video_url TEXT`;
     } catch (e) {
       // Columns might already exist
       console.log('Columns may already exist:', e);
@@ -106,7 +115,7 @@ export async function getPricing() {
     `;
     
     if (result.rows.length > 0) {
-      return result.rows[0].data as { instagram: Array<{ followers: string; price: string }>; tiktok: Array<{ followers: string; price: string }> };
+      return result.rows[0].data as Record<string, Array<{ followers: string; price: string }>>;
     }
     return null;
   } catch (error) {
@@ -115,7 +124,7 @@ export async function getPricing() {
   }
 }
 
-export async function setPricing(data: { instagram: Array<{ followers: string; price: string }>; tiktok: Array<{ followers: string; price: string }> }) {
+export async function setPricing(data: Record<string, Array<{ followers: string; price: string }>>) {
   try {
     await sql`
       INSERT INTO pricing (id, data) 
@@ -130,6 +139,10 @@ export async function setPricing(data: { instagram: Array<{ followers: string; p
 }
 
 export async function getAdminByUsername(username: string) {
+  if (!isDBConfigured()) {
+    return null;
+  }
+
   try {
     const result = await sql`
       SELECT * FROM admin_users WHERE username = ${username}
@@ -204,6 +217,10 @@ export async function getAllOrders() {
 }
 
 export async function getStripeSettings() {
+  if (!isDBConfigured()) {
+    return { secretKey: null, publishableKey: null };
+  }
+
   try {
     const secretResult = await sql`
       SELECT value FROM settings WHERE key = 'stripe_secret_key'
@@ -223,6 +240,10 @@ export async function getStripeSettings() {
 }
 
 export async function getPromoEnabled(): Promise<boolean> {
+  if (!isDBConfigured()) {
+    return true;
+  }
+
   try {
     const result = await sql`
       SELECT value FROM settings WHERE key = 'promo_enabled'
@@ -235,6 +256,10 @@ export async function getPromoEnabled(): Promise<boolean> {
 }
 
 export async function setPromoEnabled(enabled: boolean): Promise<void> {
+  if (!isDBConfigured()) {
+    return;
+  }
+
   try {
     await sql`
       INSERT INTO settings (key, value) 

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getStripeSettings, updateStripeSettings, initDatabase } from '@/lib/db';
 
+export const dynamic = 'force-dynamic';
+
 // Initialize database on module load
 initDatabase().catch(console.error);
 
