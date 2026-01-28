@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Language } from '@/i18n/config';
-import { Plus, Minus, HelpCircle, Mail, Clock } from 'lucide-react';
+import { Plus, Minus, HelpCircle, Mail, Clock, ArrowRight, ShieldCheck } from 'lucide-react';
 import ChatWidget from '@/components/ChatWidget';
 
 interface PageProps {
@@ -12,6 +12,7 @@ interface PageProps {
 export default function FAQPage({ params }: PageProps) {
   const lang = params.lang as Language;
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [activeCategory, setActiveCategory] = useState<'general' | 'orders' | 'payment' | 'support' | 'all'>('all');
 
   const toggleFaq = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -20,7 +21,7 @@ export default function FAQPage({ params }: PageProps) {
   const content = {
     en: {
       title: 'Frequently Asked Questions',
-      subtitle: 'Find answers to the most common questions about our services',
+      subtitle: 'Clear answers about setup, delivery pacing, and secure checkout.',
       categories: {
         general: 'General',
         orders: 'Orders & Delivery',
@@ -30,38 +31,38 @@ export default function FAQPage({ params }: PageProps) {
       faqs: [
         {
           category: 'general',
-          question: 'What is SocialOura?',
-          answer: 'SocialOura is a professional marketing platform that helps you grow your social media presence on Instagram and TikTok through our exclusive partner network. We provide authentic engagement to expand your reach.',
+          question: 'What is ViewPlex?',
+          answer: 'ViewPlex helps you run a visibility campaign for your YouTube video with a simple setup and secure checkout. We focus on discovery and reach, not artificial engagement.',
         },
         {
           category: 'general',
           question: 'Is it safe to use your services?',
-          answer: 'Yes, absolutely! We use safe and compliant methods that respect platform guidelines. Your account security is our top priority, and we never ask for your password.',
+          answer: 'We use a marketing-first approach focused on visibility and discovery. We never ask for your password and you keep full control of your account.',
         },
         {
           category: 'general',
-          question: 'Will my account get banned?',
-          answer: 'No. We use gradual delivery methods that mimic organic growth patterns. This ensures your account remains safe and in good standing with the platform.',
+          question: 'Do you need access to my account?',
+          answer: 'No. For YouTube visibility campaigns, we only require your public video link. No login or private account access is requested.',
         },
         {
           category: 'orders',
           question: 'How long does delivery take?',
-          answer: 'Delivery typically starts within 0-24 hours after your order is confirmed. The full delivery is completed gradually over 24-72 hours to ensure natural-looking growth.',
+          answer: 'Most campaigns start within 0-24 hours after confirmation. Delivery is progressive to keep a natural pacing and avoid sudden spikes.',
         },
         {
           category: 'orders',
           question: 'Do I need to provide my password?',
-          answer: 'No, never! We only need your public username. We will never ask for your password or any sensitive account information.',
+          answer: 'No, never. We only need your public YouTube video link and a contact email for the receipt and follow-up.',
         },
         {
           category: 'orders',
           question: 'What if I don\'t receive my order?',
-          answer: 'If you experience any issues with your order, please contact our support team. We offer a full refund or redelivery guarantee if we fail to deliver your order.',
+          answer: 'If anything looks off, contact support with your payment ID. We\'ll investigate and help resolve the issue as quickly as possible.',
         },
         {
           category: 'orders',
-          question: 'Can I order for multiple accounts?',
-          answer: 'Yes! You can place separate orders for different accounts. Each order is processed independently.',
+          question: 'Can I run campaigns for multiple videos?',
+          answer: 'Yes. Submit one order per video link so each campaign can be tracked independently.',
         },
         {
           category: 'payment',
@@ -76,17 +77,17 @@ export default function FAQPage({ params }: PageProps) {
         {
           category: 'payment',
           question: 'Do you offer refunds?',
-          answer: 'Yes, we offer refunds if we are unable to deliver your order. Please contact our support team within 7 days of your purchase if you have any issues.',
+          answer: 'If there is a verified delivery issue, contact support and we\'ll review your case quickly. Please include your payment ID.',
         },
         {
           category: 'support',
           question: 'How can I contact support?',
-          answer: 'You can reach us through the chat widget on our website, or email us at support@socialoura.com. We typically respond within 24 hours.',
+          answer: 'Use the chat widget on the site or email support@viewplex.com. We typically respond within 24 hours.',
         },
         {
           category: 'support',
           question: 'What are your support hours?',
-          answer: 'Our support team is available Monday to Friday, 9 AM to 6 PM (CET). For urgent matters, please use the chat widget for faster response.',
+          answer: 'We aim to answer within 24 hours. For urgent questions, the chat widget is usually the fastest way to reach us.',
         },
       ],
       contactTitle: 'Still have questions?',
@@ -96,8 +97,8 @@ export default function FAQPage({ params }: PageProps) {
       responseTime: 'We respond within 24 hours',
     },
     fr: {
-      title: 'Questions Fréquentes',
-      subtitle: 'Trouvez les réponses aux questions les plus courantes sur nos services',
+      title: 'Questions Fréquemment Posées',
+      subtitle: 'Réponses claires sur la mise en place, la livraison progressive et le paiement sécurisé.',
       categories: {
         general: 'Général',
         orders: 'Commandes & Livraison',
@@ -107,38 +108,38 @@ export default function FAQPage({ params }: PageProps) {
       faqs: [
         {
           category: 'general',
-          question: 'Qu\'est-ce que SocialOura ?',
-          answer: 'SocialOura est une plateforme de marketing professionnelle qui vous aide à développer votre présence sur Instagram et TikTok grâce à notre réseau de partenaires exclusifs. Nous fournissons un engagement authentique pour étendre votre portée.',
+          question: 'Qu\'est-ce que ViewPlex ?',
+          answer: 'ViewPlex vous aide à lancer une campagne de visibilité pour votre vidéo YouTube avec une mise en place simple et un paiement sécurisé. Nous mettons l\'accent sur la découverte et la portée.',
         },
         {
           category: 'general',
           question: 'Est-ce sûr d\'utiliser vos services ?',
-          answer: 'Oui, absolument ! Nous utilisons des méthodes sûres et conformes qui respectent les directives des plateformes. La sécurité de votre compte est notre priorité, et nous ne demandons jamais votre mot de passe.',
+          answer: 'Notre approche est marketing-first et axée sur la visibilité/découverte. Nous ne demandons jamais votre mot de passe et vous gardez le contrôle.',
         },
         {
           category: 'general',
-          question: 'Mon compte risque-t-il d\'être banni ?',
-          answer: 'Non. Nous utilisons des méthodes de livraison progressive qui imitent les modèles de croissance organique. Cela garantit que votre compte reste en sécurité et en règle avec la plateforme.',
+          question: 'Avez-vous besoin d\'accéder à mon compte ?',
+          answer: 'Non. Pour les campagnes YouTube, nous avons seulement besoin du lien public de la vidéo. Aucune connexion n\'est demandée.',
         },
         {
           category: 'orders',
           question: 'Combien de temps prend la livraison ?',
-          answer: 'La livraison commence généralement dans les 0-24 heures après la confirmation de votre commande. La livraison complète est effectuée progressivement sur 24-72 heures pour assurer une croissance naturelle.',
+          answer: 'La plupart des campagnes démarrent dans les 0-24 heures après confirmation. La livraison est progressive pour un rythme naturel.',
         },
         {
           category: 'orders',
           question: 'Dois-je fournir mon mot de passe ?',
-          answer: 'Non, jamais ! Nous avons seulement besoin de votre nom d\'utilisateur public. Nous ne demanderons jamais votre mot de passe ou toute information sensible de compte.',
+          answer: 'Non, jamais. Nous avons besoin uniquement du lien public de votre vidéo et d\'un email pour le reçu et le suivi.',
         },
         {
           category: 'orders',
           question: 'Que se passe-t-il si je ne reçois pas ma commande ?',
-          answer: 'Si vous rencontrez des problèmes avec votre commande, veuillez contacter notre équipe de support. Nous offrons un remboursement complet ou une nouvelle livraison si nous ne parvenons pas à livrer votre commande.',
+          answer: 'Si quelque chose semble anormal, contactez le support avec votre identifiant de paiement. Nous enquêtons et vous aidons rapidement.',
         },
         {
           category: 'orders',
-          question: 'Puis-je commander pour plusieurs comptes ?',
-          answer: 'Oui ! Vous pouvez passer des commandes séparées pour différents comptes. Chaque commande est traitée indépendamment.',
+          question: 'Puis-je lancer des campagnes pour plusieurs vidéos ?',
+          answer: 'Oui. Passez une commande par lien vidéo afin de suivre chaque campagne séparément.',
         },
         {
           category: 'payment',
@@ -153,17 +154,17 @@ export default function FAQPage({ params }: PageProps) {
         {
           category: 'payment',
           question: 'Proposez-vous des remboursements ?',
-          answer: 'Oui, nous offrons des remboursements si nous ne sommes pas en mesure de livrer votre commande. Veuillez contacter notre équipe de support dans les 7 jours suivant votre achat en cas de problème.',
+          answer: 'En cas de problème de livraison vérifié, contactez le support et nous étudierons votre demande rapidement. Ajoutez l\'identifiant de paiement.',
         },
         {
           category: 'support',
           question: 'Comment puis-je contacter le support ?',
-          answer: 'Vous pouvez nous joindre via le widget de chat sur notre site, ou nous envoyer un email à support@socialoura.com. Nous répondons généralement sous 24 heures.',
+          answer: 'Via le widget de chat sur le site, ou par email à support@viewplex.com. Réponse généralement sous 24 heures.',
         },
         {
           category: 'support',
           question: 'Quelles sont vos heures de support ?',
-          answer: 'Notre équipe de support est disponible du lundi au vendredi, de 9h à 18h (CET). Pour les questions urgentes, utilisez le widget de chat pour une réponse plus rapide.',
+          answer: 'Nous visons une réponse sous 24 heures. Pour les demandes urgentes, le chat est souvent le plus rapide.',
         },
       ],
       contactTitle: 'Vous avez encore des questions ?',
@@ -177,111 +178,138 @@ export default function FAQPage({ params }: PageProps) {
   const t = content[lang];
 
   const categories = ['general', 'orders', 'payment', 'support'] as const;
+  const filteredFaqs = activeCategory === 'all'
+    ? t.faqs
+    : t.faqs.filter((faq) => faq.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0f]">
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 to-transparent" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purple-600/10 rounded-full blur-3xl" />
-        
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg shadow-purple-500/30 mb-6">
-            <HelpCircle className="w-10 h-10 text-white" />
+    <div className="min-h-screen bg-white dark:bg-gray-950">
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(1200px_circle_at_10%_20%,rgba(239,68,68,0.10),transparent_55%),radial-gradient(900px_circle_at_90%_35%,rgba(239,68,68,0.06),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(2,6,23,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(2,6,23,0.04)_1px,transparent_1px)] bg-[size:72px_72px] opacity-30 dark:opacity-15" />
+        <div className="absolute inset-0 [mask-image:radial-gradient(60%_55%_at_50%_35%,black,transparent)] bg-gradient-to-b from-white/0 via-white/40 to-white dark:from-gray-950/0 dark:via-gray-950/70 dark:to-gray-950" />
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-600 shadow-sm mb-6 border border-red-700/10">
+            <HelpCircle className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white mb-4">
             {t.title}
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             {t.subtitle}
           </p>
+
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+            <button
+              type="button"
+              onClick={() => setActiveCategory('all')}
+              className={`rounded-full px-4 py-2 text-sm font-semibold border transition-colors ${
+                activeCategory === 'all'
+                  ? 'bg-red-600 text-white border-red-600'
+                  : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50 dark:bg-gray-950 dark:text-gray-200 dark:border-gray-800 dark:hover:bg-gray-900'
+              }`}
+            >
+              {lang === 'fr' ? 'Tout' : 'All'}
+            </button>
+            {categories.map((category) => (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setActiveCategory(category)}
+                className={`rounded-full px-4 py-2 text-sm font-semibold border transition-colors ${
+                  activeCategory === category
+                    ? 'bg-red-600 text-white border-red-600'
+                    : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50 dark:bg-gray-950 dark:text-gray-200 dark:border-gray-800 dark:hover:bg-gray-900'
+                }`}
+              >
+                {t.categories[category]}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
       <section className="py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          {categories.map((category) => {
-            const categoryFaqs = t.faqs.filter((faq) => faq.category === category);
-            if (categoryFaqs.length === 0) return null;
+          <div className="space-y-4">
+            {filteredFaqs.map((faq, index) => {
+              const globalIndex = t.faqs.indexOf(faq);
+              const isOpen = openIndex === globalIndex;
+              const categoryLabel = t.categories[faq.category as keyof typeof t.categories];
 
-            return (
-              <div key={category} className="mb-12">
-                <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-                  <span className="w-2 h-8 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full" />
-                  {t.categories[category]}
-                </h2>
-                <div className="space-y-4">
-                  {categoryFaqs.map((faq, index) => {
-                    const globalIndex = t.faqs.indexOf(faq);
-                    const isOpen = openIndex === globalIndex;
-
-                    return (
-                      <div
-                        key={index}
-                        className={`rounded-2xl border transition-all duration-300 ${
-                          isOpen
-                            ? 'bg-gradient-to-r from-purple-900/30 to-pink-900/30 border-purple-500/50'
-                            : 'bg-gray-900/50 border-gray-800 hover:border-gray-700'
-                        }`}
-                      >
-                        <button
-                          onClick={() => toggleFaq(globalIndex)}
-                          className="w-full px-6 py-5 flex items-center justify-between text-left"
-                        >
-                          <span className={`text-lg font-medium ${isOpen ? 'text-white' : 'text-gray-300'}`}>
-                            {faq.question}
-                          </span>
-                          <span className={`ml-4 flex-shrink-0 p-2 rounded-full transition-colors ${
-                            isOpen ? 'bg-purple-500 text-white' : 'bg-gray-800 text-gray-400'
-                          }`}>
-                            {isOpen ? (
-                              <Minus className="w-4 h-4" />
-                            ) : (
-                              <Plus className="w-4 h-4" />
-                            )}
-                          </span>
-                        </button>
-                        {isOpen && (
-                          <div className="px-6 pb-5">
-                            <p className="text-gray-400 leading-relaxed">
-                              {faq.answer}
-                            </p>
-                          </div>
-                        )}
+              return (
+                <div
+                  key={index}
+                  className="rounded-3xl bg-white border border-gray-200 overflow-hidden shadow-sm transition-colors dark:bg-gray-950 dark:border-gray-800"
+                >
+                  <button
+                    onClick={() => toggleFaq(globalIndex)}
+                    className="w-full flex items-center justify-between text-left p-6 hover:bg-gray-50 transition-colors dark:hover:bg-gray-900"
+                  >
+                    <div className="min-w-0">
+                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                        {categoryLabel}
                       </div>
-                    );
-                  })}
+                      <div className="mt-1 text-lg font-semibold text-gray-900 dark:text-white">
+                        {faq.question}
+                      </div>
+                    </div>
+                    <div className={`ml-4 w-9 h-9 rounded-xl flex items-center justify-center transition-all ${isOpen ? 'bg-red-600 rotate-180' : 'bg-gray-100 dark:bg-gray-900'}`}>
+                      {isOpen ? (
+                        <Minus className="h-4 w-4 text-white" />
+                      ) : (
+                        <Plus className="h-4 w-4 text-gray-700 dark:text-gray-200" />
+                      )}
+                    </div>
+                  </button>
+                  {isOpen && (
+                    <div className="px-6 pb-6 text-base leading-7 text-gray-600 dark:text-gray-300">
+                      {faq.answer}
+                    </div>
+                  )}
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 border-t border-gray-800">
+      <section className="py-16 border-t border-gray-200 dark:border-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            {t.contactTitle}
-          </h2>
-          <p className="text-gray-400 mb-8">
-            {t.contactSubtitle}
-          </p>
-          
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="mailto:support@socialoura.com"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-gray-800 hover:bg-gray-700 text-white font-medium rounded-xl transition-colors"
-            >
-              <Mail className="w-5 h-5" />
-              {t.contactEmail}
-            </a>
-          </div>
-          
-          <div className="mt-6 flex items-center justify-center gap-2 text-gray-500">
-            <Clock className="w-4 h-4" />
-            <span className="text-sm">{t.responseTime}</span>
+          <div className="rounded-3xl border border-gray-200 bg-gray-50 p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+            <div className="mx-auto flex items-center justify-center w-12 h-12 rounded-2xl bg-white border border-gray-200 mb-4 dark:bg-gray-950 dark:border-gray-800">
+              <ShieldCheck className="w-6 h-6 text-gray-700 dark:text-gray-200" />
+            </div>
+            <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-3">
+              {t.contactTitle}
+            </h2>
+            <p className="text-gray-600 dark:text-gray-300 mb-8">
+              {t.contactSubtitle}
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a
+                href={`mailto:support@viewplex.com`}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white font-bold rounded-xl transition-colors"
+              >
+                <Mail className="w-5 h-5" />
+                {t.contactEmail}
+              </a>
+              <a
+                href={`/${lang}/contact`}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl transition-colors"
+              >
+                {lang === 'fr' ? 'Ouvrir la page contact' : 'Open contact page'}
+                <ArrowRight className="w-5 h-5" />
+              </a>
+            </div>
+
+            <div className="mt-6 flex items-center justify-center gap-2 text-gray-500 dark:text-gray-400">
+              <Clock className="w-4 h-4" />
+              <span className="text-sm">{t.responseTime}</span>
+            </div>
           </div>
         </div>
       </section>

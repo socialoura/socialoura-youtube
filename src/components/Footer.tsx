@@ -15,7 +15,6 @@ export default function Footer({ lang }: FooterProps) {
   const linksTitle = lang === 'en' ? 'Quick Links' : 'Liens rapides';
   const contactText = lang === 'en' ? 'Contact' : 'Contact';
   const faqText = 'FAQ';
-  const packsText = lang === 'en' ? 'Packs' : 'Packs';
 
   return (
     <footer className="w-full border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900">
@@ -44,14 +43,6 @@ export default function Footer({ lang }: FooterProps) {
               {linksTitle}
             </h4>
             <ul className="space-y-2">
-              <li>
-                <a 
-                  href={`/${lang}/packs`}
-                  className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
-                >
-                  {packsText}
-                </a>
-              </li>
               <li>
                 <a 
                   href={`/${lang}/contact`}

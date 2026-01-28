@@ -14,7 +14,7 @@ export function middleware(request: NextRequest) {
 
   if (pathname === '/en/i' || pathname === '/fr/i' || pathname === '/en/t' || pathname === '/fr/t' || pathname === '/en/select' || pathname === '/fr/select') {
     const langPrefix = pathname.startsWith('/fr') ? '/fr' : '/en';
-    return NextResponse.redirect(new URL(`${langPrefix}/packs`, request.url));
+    return NextResponse.redirect(new URL(`${langPrefix}`, request.url));
   }
 
   // Check if the pathname is just '/'

@@ -61,7 +61,7 @@ export default function TrustedBrands({ lang }: TrustedBrandsProps) {
         return (
           <div
             key={`${keyPrefix}-${key}`}
-            className="flex items-center justify-center min-w-[100px] h-12 text-gray-500 hover:text-gray-300 transition-colors duration-300 opacity-50 hover:opacity-80"
+            className="flex items-center justify-center min-w-[100px] h-12 text-gray-500 hover:text-gray-900 transition-colors duration-300 opacity-70 hover:opacity-100 dark:text-gray-400 dark:hover:text-white"
           >
             <Logo />
           </div>
@@ -71,9 +71,9 @@ export default function TrustedBrands({ lang }: TrustedBrandsProps) {
   );
 
   return (
-    <section className="py-16 border-y border-gray-800/50 bg-gradient-to-b from-transparent via-gray-900/30 to-transparent overflow-hidden">
+    <section className="py-8 sm:py-10 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center text-xl sm:text-2xl text-gray-400 mb-12 italic" style={{ fontFamily: 'Georgia, Times New Roman, serif' }}>
+        <h2 className="text-center text-lg sm:text-xl text-gray-700 mb-8 italic dark:text-gray-300" style={{ fontFamily: 'Georgia, Times New Roman, serif' }}>
           {title}
         </h2>
       </div>
@@ -81,8 +81,8 @@ export default function TrustedBrands({ lang }: TrustedBrandsProps) {
       {/* Scrolling container */}
       <div className="relative">
         {/* Gradient overlays for fade effect */}
-        <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#0a0a0f] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#0a0a0f] to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-28 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none dark:from-gray-950" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-28 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none dark:from-gray-950" />
 
         {/* Scrolling brands */}
         <div className="flex animate-scroll">

@@ -44,6 +44,13 @@ export default function GoalSelectionModal({
     return language === 'fr' ? 'abonnés' : 'followers';
   };
 
+  const isYoutube = platform === 'youtube';
+  const accentBorder = isYoutube ? 'border-red-200' : 'border-gray-200';
+  const accentBtn = isYoutube
+    ? 'bg-red-600 hover:bg-red-700 shadow-red-600/10'
+    : 'bg-gray-900 hover:bg-gray-800 shadow-gray-900/10';
+  const accentRing = isYoutube ? 'focus:ring-red-500' : 'focus:ring-gray-900';
+
   const text = {
     en: {
       title: 'Choose your visibility package',
@@ -245,7 +252,7 @@ export default function GoalSelectionModal({
     >
       {/* Backdrop with blur */}
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-out ${
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ease-out ${
           isAnimating ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={handleOverlayClick}
@@ -254,21 +261,17 @@ export default function GoalSelectionModal({
       {/* Modal Container */}
       <div className="flex min-h-full items-center justify-center p-4">
         <div
-          className={`relative transform overflow-hidden rounded-3xl bg-gradient-to-b from-gray-900 to-gray-950 text-left shadow-2xl shadow-purple-500/10 transition-all duration-300 ease-out w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-gray-800 ${
+          className={`relative transform overflow-hidden rounded-3xl bg-white text-left shadow-2xl shadow-black/10 transition-all duration-300 ease-out w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-gray-200 dark:bg-gray-950 dark:border-gray-800 ${
             isAnimating
               ? 'opacity-100 translate-y-0 scale-100'
               : 'opacity-0 translate-y-4 scale-95'
           }`}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Decorative gradient orbs */}
-          <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-600/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none" />
-          
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-5 right-5 w-10 h-10 rounded-full bg-gray-800/50 hover:bg-gray-700/50 flex items-center justify-center text-gray-400 hover:text-white transition-all z-10 backdrop-blur-sm"
+            className="absolute top-5 right-5 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-600 hover:text-gray-900 transition-all z-10 dark:bg-gray-900 dark:hover:bg-gray-800 dark:text-gray-300 dark:hover:text-white"
             aria-label="Close"
           >
             <X className="h-5 w-5" />
@@ -277,19 +280,19 @@ export default function GoalSelectionModal({
           <div className="relative p-8">
             {/* Header with username badge */}
             <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl mb-6 backdrop-blur-sm">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 via-pink-500 to-orange-400 flex items-center justify-center shadow-lg shadow-purple-500/30">
+              <div className={`inline-flex items-center gap-3 px-5 py-3 border ${accentBorder} rounded-2xl mb-6 bg-white`}>
+                <div className={`w-12 h-12 rounded-xl ${isYoutube ? 'bg-red-600' : 'bg-gray-900'} flex items-center justify-center shadow-sm`}>
                   <span className="text-white text-xl font-bold">{username.charAt(0).toUpperCase()}</span>
                 </div>
                 <div className="text-left">
-                  <div className="text-xs text-gray-400 uppercase tracking-wider">{platform === 'youtube' ? 'Video' : 'Account'}</div>
-                  <div className="text-lg font-bold text-white">{platform === 'youtube' ? username : `@${username}`}</div>
+                  <div className="text-xs text-gray-500 uppercase tracking-wider dark:text-gray-400">{platform === 'youtube' ? 'Video' : 'Account'}</div>
+                  <div className="text-lg font-bold text-gray-900 dark:text-white">{platform === 'youtube' ? username : `@${username}`}</div>
                 </div>
               </div>
-              <h2 className="text-3xl font-black text-white mb-2">
+              <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-2">
                 {t.title}
               </h2>
-              <p className="text-gray-400 text-sm">
+              <p className="text-gray-600 text-sm dark:text-gray-300">
                 {language === 'fr' ? 'Sélectionnez le forfait qui vous convient' : 'Select the package that suits you'}
               </p>
             </div>
@@ -298,13 +301,13 @@ export default function GoalSelectionModal({
             {isLoading ? (
               <div className="flex justify-center items-center py-12">
                 <div className="flex items-center gap-3">
-                  <div className="w-6 h-6 border-2 border-purple-500 border-t-transparent rounded-full animate-spin" />
-                  <span className="text-gray-400">Loading...</span>
+                  <div className="w-6 h-6 border-2 border-red-600 border-t-transparent rounded-full animate-spin" />
+                  <span className="text-gray-600">Loading...</span>
                 </div>
               </div>
             ) : goals.length === 0 ? (
               <div className="flex justify-center items-center py-12">
-                <div className="text-gray-400">No pricing options available</div>
+                <div className="text-gray-600">No pricing options available</div>
               </div>
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
@@ -314,37 +317,37 @@ export default function GoalSelectionModal({
                   onClick={() => handleGoalSelect(goal)}
                   className={`relative p-4 rounded-2xl border transition-all duration-300 group ${
                     selectedGoal?.followers === goal.followers
-                      ? 'border-purple-500 bg-purple-500/10 shadow-lg shadow-purple-500/20 scale-[1.02]'
-                      : 'border-gray-700/50 bg-gray-800/30 hover:border-gray-600 hover:bg-gray-800/50'
+                      ? (isYoutube ? 'border-red-600 bg-red-50 shadow-sm scale-[1.01]' : 'border-gray-900 bg-gray-50 shadow-sm scale-[1.01]')
+                      : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-900'
                   }`}
                 >
                   {goal.popular && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-[10px] font-bold px-3 py-1 rounded-full whitespace-nowrap uppercase tracking-wider shadow-lg shadow-purple-500/30">
+                      <span className="bg-red-600 text-white text-[10px] font-bold px-3 py-1 rounded-full whitespace-nowrap uppercase tracking-wider shadow-sm">
                         {t.mostPopular}
                       </span>
                     </div>
                   )}
                   <div className="text-center">
-                    <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 text-[10px] font-bold mb-2">
+                    <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-50 text-green-700 border border-green-200 text-[10px] font-bold mb-2">
                       <span>-{goal.discount}%</span>
                     </div>
-                    <div className="text-2xl font-black text-white mb-1 group-hover:text-purple-300 transition-colors">
+                    <div className="text-2xl font-black text-gray-900 dark:text-white mb-1 transition-colors">
                       +{goal.followers.toLocaleString()}
                     </div>
-                    <div className="text-[10px] text-gray-400 uppercase tracking-wider -mt-1 mb-2">
+                    <div className="text-[10px] text-gray-500 uppercase tracking-wider -mt-1 mb-2 dark:text-gray-400">
                       {getUnitLabel()}
                     </div>
-                    <div className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    <div className={`text-xl font-black ${isYoutube ? 'text-red-600' : 'text-gray-900'}`}>
                       {language === 'fr' ? `${goal.price.toFixed(2)}€` : `$${goal.price.toFixed(2)}`}
                     </div>
-                    <div className="text-xs text-gray-500 line-through">
+                    <div className="text-xs text-gray-400 line-through">
                       {language === 'fr' ? `${goal.originalPrice.toFixed(1)}€` : `$${goal.originalPrice.toFixed(1)}`}
                     </div>
                   </div>
                   {/* Selection indicator */}
                   {selectedGoal?.followers === goal.followers && (
-                    <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-purple-500 flex items-center justify-center">
+                    <div className={`absolute top-2 right-2 w-5 h-5 rounded-full ${isYoutube ? 'bg-red-600' : 'bg-gray-900'} flex items-center justify-center`}>
                       <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                       </svg>
@@ -358,17 +361,17 @@ export default function GoalSelectionModal({
                 onClick={() => handleGoalSelect({ followers: 0, price: 0, originalPrice: 0, discount: 50 })}
                 className={`relative p-4 rounded-2xl border transition-all duration-300 col-span-2 sm:col-span-4 group ${
                   showCustomSlider
-                    ? 'border-purple-500 bg-purple-500/10'
-                    : 'border-gray-700/50 bg-gray-800/30 hover:border-gray-600 hover:bg-gray-800/50'
+                    ? (isYoutube ? 'border-red-600 bg-red-50' : 'border-gray-900 bg-gray-50')
+                    : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-900'
                 }`}
               >
                 <div className="flex items-center justify-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                  <div className={`w-8 h-8 rounded-lg ${isYoutube ? 'bg-red-600' : 'bg-gray-900'} flex items-center justify-center`}>
                     <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                     </svg>
                   </div>
-                  <span className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
+                  <span className="text-lg font-black text-gray-900 transition-colors dark:text-white">
                     {t.custom}
                   </span>
                 </div>
@@ -378,16 +381,16 @@ export default function GoalSelectionModal({
 
             {/* Custom Slider */}
             {showCustomSlider && (
-              <div className="mb-6 p-6 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-2xl border border-purple-500/30 backdrop-blur-sm">
+              <div className="mb-6 p-6 bg-gray-50 rounded-2xl border border-gray-200 dark:bg-gray-900 dark:border-gray-800">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h3 className="text-xl font-bold text-white">
+                    <h3 className="text-xl font-black text-gray-900 dark:text-white">
                       {customFollowers.toLocaleString()}
                     </h3>
-                    <p className="text-sm text-gray-400">{getUnitLabel()}</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-300">{getUnitLabel()}</p>
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                    <div className="text-3xl font-black text-red-600">
                       {language === 'fr' ? `${calculateCustomPrice(customFollowers)}€` : `$${calculateCustomPrice(customFollowers)}`}
                     </div>
                   </div>
@@ -400,13 +403,13 @@ export default function GoalSelectionModal({
                   step="50"
                   value={customFollowers}
                   onChange={(e) => handleCustomFollowersChange(parseInt(e.target.value))}
-                  className="w-full h-2 rounded-full appearance-none cursor-pointer slider bg-gray-700"
+                  className="w-full h-2 rounded-full appearance-none cursor-pointer slider bg-gray-200 dark:bg-gray-800"
                   style={{
-                    background: `linear-gradient(to right, rgb(168 85 247) 0%, rgb(236 72 153) ${((customFollowers - 100) / (50000 - 100)) * 100}%, rgb(55 65 81) ${((customFollowers - 100) / (50000 - 100)) * 100}%, rgb(55 65 81) 100%)`
+                    background: `linear-gradient(to right, rgb(220 38 38) 0%, rgb(220 38 38) ${((customFollowers - 100) / (50000 - 100)) * 100}%, rgb(229 231 235) ${((customFollowers - 100) / (50000 - 100)) * 100}%, rgb(229 231 235) 100%)`
                   }}
                 />
                 
-                <div className="flex justify-between text-xs text-gray-500 mt-3">
+                <div className="flex justify-between text-xs text-gray-500 mt-3 dark:text-gray-400">
                   <span>100</span>
                   <span>12.5K</span>
                   <span>25K</span>
@@ -418,7 +421,7 @@ export default function GoalSelectionModal({
 
             {/* Email Input */}
             <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2 dark:text-gray-200">
                 {t.emailLabel}
               </label>
               <input
@@ -426,7 +429,7 @@ export default function GoalSelectionModal({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={t.emailPlaceholder}
-                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent text-white placeholder-gray-500 transition-all"
+                className={`w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 ${accentRing} focus:border-transparent text-gray-900 placeholder-gray-400 transition-all dark:bg-gray-950 dark:border-gray-800 dark:text-white dark:placeholder-gray-500`}
               />
             </div>
 
@@ -434,7 +437,7 @@ export default function GoalSelectionModal({
             <button
               onClick={handleContinue}
               disabled={!selectedGoal || !email}
-              className="w-full relative overflow-hidden bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-purple-500 hover:via-pink-500 hover:to-purple-500 disabled:from-gray-600 disabled:via-gray-600 disabled:to-gray-600 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all duration-300 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.02] disabled:shadow-none disabled:hover:scale-100 group"
+              className={`w-full relative overflow-hidden ${accentBtn} disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-black py-4 px-6 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md disabled:shadow-none group dark:disabled:bg-gray-800`}
             >
               <span className="relative z-10 flex items-center justify-center gap-2">
                 {t.continue}
@@ -446,16 +449,16 @@ export default function GoalSelectionModal({
 
             {/* Disclaimer - Collapsible */}
             <details className="mt-6 group">
-              <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-400 transition-colors flex items-center gap-2">
+              <summary className="text-xs text-gray-600 cursor-pointer hover:text-gray-900 transition-colors flex items-center gap-2 dark:text-gray-400 dark:hover:text-white">
                 <svg className="w-4 h-4 group-open:rotate-90 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
                 {language === 'fr' ? 'Informations légales' : 'Legal information'}
               </summary>
-              <div className="mt-3 text-xs text-gray-500 space-y-2 pl-6">
-                <p dangerouslySetInnerHTML={{ __html: t.disclaimer.replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-400">$1</strong>') }} />
-                <p dangerouslySetInnerHTML={{ __html: t.disclaimerPart2.replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-400">$1</strong>') }} />
-                <p dangerouslySetInnerHTML={{ __html: t.disclaimerPart3.replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-400">$1</strong>') }} />
+              <div className="mt-3 text-xs text-gray-600 space-y-2 pl-6 dark:text-gray-400">
+                <p dangerouslySetInnerHTML={{ __html: t.disclaimer.replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-900 dark:text-white">$1</strong>') }} />
+                <p dangerouslySetInnerHTML={{ __html: t.disclaimerPart2.replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-900 dark:text-white">$1</strong>') }} />
+                <p dangerouslySetInnerHTML={{ __html: t.disclaimerPart3.replace(/\*\*(.*?)\*\*/g, '<strong class="text-gray-900 dark:text-white">$1</strong>') }} />
               </div>
             </details>
           </div>

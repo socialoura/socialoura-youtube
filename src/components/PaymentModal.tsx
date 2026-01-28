@@ -87,7 +87,7 @@ function PaymentForm({
       termsLink: 'terms and conditions',
       safeTransaction: 'Safe Transaction',
       secureEncryption: 'Secure SSL Encryption',
-      serviceGuaranteed: 'Service Guaranteed',
+      serviceGuaranteed: 'Transparent service',
       promoPlaceholder: 'Enter promo code',
       promoApply: 'Apply',
       promoApplied: 'applied!',
@@ -111,7 +111,7 @@ function PaymentForm({
       termsLink: 'conditions générales',
       safeTransaction: 'Transaction Sécurisée',
       secureEncryption: 'Chiffrement SSL Sécurisé',
-      serviceGuaranteed: 'Service Garanti',
+      serviceGuaranteed: 'Service transparent',
       promoPlaceholder: 'Entrez un code promo',
       promoApply: 'Appliquer',
       promoApplied: 'appliqué !',
@@ -239,25 +239,25 @@ function PaymentForm({
     <div className="p-6 sm:p-8">
       {/* Header with gradient background */}
       <div className="mb-8 text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg shadow-purple-500/30 mb-4">
+        <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-600 shadow-sm mb-4 border border-red-700/10">
           <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
           </svg>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
+        <h2 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white">
           {paymentStatus === 'success' ? t.titleSuccess : t.title}
         </h2>
         {productName && paymentStatus !== 'success' && (
-          <p className="mt-3 text-sm text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700/50 inline-block px-4 py-1.5 rounded-full">
+          <p className="mt-3 text-sm text-gray-600 bg-gray-50 border border-gray-200 inline-block px-4 py-1.5 rounded-full dark:text-gray-300 dark:bg-gray-900 dark:border-gray-800">
             {productName}
           </p>
         )}
         <div className="mt-4 flex items-center justify-center gap-2">
-          <span className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <span className="text-3xl font-black text-red-600">
             {formatAmount(amount, currency)}
           </span>
           {originalAmount !== amount && (
-            <span className="text-lg text-gray-400 line-through">
+            <span className="text-lg text-gray-400 line-through dark:text-gray-500">
               {formatAmount(originalAmount, currency)}
             </span>
           )}
@@ -267,23 +267,23 @@ function PaymentForm({
       {/* Success State */}
       {paymentStatus === 'success' && (
         <div className="text-center py-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 shadow-lg shadow-green-500/30 mb-6">
-            <CheckCircle className="h-10 w-10 text-white" />
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-50 shadow-sm mb-6 border border-green-200 dark:bg-green-950/40 dark:border-green-900">
+            <CheckCircle className="h-10 w-10 text-green-700 dark:text-green-400" />
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+          <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-3">
             {t.paymentComplete}
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
+          <p className="text-gray-600 mb-6 dark:text-gray-300">
             {t.paymentSuccessDesc}
           </p>
           {paymentIntentId && (
-            <p className="text-xs text-gray-500 dark:text-gray-500 mb-6 font-mono bg-gray-100 dark:bg-gray-700/50 px-4 py-2 rounded-lg inline-block">
+            <p className="text-xs text-gray-600 mb-6 font-mono bg-gray-50 border border-gray-200 px-4 py-2 rounded-lg inline-block dark:text-gray-300 dark:bg-gray-900 dark:border-gray-800">
               {t.paymentId} {paymentIntentId}
             </p>
           )}
           <button
             onClick={handleClose}
-            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold py-4 px-6 rounded-xl transition-all shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/30 transform hover:-translate-y-0.5"
+            className="w-full bg-red-600 hover:bg-red-700 text-white font-black py-4 px-6 rounded-xl transition-all shadow-sm"
           >
             {t.close}
           </button>
@@ -292,16 +292,16 @@ function PaymentForm({
 
       {/* Error State */}
       {paymentStatus === 'error' && errorMessage && (
-        <div className="mb-6 rounded-2xl bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900/20 dark:to-pink-900/20 p-5 border border-red-200 dark:border-red-800/50">
+        <div className="mb-6 rounded-2xl bg-red-50 p-5 border border-red-200 dark:bg-red-950/40 dark:border-red-900">
           <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-              <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-red-100 border border-red-200 flex items-center justify-center dark:bg-red-950/40 dark:border-red-900">
+              <AlertCircle className="h-5 w-5 text-red-600" />
             </div>
             <div>
-              <h3 className="text-base font-semibold text-red-800 dark:text-red-200">
+              <h3 className="text-base font-bold text-red-800 dark:text-red-300">
                 {t.paymentFailed}
               </h3>
-              <p className="mt-1 text-sm text-red-600 dark:text-red-300">
+              <p className="mt-1 text-sm text-red-700 dark:text-red-200">
                 {errorMessage}
               </p>
             </div>
@@ -313,14 +313,14 @@ function PaymentForm({
       {paymentStatus !== 'success' && (
         <form onSubmit={handleSubmit}>
           {/* Payment Element Container */}
-          <div className="mb-6 relative min-h-[200px] bg-white dark:bg-gray-800 rounded-2xl p-5 border border-gray-200 dark:border-gray-600 shadow-sm">
+          <div className="mb-6 relative min-h-[200px] rounded-2xl p-5 border border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
             {!elementsReady && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-purple-100 dark:bg-purple-900/30 mb-3">
-                    <Loader2 className="animate-spin h-6 w-6 text-purple-600 dark:text-purple-400" />
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 border border-gray-200 mb-3 dark:bg-gray-900 dark:border-gray-800">
+                    <Loader2 className="animate-spin h-6 w-6 text-gray-700" />
                   </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     {t.loadingForm}
                   </p>
                 </div>
@@ -343,7 +343,7 @@ function PaymentForm({
           {/* Promo Code Section */}
           {promoFieldEnabled && !promoSuccess && setPromoCode && onApplyPromo && (
             <div className="mb-5">
-              <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+              <label className="block text-xs font-medium text-gray-600 uppercase tracking-wider mb-2 dark:text-gray-300">
                 {t.promoPlaceholder}
               </label>
               <div className="flex gap-2">
@@ -354,7 +354,7 @@ function PaymentForm({
                     value={promoCode || ''}
                     onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
                     placeholder="PROMO20"
-                    className="w-full pl-11 pr-4 py-3 border-2 border-gray-200 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white text-sm font-medium focus:border-purple-500 dark:focus:border-purple-500 focus:ring-0 transition-colors"
+                    className="w-full pl-11 pr-4 py-3 border border-gray-200 rounded-xl bg-white text-gray-900 text-sm font-medium focus:border-red-600 focus:ring-0 transition-colors dark:border-gray-800 dark:bg-gray-950 dark:text-white"
                     disabled={promoLoading}
                   />
                 </div>
@@ -362,13 +362,13 @@ function PaymentForm({
                   type="button"
                   onClick={onApplyPromo}
                   disabled={promoLoading || !promoCode?.trim()}
-                  className="px-5 py-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:from-gray-400 disabled:to-gray-400 text-white text-sm font-semibold rounded-xl transition-all shadow-md hover:shadow-lg disabled:shadow-none"
+                  className="px-5 py-3 bg-red-600 hover:bg-red-700 disabled:bg-gray-300 text-white text-sm font-bold rounded-xl transition-all shadow-sm disabled:shadow-none dark:disabled:bg-gray-800"
                 >
                   {promoLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t.promoApply}
                 </button>
               </div>
               {promoError && (
-                <p className="mt-2 text-sm text-red-500 dark:text-red-400 flex items-center gap-1">
+                <p className="mt-2 text-sm text-red-700 flex items-center gap-1 dark:text-red-200">
                   <AlertCircle className="w-4 h-4" />
                   {promoError}
                 </p>
@@ -378,19 +378,19 @@ function PaymentForm({
 
           {/* Promo Applied Banner */}
           {promoSuccess && discount && discount > 0 && (
-            <div className="mb-5 p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-xl border border-green-200 dark:border-green-800/50">
+            <div className="mb-5 p-4 bg-green-50 rounded-xl border border-green-200 dark:bg-green-950/40 dark:border-green-900">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center">
-                    <CheckCircle className="w-5 h-5 text-white" />
+                  <div className="w-8 h-8 rounded-full bg-green-100 border border-green-200 flex items-center justify-center dark:bg-green-950/40 dark:border-green-900">
+                    <CheckCircle className="w-5 h-5 text-green-700 dark:text-green-400" />
                   </div>
-                  <span className="text-green-700 dark:text-green-400 font-semibold">
+                  <span className="text-green-800 font-bold dark:text-green-200">
                     {promoCode} {t.promoApplied}
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-gray-400 line-through text-sm mr-2">{formatAmount(originalAmount, currency)}</span>
-                  <span className="text-green-600 dark:text-green-400 font-bold text-lg">
+                  <span className="text-gray-400 line-through text-sm mr-2 dark:text-gray-500">{formatAmount(originalAmount, currency)}</span>
+                  <span className="text-green-800 font-black text-lg dark:text-green-200">
                     {formatAmount(amount, currency)}
                   </span>
                 </div>
@@ -399,18 +399,18 @@ function PaymentForm({
           )}
 
           {/* Terms Checkbox */}
-          <div className="mb-6 p-4 bg-gray-50 dark:bg-gray-700/30 rounded-xl border border-gray-200 dark:border-gray-600/50">
+          <div className="mb-6 p-4 rounded-xl border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
             <label className="flex items-start cursor-pointer group">
               <input
                 type="checkbox"
                 id="terms"
                 checked={acceptedTerms}
                 onChange={(e) => setAcceptedTerms(e.target.checked)}
-                className="mt-0.5 h-5 w-5 text-purple-600 focus:ring-purple-500 border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800"
+                className="mt-0.5 h-5 w-5 text-red-600 focus:ring-red-500 border-gray-300 rounded-md bg-white dark:border-gray-700 dark:bg-gray-950"
               />
-              <span className="ml-3 text-sm text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-200 transition-colors">
+              <span className="ml-3 text-sm text-gray-700 group-hover:text-gray-900 transition-colors dark:text-gray-200 dark:group-hover:text-white">
                 {t.termsLabel}{' '}
-                <a href="#" className="text-purple-600 dark:text-purple-400 hover:underline font-medium">
+                <a href="#" className="text-red-600 hover:underline font-bold">
                   {t.termsLink}
                 </a>
                 .
@@ -422,7 +422,7 @@ function PaymentForm({
           <button
             type="submit"
             disabled={!stripe || !elements || isProcessing || !elementsReady || !acceptedTerms}
-            className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed text-white font-bold py-4 px-6 rounded-xl transition-all shadow-lg shadow-purple-500/25 hover:shadow-xl hover:shadow-purple-500/30 disabled:shadow-none transform hover:-translate-y-0.5 disabled:transform-none flex items-center justify-center text-lg"
+            className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white font-black py-4 px-6 rounded-xl transition-all shadow-sm disabled:shadow-none flex items-center justify-center text-lg dark:disabled:bg-gray-800"
           >
             {isProcessing ? (
               <>
@@ -440,27 +440,27 @@ function PaymentForm({
           </button>
 
           {/* Trust Badges */}
-          <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-            <div className="flex items-center justify-center gap-4 sm:gap-8 text-xs text-gray-500 dark:text-gray-400">
+          <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-800">
+            <div className="flex items-center justify-center gap-4 sm:gap-8 text-xs text-gray-600 dark:text-gray-300">
               <div className="flex items-center gap-1.5">
-                <div className="w-6 h-6 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                  <svg className="h-3.5 w-3.5 text-green-600 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                <div className="w-6 h-6 rounded-full bg-green-100 border border-green-200 flex items-center justify-center dark:bg-green-950/40 dark:border-green-900">
+                  <svg className="h-3.5 w-3.5 text-green-700" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                 </div>
                 <span className="font-medium">{t.safeTransaction}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                  <svg className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                <div className="w-6 h-6 rounded-full bg-blue-100 border border-blue-200 flex items-center justify-center dark:bg-blue-950/40 dark:border-blue-900">
+                  <svg className="h-3.5 w-3.5 text-blue-700" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                   </svg>
                 </div>
                 <span className="font-medium">{t.secureEncryption}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="w-6 h-6 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                  <svg className="h-3.5 w-3.5 text-purple-600 dark:text-purple-400" fill="currentColor" viewBox="0 0 20 20">
+                <div className="w-6 h-6 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center dark:bg-gray-900 dark:border-gray-800">
+                  <svg className="h-3.5 w-3.5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                 </div>
@@ -683,7 +683,7 @@ export default function PaymentModal({
     >
       {/* Backdrop with fade animation */}
       <div
-        className={`fixed inset-0 bg-gray-500 dark:bg-gray-900 bg-opacity-75 dark:bg-opacity-75 transition-opacity duration-300 ease-out ${
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ease-out ${
           isAnimating ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={handleOverlayClick}
@@ -692,7 +692,7 @@ export default function PaymentModal({
       {/* Modal Container with slide and fade animation */}
       <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
         <div
-          className={`relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all duration-300 ease-out sm:my-8 sm:w-full sm:max-w-lg ${
+          className={`relative transform overflow-hidden rounded-3xl bg-white border border-gray-200 text-left shadow-xl transition-all duration-300 ease-out sm:my-8 sm:w-full sm:max-w-lg dark:bg-gray-950 dark:border-gray-800 ${
             isAnimating 
               ? 'opacity-100 translate-y-0 sm:scale-100' 
               : 'opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95'
@@ -702,7 +702,7 @@ export default function PaymentModal({
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors z-10"
+            className="absolute top-4 right-4 text-gray-500 hover:text-gray-900 transition-colors z-10 dark:text-gray-400 dark:hover:text-white"
             aria-label="Close"
           >
             <X className="h-6 w-6" />
@@ -711,8 +711,8 @@ export default function PaymentModal({
           {/* Loading State */}
           {isLoading && (
             <div className="p-12 text-center">
-              <Loader2 className="animate-spin h-12 w-12 mx-auto text-indigo-600 dark:text-indigo-400 mb-4" />
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <Loader2 className="animate-spin h-12 w-12 mx-auto text-gray-700 mb-4 dark:text-gray-200" />
+              <p className="text-sm text-gray-600 dark:text-gray-300">
                 {t.initializingPayment}
               </p>
             </div>
@@ -722,16 +722,16 @@ export default function PaymentModal({
           {error && !isLoading && (
             <div className="p-6">
               <div className="text-center py-8">
-                <AlertCircle className="mx-auto h-16 w-16 text-red-500 mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                <AlertCircle className="mx-auto h-16 w-16 text-red-600 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                   {t.paymentSetupFailed}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-6">
                   {error}
                 </p>
                 <button
                   onClick={onClose}
-                  className="w-full bg-gray-600 hover:bg-gray-500 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+                  className="w-full bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 px-6 rounded-xl transition-colors"
                 >
                   {t.close}
                 </button>

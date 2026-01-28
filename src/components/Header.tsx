@@ -39,7 +39,7 @@ export default function Header({ lang }: HeaderProps) {
   };
 
   return (
-    <header className="w-full border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 sticky top-0 z-50">
+    <header className="w-full border-b border-gray-200 bg-white/85 backdrop-blur-md sticky top-0 z-50 dark:border-gray-800 dark:bg-gray-950/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center h-24 sm:h-28">
           {/* Logo - Left */}
@@ -66,26 +66,20 @@ export default function Header({ lang }: HeaderProps) {
           {/* Desktop Navigation - Centered */}
           <nav className="hidden md:flex items-center gap-8 flex-1 justify-center">
             <Link
-              href={`/${lang}/packs`}
-              className="text-base font-semibold text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-            >
-              {lang === 'en' ? 'Packs' : 'Packs'}
-            </Link>
-            <Link
               href={`/${lang}/pricing`}
-              className="text-base font-semibold text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="text-base font-semibold text-gray-700 hover:text-red-600 transition-colors dark:text-gray-200 dark:hover:text-red-500"
             >
               {lang === 'en' ? 'Pricing' : 'Tarifs'}
             </Link>
             <Link
               href={`/${lang}/contact`}
-              className="text-base font-semibold text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="text-base font-semibold text-gray-700 hover:text-red-600 transition-colors dark:text-gray-200 dark:hover:text-red-500"
             >
               {lang === 'en' ? 'Contact' : 'Contact'}
             </Link>
             <Link
               href={`/${lang}/faq`}
-              className="text-base font-semibold text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+              className="text-base font-semibold text-gray-700 hover:text-red-600 transition-colors dark:text-gray-200 dark:hover:text-red-500"
             >
               FAQ
             </Link>
@@ -96,7 +90,7 @@ export default function Header({ lang }: HeaderProps) {
             {/* Language Switcher */}
             <Link
               href={toggleLanguage()}
-              className="px-2 py-1 rounded-md transition-all hover:scale-110 flex items-center"
+              className="px-2 py-1 rounded-md transition-all hover:scale-110 flex items-center hover:bg-gray-50 dark:hover:bg-gray-800"
               aria-label={lang === 'en' ? 'Passer au français' : 'Switch to English'}
               title={lang === 'en' ? 'Français' : 'English'}
             >
@@ -120,7 +114,7 @@ export default function Header({ lang }: HeaderProps) {
             <ThemeToggle />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+              className="p-2 rounded-md text-gray-700 hover:bg-gray-100 transition-colors dark:text-gray-200 dark:hover:bg-gray-800"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
@@ -137,29 +131,22 @@ export default function Header({ lang }: HeaderProps) {
           <div className="md:hidden py-4 border-t border-gray-200 dark:border-gray-800">
             <nav className="flex flex-col space-y-4">
               <Link
-                href={`/${lang}/packs`}
-                className="text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                {lang === 'en' ? 'Packs' : 'Packs'}
-              </Link>
-              <Link
                 href={`/${lang}/pricing`}
-                className="text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="text-base font-medium text-gray-700 hover:text-red-600 transition-colors dark:text-gray-200 dark:hover:text-red-500"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {lang === 'en' ? 'Pricing' : 'Tarifs'}
               </Link>
               <Link
                 href={`/${lang}/contact`}
-                className="text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="text-base font-medium text-gray-700 hover:text-red-600 transition-colors dark:text-gray-200 dark:hover:text-red-500"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {lang === 'en' ? 'Contact' : 'Contact'}
               </Link>
               <Link
                 href={`/${lang}/faq`}
-                className="text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
+                className="text-base font-medium text-gray-700 hover:text-red-600 transition-colors dark:text-gray-200 dark:hover:text-red-500"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 FAQ
@@ -168,7 +155,7 @@ export default function Header({ lang }: HeaderProps) {
               {/* Language Switcher */}
               <Link
                 href={toggleLanguage()}
-                className="flex items-center gap-2 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white pt-4 border-t border-gray-200 dark:border-gray-800 transition-colors"
+                className="flex items-center gap-2 text-base font-medium text-gray-700 hover:text-red-600 pt-4 border-t border-gray-200 transition-colors dark:text-gray-200 dark:hover:text-red-500 dark:border-gray-800"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <ReactCountryFlag

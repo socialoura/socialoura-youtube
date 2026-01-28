@@ -6,5 +6,5 @@ interface PageProps {
 
 export default function SelectPlatformPage({ params }: PageProps) {
   const lang = params.lang;
-  redirect(`/${lang}/packs`);
+  redirect(`/${lang}`);
 }

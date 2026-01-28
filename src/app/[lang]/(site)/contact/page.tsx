@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Language } from '@/i18n/config';
 import ChatWidget from '@/components/ChatWidget';
-import { Mail, MessageSquare, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, MessageSquare, Phone, MapPin, Send, ShieldCheck } from 'lucide-react';
 
 interface PageProps {
   params: { lang: string };
@@ -22,26 +22,26 @@ export default function ContactPage({ params }: PageProps) {
 
   const content = {
     en: {
-      title: 'Contact Us',
-      subtitle: 'Have a question or need help? We\'re here for you.',
+      title: 'Contact ViewPlex',
+      subtitle: 'Questions about your campaign, billing, or setup? Our team is here to help.',
       form: {
         name: 'Your Name',
         namePlaceholder: 'John Doe',
         email: 'Email Address',
         emailPlaceholder: 'john@example.com',
-        subject: 'Subject',
-        subjectPlaceholder: 'How can we help you?',
+        subject: 'Topic',
+        subjectPlaceholder: 'Campaign question / Billing / Technical help',
         message: 'Message',
-        messagePlaceholder: 'Tell us more about your inquiry...',
-        submit: 'Send Message',
+        messagePlaceholder: 'Tell us what you need and include your video link if relevant.',
+        submit: 'Send message',
         submitting: 'Sending...',
       },
       contactInfo: {
         title: 'Get In Touch',
-        description: 'Reach out to us through any of these channels',
+        description: 'We usually reply within 24 hours (often faster).',
         email: {
           label: 'Email',
-          value: 'support@socialoura.com',
+          value: 'support@viewplex.com',
         },
         phone: {
           label: 'Phone',
@@ -49,41 +49,41 @@ export default function ContactPage({ params }: PageProps) {
         },
         address: {
           label: 'Address',
-          value: '128 Rue La Boétie, 75008 Paris, France',
+          value: 'Paris, France',
         },
       },
       responseTime: {
         title: 'Quick Response',
-        description: 'We typically respond within 24 hours',
+        description: 'Most requests are answered within 24 hours.',
       },
       support: {
-        title: '24/7 Support',
-        description: 'Our team is always available to help',
+        title: 'Safe & transparent',
+        description: 'We focus on visibility and discovery. No passwords are ever required.',
       },
-      success: 'Message sent successfully! We\'ll get back to you soon.',
+      success: 'Message sent! We\'ll get back to you soon.',
       error: 'Failed to send message. Please try again.',
     },
     fr: {
-      title: 'Nous Contacter',
-      subtitle: 'Une question ou besoin d\'aide ? Nous sommes là pour vous.',
+      title: 'Contacter ViewPlex',
+      subtitle: 'Questions sur votre campagne, la facturation ou la mise en place ? Notre équipe est là pour vous.',
       form: {
         name: 'Votre Nom',
         namePlaceholder: 'Jean Dupont',
         email: 'Adresse Email',
         emailPlaceholder: 'jean@exemple.com',
         subject: 'Sujet',
-        subjectPlaceholder: 'Comment pouvons-nous vous aider ?',
+        subjectPlaceholder: 'Question campagne / Facturation / Assistance technique',
         message: 'Message',
-        messagePlaceholder: 'Parlez-nous de votre demande...',
-        submit: 'Envoyer le Message',
-        submitting: 'Envoi en cours...',
+        messagePlaceholder: 'Dites-nous ce dont vous avez besoin et ajoutez le lien de la vidéo si utile.',
+        submit: 'Envoyer',
+        submitting: 'Envoi...',
       },
       contactInfo: {
         title: 'Entrer en Contact',
-        description: 'Contactez-nous via l\'un de ces canaux',
+        description: 'Réponse sous 24h (souvent plus rapide).',
         email: {
           label: 'Email',
-          value: 'support@socialoura.com',
+          value: 'support@viewplex.com',
         },
         phone: {
           label: 'Téléphone',
@@ -91,16 +91,16 @@ export default function ContactPage({ params }: PageProps) {
         },
         address: {
           label: 'Adresse',
-          value: '128 Rue La Boétie, 75008 Paris, France',
+          value: 'Paris, France',
         },
       },
       responseTime: {
         title: 'Réponse Rapide',
-        description: 'Nous répondons généralement sous 24 heures',
+        description: 'La plupart des demandes reçoivent une réponse sous 24 heures.',
       },
       support: {
-        title: 'Support 24/7',
-        description: 'Notre équipe est toujours disponible pour vous aider',
+        title: 'Sécurité & transparence',
+        description: 'Nous mettons l\'accent sur la visibilité et la découverte. Aucun mot de passe n\'est nécessaire.',
       },
       success: 'Message envoyé avec succès ! Nous vous répondrons bientôt.',
       error: 'Échec de l\'envoi du message. Veuillez réessayer.',
@@ -112,21 +112,40 @@ export default function ContactPage({ params }: PageProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // Here you would normally send the form data to your backend
-    console.log('Form submitted:', formData);
-    
-    setSubmitStatus('success');
-    setIsSubmitting(false);
-    
-    // Reset form after successful submission
-    setTimeout(() => {
-      setFormData({ name: '', email: '', subject: '', message: '' });
+
+    try {
       setSubmitStatus('idle');
-    }, 3000);
+      const composedMessage = [
+        `Name: ${formData.name || 'N/A'}`,
+        `Topic: ${formData.subject || 'N/A'}`,
+        '',
+        formData.message,
+      ].join('\n');
+
+      const res = await fetch('/api/support-message', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: composedMessage,
+          email: formData.email || (lang === 'fr' ? 'Non fourni' : 'Not provided'),
+          language: lang,
+        }),
+      });
+
+      if (!res.ok) {
+        setSubmitStatus('error');
+      } else {
+        setSubmitStatus('success');
+        setTimeout(() => {
+          setFormData({ name: '', email: '', subject: '', message: '' });
+          setSubmitStatus('idle');
+        }, 3000);
+      }
+    } catch {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -142,7 +161,7 @@ export default function ContactPage({ params }: PageProps) {
         {/* Hero Section */}
         <section className="px-4 sm:px-6 lg:px-8 mb-16">
           <div className="max-w-7xl mx-auto text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white mb-6">
               {t.title}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
@@ -170,7 +189,7 @@ export default function ContactPage({ params }: PageProps) {
                       onChange={handleChange}
                       required
                       placeholder={t.form.namePlaceholder}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
                     />
                   </div>
 
@@ -187,7 +206,7 @@ export default function ContactPage({ params }: PageProps) {
                       onChange={handleChange}
                       required
                       placeholder={t.form.emailPlaceholder}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
                     />
                   </div>
 
@@ -204,7 +223,7 @@ export default function ContactPage({ params }: PageProps) {
                       onChange={handleChange}
                       required
                       placeholder={t.form.subjectPlaceholder}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors"
                     />
                   </div>
 
@@ -221,7 +240,7 @@ export default function ContactPage({ params }: PageProps) {
                       required
                       rows={6}
                       placeholder={t.form.messagePlaceholder}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-950 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 transition-colors resize-none"
                     />
                   </div>
 
@@ -229,7 +248,7 @@ export default function ContactPage({ params }: PageProps) {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white font-semibold py-4 px-6 rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg hover:shadow-xl"
+                    className="w-full bg-red-600 hover:bg-red-700 disabled:bg-gray-300 dark:disabled:bg-gray-800 text-white font-black py-4 px-6 rounded-xl transition-colors flex items-center justify-center gap-2 shadow-sm"
                   >
                     <Send className="h-5 w-5" />
                     {isSubmitting ? t.form.submitting : t.form.submit}
@@ -264,14 +283,14 @@ export default function ContactPage({ params }: PageProps) {
                 <div className="space-y-4">
                   {/* Email */}
                   <div className="flex items-start gap-3">
-                    <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/30">
-                      <Mail className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                    <div className="p-2 rounded-xl bg-red-50 border border-red-200 dark:bg-red-950/40 dark:border-red-900">
+                      <Mail className="h-5 w-5 text-red-700 dark:text-red-200" />
                     </div>
                     <div>
                       <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                         {t.contactInfo.email.label}
                       </div>
-                      <a href={`mailto:${t.contactInfo.email.value}`} className="text-blue-600 dark:text-blue-400 hover:underline">
+                      <a href={`mailto:${t.contactInfo.email.value}`} className="text-red-600 dark:text-red-300 hover:underline">
                         {t.contactInfo.email.value}
                       </a>
                     </div>
@@ -279,14 +298,14 @@ export default function ContactPage({ params }: PageProps) {
 
                   {/* Phone */}
                   <div className="flex items-start gap-3">
-                    <div className="p-2 rounded-lg bg-green-100 dark:bg-green-900/30">
-                      <Phone className="h-5 w-5 text-green-600 dark:text-green-400" />
+                    <div className="p-2 rounded-xl bg-gray-50 border border-gray-200 dark:bg-gray-950 dark:border-gray-800">
+                      <Phone className="h-5 w-5 text-gray-700 dark:text-gray-200" />
                     </div>
                     <div>
                       <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                         {t.contactInfo.phone.label}
                       </div>
-                      <a href={`tel:${t.contactInfo.phone.value}`} className="text-green-600 dark:text-green-400 hover:underline">
+                      <a href={`tel:${t.contactInfo.phone.value}`} className="text-gray-700 dark:text-gray-200 hover:underline">
                         {t.contactInfo.phone.value}
                       </a>
                     </div>
@@ -294,8 +313,8 @@ export default function ContactPage({ params }: PageProps) {
 
                   {/* Address */}
                   <div className="flex items-start gap-3">
-                    <div className="p-2 rounded-lg bg-purple-100 dark:bg-purple-900/30">
-                      <MapPin className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+                    <div className="p-2 rounded-xl bg-gray-50 border border-gray-200 dark:bg-gray-950 dark:border-gray-800">
+                      <MapPin className="h-5 w-5 text-gray-700 dark:text-gray-200" />
                     </div>
                     <div>
                       <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -310,10 +329,10 @@ export default function ContactPage({ params }: PageProps) {
               </div>
 
               {/* Response Time Card */}
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl border border-blue-200 dark:border-blue-800 p-6">
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <MessageSquare className="h-6 w-6 text-blue-600 dark:text-blue-400" />
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                  <MessageSquare className="h-6 w-6 text-red-700 dark:text-red-200" />
+                  <h3 className="text-lg font-black text-gray-900 dark:text-white">
                     {t.responseTime.title}
                   </h3>
                 </div>
@@ -323,10 +342,10 @@ export default function ContactPage({ params }: PageProps) {
               </div>
 
               {/* 24/7 Support Card */}
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl border border-green-200 dark:border-green-800 p-6">
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="text-2xl">🛟</div>
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                  <ShieldCheck className="h-6 w-6 text-green-700 dark:text-green-400" />
+                  <h3 className="text-lg font-black text-gray-900 dark:text-white">
                     {t.support.title}
                   </h3>
                 </div>
@@ -342,7 +361,7 @@ export default function ContactPage({ params }: PageProps) {
       {/* Footer */}
       <footer className="border-t border-gray-200 dark:border-gray-800 py-8 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600 dark:text-gray-400">
-          <p>&copy; 2026 Socialoura. All rights reserved.</p>
+          <p>&copy; 2026 ViewPlex. All rights reserved.</p>
         </div>
       </footer>
 
