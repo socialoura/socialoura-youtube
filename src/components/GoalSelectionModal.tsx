@@ -37,6 +37,13 @@ export default function GoalSelectionModal({
   const [showCustomSlider, setShowCustomSlider] = useState(false);
   const [customFollowers, setCustomFollowers] = useState(100);
 
+  const getUnitLabel = () => {
+    if (platform === 'youtube') {
+      return language === 'fr' ? 'vues' : 'views';
+    }
+    return language === 'fr' ? 'abonnés' : 'followers';
+  };
+
   const text = {
     en: {
       title: 'Choose your visibility package',
@@ -104,7 +111,7 @@ export default function GoalSelectionModal({
         const response = await fetch('/api/admin/pricing');
         if (response.ok) {
           const data = await response.json();
-          const platformGoals = data.youtube || data.instagram || [];
+          const platformGoals = data[platform] || data.youtube || data.instagram || [];
           
           // Convert API data to FollowerGoal format
           const formattedGoals: FollowerGoal[] = platformGoals.map((goal: { followers: string; price: string }, index: number) => {
@@ -275,8 +282,8 @@ export default function GoalSelectionModal({
                   <span className="text-white text-xl font-bold">{username.charAt(0).toUpperCase()}</span>
                 </div>
                 <div className="text-left">
-                  <div className="text-xs text-gray-400 uppercase tracking-wider">Account</div>
-                  <div className="text-lg font-bold text-white">@{username}</div>
+                  <div className="text-xs text-gray-400 uppercase tracking-wider">{platform === 'youtube' ? 'Video' : 'Account'}</div>
+                  <div className="text-lg font-bold text-white">{platform === 'youtube' ? username : `@${username}`}</div>
                 </div>
               </div>
               <h2 className="text-3xl font-black text-white mb-2">
@@ -324,6 +331,9 @@ export default function GoalSelectionModal({
                     </div>
                     <div className="text-2xl font-black text-white mb-1 group-hover:text-purple-300 transition-colors">
                       +{goal.followers.toLocaleString()}
+                    </div>
+                    <div className="text-[10px] text-gray-400 uppercase tracking-wider -mt-1 mb-2">
+                      {getUnitLabel()}
                     </div>
                     <div className="text-xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                       {language === 'fr' ? `${goal.price.toFixed(2)}€` : `$${goal.price.toFixed(2)}`}
@@ -374,7 +384,7 @@ export default function GoalSelectionModal({
                     <h3 className="text-xl font-bold text-white">
                       {customFollowers.toLocaleString()}
                     </h3>
-                    <p className="text-sm text-gray-400">followers</p>
+                    <p className="text-sm text-gray-400">{getUnitLabel()}</p>
                   </div>
                   <div className="text-right">
                     <div className="text-3xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">

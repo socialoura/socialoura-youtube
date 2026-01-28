@@ -3,10 +3,13 @@
 import { useState } from 'react';
 import { Language } from '@/i18n/config';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Plus, Minus, BarChart3, Calendar, MessageCircle, HeadphonesIcon } from 'lucide-react';
 import ChatWidget from '@/components/ChatWidget';
 import ReviewsSection from '@/components/ReviewsSection';
 import TrustedBrands from '@/components/TrustedBrands';
+import GoalSelectionModal from '@/components/GoalSelectionModal';
+import PaymentModal from '@/components/PaymentModal';
 
 interface PageProps {
   params: { lang: string };
@@ -14,10 +17,64 @@ interface PageProps {
 
 export default function HomePage({ params }: PageProps) {
   const lang = params.lang as Language;
+  const router = useRouter();
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  const [youtubeVideoUrl, setYoutubeVideoUrl] = useState('');
+  const [email, setEmail] = useState('');
+  const [selectedGoal, setSelectedGoal] = useState<{ followers: number; price: number } | null>(null);
+  const [isGoalModalOpen, setIsGoalModalOpen] = useState(false);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
 
   const toggleFaq = (index: number) => {
     setOpenFaqIndex(openFaqIndex === index ? null : index);
+  };
+
+  const normalizeYoutubeUrlInput = (value: string) => {
+    const trimmed = value.trimStart();
+    if (trimmed.startsWith('https://')) {
+      return `http://${trimmed.slice('https://'.length)}`;
+    }
+    return value;
+  };
+
+  const handleContinue = () => {
+    if (youtubeVideoUrl.trim().length > 0) {
+      setIsGoalModalOpen(true);
+    }
+  };
+
+  const getCurrency = () => (lang === 'fr' ? 'eur' : 'usd');
+
+  const handleGoalSelected = (goal: { followers: number; price: number }, emailParam: string) => {
+    setSelectedGoal(goal);
+    setEmail(emailParam);
+    setIsGoalModalOpen(false);
+    setIsPaymentModalOpen(true);
+  };
+
+  const handlePaymentSuccess = async (paymentIntentIdParam: string) => {
+    setIsPaymentModalOpen(false);
+
+    try {
+      await fetch('/api/orders/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: youtubeVideoUrl,
+          email,
+          platform: 'youtube',
+          followers: selectedGoal?.followers || 0,
+          amount: selectedGoal?.price || 0,
+          paymentId: paymentIntentIdParam,
+          youtubeVideoUrl,
+        }),
+      });
+    } catch {
+      // keep silent, payment already succeeded
+    }
+
+    router.push(`/${lang}/packs?success=1&payment_id=${encodeURIComponent(paymentIntentIdParam)}`);
   };
   
   const content = {
@@ -174,23 +231,34 @@ export default function HomePage({ params }: PageProps) {
               {t.hero.subheadline}
             </p>
             
-            {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <Link
-                href={`/${lang}/packs`}
-                className="group relative overflow-hidden rounded-xl bg-red-600 hover:bg-red-700 px-8 py-4 text-base font-bold text-white shadow-lg shadow-red-500/25 hover:shadow-xl hover:shadow-red-500/40 hover:scale-[1.02] transition-all duration-300 flex items-center gap-3"
-              >
-                <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" className="w-5 h-5 text-white" fill="currentColor">
-                    <path d="M10 8.5V15.5L16 12L10 8.5Z" />
-                    <path d="M21 12c0-2.5-.2-4.2-.5-5.3a2.5 2.5 0 0 0-1.8-1.8C17.6 4.6 12 4.6 12 4.6s-5.6 0-6.7.3A2.5 2.5 0 0 0 3.5 6.7C3.2 7.8 3 9.5 3 12s.2 4.2.5 5.3a2.5 2.5 0 0 0 1.8 1.8c1.1.3 6.7.3 6.7.3s5.6 0 6.7-.3a2.5 2.5 0 0 0 1.8-1.8c.3-1.1.5-2.8.5-5.3Z" fillRule="evenodd" clipRule="evenodd" opacity="0.25" />
-                  </svg>
+            {/* Funnel Input */}
+            <div className="max-w-xl mx-auto lg:mx-0">
+              <div className="flex flex-col sm:flex-row gap-3 p-2 bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50">
+                <div className="flex-1 relative">
+                  <input
+                    type="text"
+                    value={youtubeVideoUrl}
+                    onChange={(e) => setYoutubeVideoUrl(normalizeYoutubeUrlInput(e.target.value))}
+                    placeholder={lang === 'fr' ? 'Lien de votre vidéo YouTube' : 'Your YouTube video link'}
+                    className="w-full px-4 py-4 text-base bg-transparent border-0 focus:ring-0 text-white placeholder-gray-500"
+                    onKeyDown={(e) => e.key === 'Enter' && handleContinue()}
+                  />
                 </div>
-                <span>{t.hero.cta}</span>
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </Link>
+                <button
+                  onClick={handleContinue}
+                  className="group relative overflow-hidden rounded-xl bg-red-600 hover:bg-red-700 px-8 py-4 text-base font-bold text-white shadow-lg shadow-red-500/25 hover:shadow-xl hover:shadow-red-500/40 hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-3"
+                >
+                  <span>{lang === 'fr' ? 'Continuer' : 'Continue'}</span>
+                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </button>
+              </div>
+              <div className="mt-3 text-xs text-gray-500">
+                <Link href={`/${lang}/packs`} className="hover:text-gray-300 transition-colors">
+                  {lang === 'fr' ? 'Voir tous les packs' : 'See all packs'}
+                </Link>
+              </div>
             </div>
             
             {/* Trust indicators */}
@@ -428,6 +496,35 @@ export default function HomePage({ params }: PageProps) {
 
       {/* Chat Widget */}
       <ChatWidget lang={lang} />
+
+      {/* Goal Selection Modal */}
+      <GoalSelectionModal
+        isOpen={isGoalModalOpen}
+        onClose={() => setIsGoalModalOpen(false)}
+        onSelectGoal={handleGoalSelected}
+        username={youtubeVideoUrl}
+        platform="youtube"
+        language={lang}
+      />
+
+      {/* Payment Modal */}
+      {selectedGoal && (
+        <PaymentModal
+          isOpen={isPaymentModalOpen}
+          amount={Math.round(selectedGoal.price * 100)}
+          currency={getCurrency()}
+          onClose={() => setIsPaymentModalOpen(false)}
+          onSuccess={handlePaymentSuccess}
+          productName={`+${selectedGoal.followers} YouTube views`}
+          language={lang}
+          email={email}
+          orderDetails={{
+            platform: 'youtube',
+            followers: selectedGoal.followers,
+            username: youtubeVideoUrl,
+          }}
+        />
+      )}
     </div>
   );
 }
