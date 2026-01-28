@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Trash2, Plus, Save, LogOut, Play, Music, AlertCircle, Settings, ShoppingCart, Eye, EyeOff, BarChart3, Search, Filter, MessageSquare, X, ChevronDown, Tag, Percent, Calendar, Hash } from 'lucide-react';
+import { Trash2, Plus, Save, LogOut, Play, AlertCircle, Settings, ShoppingCart, Eye, EyeOff, BarChart3, Search, Filter, MessageSquare, X, ChevronDown, Tag, Percent, Calendar, Hash } from 'lucide-react';
 import AnalyticsDashboard from '@/components/admin/AnalyticsDashboard';
 
 interface Goal {
@@ -12,7 +12,6 @@ interface Goal {
 
 interface PricingData {
   youtube: Goal[];
-  tiktok: Goal[];
 }
 
 interface Order {
@@ -33,7 +32,7 @@ type OrderStatus = 'pending' | 'processing' | 'completed' | 'cancelled';
 
 interface DeleteConfirmation {
   isOpen: boolean;
-  platform: 'youtube' | 'tiktok' | null;
+  platform: 'youtube' | null;
   index: number | null;
   followers: string;
 }
@@ -65,7 +64,6 @@ export default function AdminDashboard() {
   const [isSaving, setIsSaving] = useState(false);
   const [pricing, setPricing] = useState<PricingData>({
     youtube: [],
-    tiktok: [],
   });
   const [orders, setOrders] = useState<Order[]>([]);
   const [passwordData, setPasswordData] = useState({
@@ -153,7 +151,6 @@ export default function AdminDashboard() {
         const data = await response.json();
         setPricing({
           youtube: data.youtube || [],
-          tiktok: data.tiktok || [],
         });
       }
     } catch (error) {
@@ -484,14 +481,14 @@ export default function AdminDashboard() {
     return true;
   });
 
-  const handleAddGoal = (platform: 'youtube' | 'tiktok') => {
+  const handleAddGoal = (platform: 'youtube') => {
     setPricing((prev) => ({
       ...prev,
       [platform]: [...prev[platform], { followers: '', price: '' }],
     }));
   };
 
-  const handleRemoveGoal = (platform: 'youtube' | 'tiktok', index: number) => {
+  const handleRemoveGoal = (platform: 'youtube', index: number) => {
     const goal = pricing[platform][index];
     setDeleteConfirmation({
       isOpen: true,
@@ -554,7 +551,7 @@ export default function AdminDashboard() {
   };
 
   const handleUpdateGoal = (
-    platform: 'youtube' | 'tiktok',
+    platform: 'youtube',
     index: number,
     field: 'followers' | 'price',
     value: string
@@ -829,7 +826,7 @@ export default function AdminDashboard() {
                     <div className="flex gap-4 items-end">
                       <div className="flex-1">
                         <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                          Followers
+                          Views
                         </label>
                         <input
                           type="text"
@@ -837,7 +834,7 @@ export default function AdminDashboard() {
                           onChange={(e) =>
                             handleUpdateGoal('youtube', index, 'followers', e.target.value)
                           }
-                          placeholder="e.g., 100"
+                          placeholder="e.g., 1000"
                           className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
                         />
                       </div>
@@ -871,89 +868,6 @@ export default function AdminDashboard() {
                 {pricing.youtube.length === 0 && (
                   <div className="text-center py-12 px-4 bg-gray-50 dark:bg-gray-700/30 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600">
                     <Play className="w-12 h-12 text-gray-400 dark:text-gray-500 mx-auto mb-3" />
-                    <p className="text-gray-500 dark:text-gray-400 font-medium">
-                      No pricing goals yet. Click &quot;Add Goal&quot; to create one.
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="mb-8 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-pink-100 dark:border-pink-900/30">
-              <div className="flex justify-between items-center mb-8">
-                <div className="flex items-center gap-3">
-                  <div className="p-3 bg-gradient-to-br from-pink-500 to-purple-500 rounded-xl shadow-lg">
-                    <Music className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                      TikTok Pricing
-                    </h2>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">
-                      {pricing.tiktok.length} option{pricing.tiktok.length !== 1 ? 's' : ''} available
-                    </p>
-                  </div>
-                </div>
-                <button
-                  onClick={() => handleAddGoal('tiktok')}
-                  className="flex items-center gap-2 px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-pink-600 to-purple-600 rounded-xl hover:from-pink-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl hover:scale-105"
-                >
-                  <Plus className="w-4 h-4" />
-                  Add Goal
-                </button>
-              </div>
-
-              <div className="grid gap-4">
-                {pricing.tiktok.map((goal, index) => (
-                  <div
-                    key={index}
-                    className="group relative bg-gradient-to-br from-gray-50 to-pink-50/30 dark:from-gray-700/50 dark:to-pink-900/10 rounded-xl p-5 border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all"
-                  >
-                    <div className="flex gap-4 items-end">
-                      <div className="flex-1">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                          Followers
-                        </label>
-                        <input
-                          type="text"
-                          value={goal.followers}
-                          onChange={(e) =>
-                            handleUpdateGoal('tiktok', index, 'followers', e.target.value)
-                          }
-                          placeholder="e.g., 100"
-                          className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
-                        />
-                      </div>
-
-                      <div className="flex-1">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                          Price (€)
-                        </label>
-                        <input
-                          type="text"
-                          value={goal.price}
-                          onChange={(e) =>
-                            handleUpdateGoal('tiktok', index, 'price', e.target.value)
-                          }
-                          placeholder="e.g., 2.90"
-                          className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-pink-500 focus:border-pink-500 transition-all"
-                        />
-                      </div>
-
-                      <button
-                        onClick={() => handleRemoveGoal('tiktok', index)}
-                        className="p-3 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-xl transition-all hover:scale-110 group-hover:shadow-md"
-                        title="Delete this pricing option"
-                      >
-                        <Trash2 className="w-5 h-5" />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-
-                {pricing.tiktok.length === 0 && (
-                  <div className="text-center py-12 px-4 bg-gray-50 dark:bg-gray-700/30 rounded-xl border-2 border-dashed border-gray-300 dark:border-gray-600">
-                    <Music className="w-12 h-12 text-gray-400 dark:text-gray-500 mx-auto mb-3" />
                     <p className="text-gray-500 dark:text-gray-400 font-medium">
                       No pricing goals yet. Click &quot;Add Goal&quot; to create one.
                     </p>
@@ -1199,7 +1113,7 @@ export default function AdminDashboard() {
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <input
                     type="text"
-                    placeholder="Search username or email..."
+                    placeholder="Search YouTube link or email..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10 pr-4 py-2 w-64 border border-gray-300 dark:border-gray-600 rounded-xl bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent"
@@ -1231,7 +1145,6 @@ export default function AdminDashboard() {
                     >
                       <option value="all">All Platforms</option>
                       <option value="youtube">YouTube</option>
-                      <option value="tiktok">TikTok</option>
                     </select>
                   </div>
                   <div>
@@ -1291,9 +1204,9 @@ export default function AdminDashboard() {
                   <thead>
                     <tr className="border-b border-gray-200 dark:border-gray-700">
                       <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Order ID</th>
-                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Username</th>
+                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">YouTube Link</th>
                       <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Platform</th>
-                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Followers</th>
+                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Views</th>
                       <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Price</th>
                       <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Order Status</th>
                       <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Date</th>
@@ -1306,12 +1219,12 @@ export default function AdminDashboard() {
                       <tr key={order.id} className="border-b border-gray-100 dark:border-gray-700/50 hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
                         <td className="py-4 px-4 text-sm text-gray-900 dark:text-white font-medium">#{order.id}</td>
                         <td className="py-4 px-4">
-                          <div className="text-sm text-gray-900 dark:text-white">@{order.username}</div>
+                          <div className="text-sm text-gray-900 dark:text-white break-all">{order.username}</div>
                           <div className="text-xs text-gray-500 dark:text-gray-400">{order.email || '-'}</div>
                         </td>
                         <td className="py-4 px-4">
                           <span className="inline-flex items-center gap-1 text-sm font-medium text-gray-900 dark:text-white capitalize">
-                            {order.platform === 'youtube' ? <Play className="w-4 h-4 text-red-600" /> : <Music className="w-4 h-4 text-cyan-500" />}
+                            <Play className="w-4 h-4 text-red-600" />
                             {order.platform}
                           </span>
                         </td>
