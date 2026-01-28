@@ -8,7 +8,8 @@
 ## Step 1: Set Up MySQL Database on IONOS
 
 1. **Log in to IONOS Control Panel**
-   - Go to https://my.ionos.fr/
+   - Go to https://my.ionos.fr/ 
+   
    - Click **"Connexion"** and enter your credentials
 
 2. **Create a MySQL Database**
