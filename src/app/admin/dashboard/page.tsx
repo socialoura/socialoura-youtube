@@ -22,6 +22,7 @@ interface Order {
   platform: string;
   followers: number;
   price: number;
+  cost?: number;
   payment_status: string;
   payment_intent_id: string | null;
   created_at: string;
@@ -103,6 +104,8 @@ export default function AdminDashboard() {
   const [showFilters, setShowFilters] = useState(false);
   const [editingNotes, setEditingNotes] = useState<number | null>(null);
   const [tempNotes, setTempNotes] = useState('');
+  const [editingCost, setEditingCost] = useState<number | null>(null);
+  const [tempCost, setTempCost] = useState('');
   const [updatingOrderId, setUpdatingOrderId] = useState<number | null>(null);
 
   // Promo codes states
@@ -158,6 +161,43 @@ export default function AdminDashboard() {
       console.error('Error fetching pricing:', error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleSaveCost = async (orderId: number) => {
+    setUpdatingOrderId(orderId);
+    try {
+      const token = localStorage.getItem('adminToken');
+      const parsedCost = Number(tempCost);
+      if (!Number.isFinite(parsedCost) || parsedCost < 0) {
+        setMessage('Invalid cost. Must be a number >= 0');
+        return;
+      }
+
+      const response = await fetch('/api/admin/orders/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ orderId, cost: parsedCost }),
+      });
+
+      if (response.ok) {
+        setOrders((prev) =>
+          prev.map((order) => (order.id === orderId ? { ...order, cost: parsedCost } : order))
+        );
+        setEditingCost(null);
+        setTempCost('');
+      } else {
+        const data = await response.json();
+        setMessage(data.error || 'Failed to update cost');
+      }
+    } catch (error) {
+      console.error('Error updating order cost:', error);
+      setMessage('An error occurred while updating cost');
+    } finally {
+      setUpdatingOrderId(null);
     }
   };
 
@@ -1270,6 +1310,7 @@ export default function AdminDashboard() {
                       <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Platform</th>
                       <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Views</th>
                       <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Price</th>
+                      <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Cost</th>
                       <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Order Status</th>
                       <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Date</th>
                       <th className="text-left py-3 px-4 text-sm font-semibold text-gray-700 dark:text-gray-300">Notes</th>
@@ -1292,6 +1333,47 @@ export default function AdminDashboard() {
                         </td>
                         <td className="py-4 px-4 text-sm text-gray-600 dark:text-gray-400">{order.followers.toLocaleString()}</td>
                         <td className="py-4 px-4 text-sm font-semibold text-gray-900 dark:text-white">€{Number(order.price).toFixed(2)}</td>
+                        <td className="py-4 px-4">
+                          {editingCost === order.id ? (
+                            <div className="flex items-center gap-2">
+                              <input
+                                type="text"
+                                value={tempCost}
+                                onChange={(e) => setTempCost(e.target.value)}
+                                className="w-24 px-2 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
+                                placeholder="0.00"
+                                autoFocus
+                              />
+                              <button
+                                onClick={() => handleSaveCost(order.id)}
+                                disabled={updatingOrderId === order.id}
+                                className="p-1 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 rounded"
+                              >
+                                <Save className="w-4 h-4" />
+                              </button>
+                              <button
+                                onClick={() => {
+                                  setEditingCost(null);
+                                  setTempCost('');
+                                }}
+                                className="p-1 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+                            </div>
+                          ) : (
+                            <button
+                              onClick={() => {
+                                setEditingCost(order.id);
+                                setTempCost(order.cost !== undefined ? String(order.cost) : '0');
+                              }}
+                              className="inline-flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400"
+                            >
+                              <Hash className="w-3 h-3" />
+                              €{Number(order.cost || 0).toFixed(2)}
+                            </button>
+                          )}
+                        </td>
                         <td className="py-4 px-4">
                           <div className="relative">
                             <select

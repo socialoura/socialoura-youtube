@@ -631,7 +631,7 @@ export default function InstagramPage({ params }: PageProps) {
       <TrustedBrands lang={lang} />
 
       {/* Reviews Section */}
-      <ReviewsSection lang={lang} platform="instagram" />
+      <ReviewsSection lang={lang} platform="all" />
 
       {/* Chat Widget */}
       <ChatWidget lang={lang} />

@@ -13,6 +13,7 @@ const memoryOrders: Array<{
   platform: string;
   followers: number;
   price: number;
+  cost?: number;
   payment_status: string;
   payment_intent_id: string | null;
   created_at: string;

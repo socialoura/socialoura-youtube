@@ -624,7 +624,7 @@ export default function TikTokPage({ params }: PageProps) {
       <TrustedBrands lang={lang} />
 
       {/* Reviews Section */}
-      <ReviewsSection lang={lang} platform="tiktok" />
+      <ReviewsSection lang={lang} platform="all" />
 
       {/* Chat Widget */}
       <ChatWidget lang={lang} />

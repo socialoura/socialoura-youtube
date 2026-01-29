@@ -56,6 +56,7 @@ export async function initDatabase() {
       await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS order_status VARCHAR(50) DEFAULT 'pending'`;
       await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS notes TEXT DEFAULT ''`;
       await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS youtube_video_url TEXT`;
+      await sql`ALTER TABLE orders ADD COLUMN IF NOT EXISTS cost DECIMAL(10, 2) DEFAULT 0`;
     } catch (e) {
       // Columns might already exist
       console.log('Columns may already exist:', e);
@@ -89,6 +90,16 @@ export async function initDatabase() {
         current_uses INTEGER DEFAULT 0,
         expires_at TIMESTAMP DEFAULT NULL,
         is_active BOOLEAN DEFAULT true,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `;
+
+    // Create marketing_costs table if it doesn't exist
+    await sql`
+      CREATE TABLE IF NOT EXISTS marketing_costs (
+        month VARCHAR(7) PRIMARY KEY,
+        google_ads_cost DECIMAL(10, 2) NOT NULL DEFAULT 0,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
@@ -316,6 +327,45 @@ export async function updateOrderNotes(orderId: number, notes: string) {
     `;
   } catch (error) {
     console.error('Error updating order notes:', error);
+    throw error;
+  }
+}
+
+export async function updateOrderCost(orderId: number, cost: number) {
+  try {
+    await sql`
+      UPDATE orders SET cost = ${cost}, updated_at = CURRENT_TIMESTAMP
+      WHERE id = ${orderId}
+    `;
+  } catch (error) {
+    console.error('Error updating order cost:', error);
+    throw error;
+  }
+}
+
+export async function getMarketingCosts() {
+  try {
+    const result = await sql`
+      SELECT month, google_ads_cost FROM marketing_costs
+      ORDER BY month ASC
+    `;
+    return result.rows as Array<{ month: string; google_ads_cost: string | number }>;
+  } catch (error) {
+    console.error('Error fetching marketing costs:', error);
+    return [];
+  }
+}
+
+export async function upsertMarketingCost(month: string, googleAdsCost: number) {
+  try {
+    await sql`
+      INSERT INTO marketing_costs (month, google_ads_cost)
+      VALUES (${month}, ${googleAdsCost})
+      ON CONFLICT (month)
+      DO UPDATE SET google_ads_cost = ${googleAdsCost}, updated_at = CURRENT_TIMESTAMP
+    `;
+  } catch (error) {
+    console.error('Error upserting marketing cost:', error);
     throw error;
   }
 }

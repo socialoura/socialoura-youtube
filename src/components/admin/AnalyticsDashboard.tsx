@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useCallback } from 'react';
+import { useMemo, useCallback, useEffect, useState } from 'react';
 import {
   LineChart,
   Line,
@@ -26,6 +26,7 @@ interface Order {
   followers: number;
   price?: number;
   amount?: number;
+  cost?: number;
   payment_status?: string;
   payment_intent_id?: string | null;
   created_at: string;
@@ -39,6 +40,84 @@ interface AnalyticsDashboardProps {
 type TimeRange = 'week' | 'month' | 'year';
 
 export default function AnalyticsDashboard({ orders, totalVisitors = 0 }: AnalyticsDashboardProps) {
+  const [marketingCosts, setMarketingCosts] = useState<Record<string, number>>({});
+  const [selectedMonth, setSelectedMonth] = useState<string>(() => {
+    const now = new Date();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    return `${now.getFullYear()}-${m}`;
+  });
+  const [googleAdsCostInput, setGoogleAdsCostInput] = useState<string>('');
+  const [isSavingGoogleAdsCost, setIsSavingGoogleAdsCost] = useState(false);
+  const [marketingError, setMarketingError] = useState<string>('');
+
+  useEffect(() => {
+    const fetchMarketingCosts = async () => {
+      try {
+        setMarketingError('');
+        const token = localStorage.getItem('adminToken');
+        const response = await fetch('/api/admin/marketing-costs', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) {
+          const data = await response.json().catch(() => ({}));
+          setMarketingError(data.error || 'Failed to fetch marketing costs');
+          return;
+        }
+
+        const data = await response.json();
+        setMarketingCosts(data.costs || {});
+      } catch (error) {
+        console.error('Error fetching marketing costs:', error);
+        setMarketingError('Failed to fetch marketing costs');
+      }
+    };
+
+    fetchMarketingCosts();
+  }, []);
+
+  useEffect(() => {
+    const current = marketingCosts[selectedMonth];
+    setGoogleAdsCostInput(current !== undefined ? String(current) : '');
+  }, [marketingCosts, selectedMonth]);
+
+  const saveGoogleAdsCost = async () => {
+    setIsSavingGoogleAdsCost(true);
+    try {
+      setMarketingError('');
+      const token = localStorage.getItem('adminToken');
+      const parsed = Number(googleAdsCostInput);
+      if (!Number.isFinite(parsed) || parsed < 0) {
+        setMarketingError('Invalid Google Ads cost. Must be a number >= 0');
+        return;
+      }
+
+      const response = await fetch('/api/admin/marketing-costs', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ month: selectedMonth, googleAdsCost: parsed }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        setMarketingError(data.error || 'Failed to update Google Ads cost');
+        return;
+      }
+
+      setMarketingCosts((prev) => ({ ...prev, [selectedMonth]: parsed }));
+    } catch (error) {
+      console.error('Error saving marketing cost:', error);
+      setMarketingError('Failed to update Google Ads cost');
+    } finally {
+      setIsSavingGoogleAdsCost(false);
+    }
+  };
+
   // Calculate revenue data by time period
   const getRevenueData = useCallback((range: TimeRange) => {
     const now = new Date();
@@ -89,6 +168,54 @@ export default function AnalyticsDashboard({ orders, totalVisitors = 0 }: Analyt
     }));
   }, [orders]);
 
+  const getProfitData = useCallback((range: TimeRange) => {
+    const now = new Date();
+    const data: { [key: string]: number } = {};
+
+    let daysBack: number;
+    let dateFormat: (date: Date) => string;
+
+    switch (range) {
+      case 'week':
+        daysBack = 7;
+        dateFormat = (date: Date) => date.toLocaleDateString('en-US', { weekday: 'short' });
+        break;
+      case 'month':
+        daysBack = 30;
+        dateFormat = (date: Date) => date.toLocaleDateString('en-US', { day: '2-digit', month: 'short' });
+        break;
+      case 'year':
+        daysBack = 365;
+        dateFormat = (date: Date) => date.toLocaleDateString('en-US', { month: 'short' });
+        break;
+    }
+
+    for (let i = daysBack - 1; i >= 0; i--) {
+      const date = new Date(now);
+      date.setDate(date.getDate() - i);
+      const key = dateFormat(date);
+      if (!data[key]) data[key] = 0;
+    }
+
+    orders.forEach((order) => {
+      const orderDate = new Date(order.created_at);
+      const diffTime = now.getTime() - orderDate.getTime();
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays <= daysBack) {
+        const key = dateFormat(orderDate);
+        const revenue = Number(order.price) || Number(order.amount) || 0;
+        const cost = Number(order.cost) || 0;
+        data[key] = (data[key] || 0) + (revenue - cost);
+      }
+    });
+
+    return Object.entries(data).map(([name, profit]) => ({
+      name,
+      profit: Number(profit.toFixed(2)),
+    }));
+  }, [orders]);
+
   // Platform distribution
   const platformData = useMemo(() => {
     const instagram = orders.filter(o => o.platform === 'instagram').length;
@@ -113,6 +240,28 @@ export default function AnalyticsDashboard({ orders, totalVisitors = 0 }: Analyt
     return total.toFixed(2);
   }, [orders]);
 
+  const totalCost = useMemo(() => {
+    const total = orders.reduce((sum, order) => sum + (Number(order.cost) || 0), 0);
+    return total.toFixed(2);
+  }, [orders]);
+
+  const totalProfit = useMemo(() => {
+    const revenue = orders.reduce((sum, order) => sum + (Number(order.price) || Number(order.amount) || 0), 0);
+    const cost = orders.reduce((sum, order) => sum + (Number(order.cost) || 0), 0);
+    return (revenue - cost).toFixed(2);
+  }, [orders]);
+
+  const totalGoogleAdsCost = useMemo(() => {
+    const total = Object.values(marketingCosts).reduce((sum, value) => sum + (Number(value) || 0), 0);
+    return total.toFixed(2);
+  }, [marketingCosts]);
+
+  const totalProfitAfterAds = useMemo(() => {
+    const profit = Number(totalProfit) || 0;
+    const ads = Number(totalGoogleAdsCost) || 0;
+    return (profit - ads).toFixed(2);
+  }, [totalProfit, totalGoogleAdsCost]);
+
   // Revenue by period
   const revenueByPeriod = useMemo(() => {
     const now = new Date();
@@ -124,18 +273,26 @@ export default function AnalyticsDashboard({ orders, totalVisitors = 0 }: Analyt
     let week = 0;
     let month = 0;
 
+    let todayCost = 0;
+    let weekCost = 0;
+    let monthCost = 0;
+
     orders.forEach(order => {
       const orderDate = new Date(order.created_at);
       const amount = Number(order.price) || Number(order.amount) || 0;
+      const cost = Number(order.cost) || 0;
 
       if (orderDate >= todayStart) {
         today += amount;
+        todayCost += cost;
       }
       if (orderDate >= weekAgo) {
         week += amount;
+        weekCost += cost;
       }
       if (orderDate >= monthAgo) {
         month += amount;
+        monthCost += cost;
       }
     });
 
@@ -143,8 +300,63 @@ export default function AnalyticsDashboard({ orders, totalVisitors = 0 }: Analyt
       today: today.toFixed(2),
       week: week.toFixed(2),
       month: month.toFixed(2),
+      todayProfit: (today - todayCost).toFixed(2),
+      weekProfit: (week - weekCost).toFixed(2),
+      monthProfit: (month - monthCost).toFixed(2),
     };
   }, [orders]);
+
+  const monthlyProfitAfterAdsData = useMemo(() => {
+    const now = new Date();
+    const data: Array<{ name: string; profit: number; revenue: number; cost: number; googleAds: number }> = [];
+
+    for (let i = 11; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const monthKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+      const label = d.toLocaleDateString('en-US', { month: 'short' });
+
+      let revenue = 0;
+      let cost = 0;
+
+      orders.forEach((order) => {
+        const od = new Date(order.created_at);
+        const ok = `${od.getFullYear()}-${String(od.getMonth() + 1).padStart(2, '0')}`;
+        if (ok !== monthKey) return;
+        revenue += Number(order.price) || Number(order.amount) || 0;
+        cost += Number(order.cost) || 0;
+      });
+
+      const googleAds = Number(marketingCosts[monthKey]) || 0;
+      const profit = revenue - cost - googleAds;
+
+      data.push({
+        name: label,
+        profit: Number(profit.toFixed(2)),
+        revenue: Number(revenue.toFixed(2)),
+        cost: Number(cost.toFixed(2)),
+        googleAds: Number(googleAds.toFixed(2)),
+      });
+    }
+
+    return data;
+  }, [orders, marketingCosts]);
+
+  const selectedMonthProfitAfterAds = useMemo(() => {
+    const monthKey = selectedMonth;
+    let revenue = 0;
+    let cost = 0;
+
+    orders.forEach((order) => {
+      const od = new Date(order.created_at);
+      const ok = `${od.getFullYear()}-${String(od.getMonth() + 1).padStart(2, '0')}`;
+      if (ok !== monthKey) return;
+      revenue += Number(order.price) || Number(order.amount) || 0;
+      cost += Number(order.cost) || 0;
+    });
+
+    const googleAds = Number(marketingCosts[monthKey]) || 0;
+    return (revenue - cost - googleAds).toFixed(2);
+  }, [orders, marketingCosts, selectedMonth]);
 
   // Conversion rate
   const conversionRate = useMemo(() => {
@@ -178,6 +390,7 @@ export default function AnalyticsDashboard({ orders, totalVisitors = 0 }: Analyt
 
   const weeklyData = useMemo(() => getRevenueData('week'), [getRevenueData]);
   const monthlyData = useMemo(() => getRevenueData('month'), [getRevenueData]);
+  const weeklyProfitData = useMemo(() => getProfitData('week'), [getProfitData]);
 
   const COLORS = ['#E1306C', '#00F2EA'];
 
@@ -198,14 +411,60 @@ export default function AnalyticsDashboard({ orders, totalVisitors = 0 }: Analyt
             <p className="text-2xl font-bold mt-1">€{revenueByPeriod.week}</p>
           </div>
           <div className="bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl p-4 text-white">
-            <p className="text-purple-100 text-xs font-medium uppercase">Last 30 Days</p>
-            <p className="text-2xl font-bold mt-1">€{revenueByPeriod.month}</p>
+            <p className="text-purple-100 text-xs font-medium uppercase">Profit (7 Days)</p>
+            <p className="text-2xl font-bold mt-1">€{revenueByPeriod.weekProfit}</p>
           </div>
           <div className="bg-gradient-to-br from-green-400 to-emerald-500 rounded-xl p-4 text-white">
-            <p className="text-green-100 text-xs font-medium uppercase">All Time</p>
-            <p className="text-2xl font-bold mt-1">€{totalRevenue}</p>
+            <p className="text-green-100 text-xs font-medium uppercase">All Time Profit (After Ads)</p>
+            <p className="text-2xl font-bold mt-1">€{totalProfitAfterAds}</p>
           </div>
         </div>
+      </div>
+
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700">
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white">Google Ads Monthly Cost</h3>
+            <p className="text-sm text-gray-500 dark:text-gray-400">Used to compute monthly profit (revenue - order cost - Google Ads).</p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 sm:items-end">
+            <div>
+              <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Month</label>
+              <input
+                type="month"
+                value={selectedMonth}
+                onChange={(e) => setSelectedMonth(e.target.value)}
+                className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Google Ads Cost (€)</label>
+              <input
+                type="text"
+                value={googleAdsCostInput}
+                onChange={(e) => setGoogleAdsCostInput(e.target.value)}
+                className="w-44 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white text-sm"
+                placeholder="0.00"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Profit (month)</label>
+              <div className="px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white text-sm font-semibold">
+                €{selectedMonthProfitAfterAds}
+              </div>
+            </div>
+            <button
+              onClick={saveGoogleAdsCost}
+              disabled={isSavingGoogleAdsCost}
+              className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg text-sm font-semibold disabled:opacity-60"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+        {marketingError && (
+          <div className="mt-3 text-sm text-red-600 dark:text-red-400">{marketingError}</div>
+        )}
       </div>
 
       {/* Stats Cards */}
@@ -265,7 +524,7 @@ export default function AnalyticsDashboard({ orders, totalVisitors = 0 }: Analyt
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Revenue Chart - Weekly */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700">
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
@@ -299,6 +558,49 @@ export default function AnalyticsDashboard({ orders, totalVisitors = 0 }: Analyt
           </div>
         </div>
 
+        {/* Profit Chart - Weekly */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700">
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
+            Profit - Last 7 Days
+          </h3>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={weeklyProfitData}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+                <XAxis dataKey="name" stroke="#9CA3AF" fontSize={12} />
+                <YAxis stroke="#9CA3AF" fontSize={12} tickFormatter={(value) => `€${value}`} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: '#1F2937',
+                    border: 'none',
+                    borderRadius: '8px',
+                    color: '#fff',
+                  }}
+                  formatter={(value) => [`€${value}`, 'Profit']}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="profit"
+                  stroke="#10B981"
+                  strokeWidth={3}
+                  dot={{ fill: '#10B981', strokeWidth: 2 }}
+                  activeDot={{ r: 6, fill: '#34D399' }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="mt-4 grid grid-cols-2 gap-3 text-sm">
+            <div className="rounded-xl bg-gray-50 p-3 dark:bg-gray-700/50">
+              <div className="text-xs text-gray-500 dark:text-gray-400">Total Cost (All Time)</div>
+              <div className="font-bold text-gray-900 dark:text-white">€{totalCost}</div>
+            </div>
+            <div className="rounded-xl bg-gray-50 p-3 dark:bg-gray-700/50">
+              <div className="text-xs text-gray-500 dark:text-gray-400">Total Profit (All Time)</div>
+              <div className="font-bold text-gray-900 dark:text-white">€{totalProfit}</div>
+            </div>
+          </div>
+        </div>
+
         {/* Revenue Chart - Monthly */}
         <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700">
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
@@ -322,6 +624,43 @@ export default function AnalyticsDashboard({ orders, totalVisitors = 0 }: Analyt
                 <Bar dataKey="revenue" fill="#EC4899" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700">
+        <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Profit (After Ads) - Last 12 Months</h3>
+        <div className="h-72">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={monthlyProfitAfterAdsData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" opacity={0.3} />
+              <XAxis dataKey="name" stroke="#9CA3AF" fontSize={12} />
+              <YAxis stroke="#9CA3AF" fontSize={12} tickFormatter={(value) => `€${value}`} />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#1F2937',
+                  border: 'none',
+                  borderRadius: '8px',
+                  color: '#fff',
+                }}
+                formatter={(value) => [`€${value}`, 'Profit']}
+              />
+              <Bar dataKey="profit" fill="#10B981" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+        <div className="mt-4 grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+          <div className="rounded-xl bg-gray-50 p-3 dark:bg-gray-700/50">
+            <div className="text-xs text-gray-500 dark:text-gray-400">Total Google Ads (All Time)</div>
+            <div className="font-bold text-gray-900 dark:text-white">€{totalGoogleAdsCost}</div>
+          </div>
+          <div className="rounded-xl bg-gray-50 p-3 dark:bg-gray-700/50">
+            <div className="text-xs text-gray-500 dark:text-gray-400">Orders Profit (All Time)</div>
+            <div className="font-bold text-gray-900 dark:text-white">€{totalProfit}</div>
+          </div>
+          <div className="rounded-xl bg-gray-50 p-3 dark:bg-gray-700/50">
+            <div className="text-xs text-gray-500 dark:text-gray-400">Profit After Ads (All Time)</div>
+            <div className="font-bold text-gray-900 dark:text-white">€{totalProfitAfterAds}</div>
           </div>
         </div>
       </div>

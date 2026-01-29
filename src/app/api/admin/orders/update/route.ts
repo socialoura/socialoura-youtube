@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { updateOrderStatus, updateOrderNotes, initDatabase } from '@/lib/db';
+import { updateOrderStatus, updateOrderNotes, updateOrderCost, initDatabase } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -37,7 +37,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { orderId, orderStatus, notes } = body;
+    const { orderId, orderStatus, notes, cost } = body;
 
     if (!orderId) {
       return NextResponse.json(
@@ -61,6 +61,18 @@ export async function PUT(request: NextRequest) {
     // Update notes if provided
     if (notes !== undefined) {
       await updateOrderNotes(orderId, notes);
+    }
+
+    // Update cost if provided
+    if (cost !== undefined) {
+      const parsedCost = Number(cost);
+      if (!Number.isFinite(parsedCost) || parsedCost < 0) {
+        return NextResponse.json(
+          { error: 'Invalid cost. Must be a number >= 0' },
+          { status: 400 }
+        );
+      }
+      await updateOrderCost(orderId, parsedCost);
     }
 
     return NextResponse.json({ success: true });
