@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Language } from '@/i18n/config';
 import { useRouter } from 'next/navigation';
 import { Plus, Minus, BarChart3, Calendar, MessageCircle, HeadphonesIcon, Play, CheckCircle2, ArrowRight, ShieldCheck, Zap, X } from 'lucide-react';
+import Image from 'next/image';
 import ChatWidget from '@/components/ChatWidget';
 import ReviewsSection from '@/components/ReviewsSection';
 import PaymentModal from '@/components/PaymentModal';
@@ -438,8 +439,8 @@ export default function HomePage({ params }: PageProps) {
                             <input
                               type="range"
                               min={100}
-                              max={50000}
-                              step={100}
+                              max={1000000}
+                              step={1000}
                               value={customViews}
                               onChange={(e) => {
                                 const next = parseInt(e.target.value, 10);
@@ -453,10 +454,10 @@ export default function HomePage({ params }: PageProps) {
 
                             <div className="mt-3 flex items-center justify-between text-[11px] text-gray-500 dark:text-gray-400">
                               <span>100</span>
-                              <span>12.5k</span>
-                              <span>25k</span>
-                              <span>37.5k</span>
-                              <span>50k</span>
+                              <span>250k</span>
+                              <span>500k</span>
+                              <span>750k</span>
+                              <span>1M</span>
                             </div>
                           </div>
                         </div>
@@ -599,7 +600,17 @@ export default function HomePage({ params }: PageProps) {
           <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-950">
             <div className="grid grid-cols-4 gap-0 border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
               <div className="p-5 text-sm font-bold text-gray-600 dark:text-gray-300">{lang === 'fr' ? 'Critère' : 'Criteria'}</div>
-              <div className="p-5 text-sm font-black text-gray-900 dark:text-white">ViewPlex</div>
+              <div className="p-5">
+                <div className="flex items-center justify-center">
+                  <Image
+                    src="/img/a-modern-flat-vector-logo-design-featuri_ZEbfVp__QiK-0wr5MrgGJg_ZFPYEbSKRM6a11TOK-IQCQ-removebg-preview.png"
+                    alt="ViewPlex"
+                    width={120}
+                    height={40}
+                    className="h-8 w-auto"
+                  />
+                </div>
+              </div>
               <div className="p-5 text-sm font-bold text-gray-600 dark:text-gray-300">{lang === 'fr' ? 'Sponsoring' : 'Sponsorships'}</div>
               <div className="p-5 text-sm font-bold text-gray-600 dark:text-gray-300">{lang === 'fr' ? 'Options aléatoires' : 'Random options'}</div>
             </div>

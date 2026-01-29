@@ -6,7 +6,7 @@ import { Language } from '@/i18n/config';
 
 interface ReviewsSectionProps {
   lang: Language;
-  platform?: 'instagram' | 'tiktok' | 'all';
+  platform?: 'youtube' | 'all';
 }
 
 interface Review {
@@ -15,8 +15,8 @@ interface Review {
   username: string;
   avatar: string;
   rating: number;
-  platform: 'instagram' | 'tiktok';
-  followers: string;
+  platform: 'youtube';
+  views: string;
   text: {
     en: string;
     fr: string;
@@ -32,11 +32,11 @@ const reviews: Review[] = [
     username: '@sarahcreates',
     avatar: 'SM',
     rating: 5,
-    platform: 'instagram',
-    followers: '+2,500',
+    platform: 'youtube',
+    views: '+25k',
     text: {
-      en: 'Incredible service! I was skeptical at first, but the results exceeded my expectations. My engagement has increased significantly and the followers look completely organic. Highly recommend!',
-      fr: 'Service incroyable ! J\'étais sceptique au début, mais les résultats ont dépassé mes attentes. Mon engagement a considérablement augmenté et les abonnés semblent totalement organiques. Je recommande vivement !',
+      en: 'Super smooth checkout and the campaign started fast. My video picked up more views and the pacing looked natural. Great experience.',
+      fr: 'Paiement super simple et la campagne a démarré rapidement. Ma vidéo a pris plus de vues avec un rythme naturel. Très bonne expérience.',
     },
     date: '2 days ago',
     verified: true,
@@ -47,11 +47,11 @@ const reviews: Review[] = [
     username: '@marcusfit',
     avatar: 'MJ',
     rating: 5,
-    platform: 'instagram',
-    followers: '+5,000',
+    platform: 'youtube',
+    views: '+50k',
     text: {
-      en: 'As a fitness influencer, I needed real growth. SocialOura delivered exactly that. The delivery was gradual and natural-looking. My brand partnerships have increased since using their service.',
-      fr: 'En tant qu\'influenceur fitness, j\'avais besoin d\'une vraie croissance. SocialOura a livré exactement cela. La livraison était progressive et naturelle. Mes partenariats de marque ont augmenté depuis.',
+      en: 'Perfect for a new upload. I chose a package, added my YouTube link at checkout, and everything was handled quickly. Support was responsive too.',
+      fr: 'Parfait pour une nouvelle vidéo. J\'ai choisi un pack, ajouté mon lien YouTube au paiement, et tout a été géré rapidement. Support réactif aussi.',
     },
     date: '1 week ago',
     verified: true,
@@ -62,11 +62,11 @@ const reviews: Review[] = [
     username: '@emmalooks',
     avatar: 'EL',
     rating: 5,
-    platform: 'tiktok',
-    followers: '+10,000',
+    platform: 'youtube',
+    views: '+100k',
     text: {
-      en: 'Started with 500 followers on TikTok, now I\'m at 15K! The growth was steady and my videos started getting way more views. Best investment for my content creator journey.',
-      fr: 'J\'ai commencé avec 500 abonnés sur TikTok, maintenant j\'en ai 15K ! La croissance était régulière et mes vidéos ont commencé à avoir beaucoup plus de vues. Meilleur investissement pour ma carrière de créatrice.',
+      en: 'The custom slider is awesome. I set my own view count, saw the price instantly, and checked out. Clean and easy.',
+      fr: 'Le curseur custom est top. J\'ai choisi mon nombre de vues, vu le prix instantanément, puis payé. Simple et efficace.',
     },
     date: '3 days ago',
     verified: true,
@@ -77,11 +77,11 @@ const reviews: Review[] = [
     username: '@davidkphoto',
     avatar: 'DK',
     rating: 5,
-    platform: 'instagram',
-    followers: '+1,000',
+    platform: 'youtube',
+    views: '+10k',
     text: {
-      en: 'Professional photography account needed a boost. Got exactly what I paid for, delivered on time. The support team was super helpful when I had questions. Will order again!',
-      fr: 'Mon compte de photographie professionnelle avait besoin d\'un coup de pouce. J\'ai eu exactement ce pour quoi j\'ai payé, livré à temps. L\'équipe support était super utile. Je commanderai à nouveau !',
+      en: 'Clear pricing, no account access needed, and I got confirmation right away. Exactly what I wanted for YouTube visibility.',
+      fr: 'Tarifs clairs, pas d\'accès au compte requis, et confirmation immédiate. Exactement ce que je voulais pour la visibilité YouTube.',
     },
     date: '5 days ago',
     verified: true,
@@ -92,11 +92,11 @@ const reviews: Review[] = [
     username: '@lisatravels',
     avatar: 'LT',
     rating: 5,
-    platform: 'tiktok',
-    followers: '+3,000',
+    platform: 'youtube',
+    views: '+30k',
     text: {
-      en: 'My travel content finally getting the attention it deserves! The followers are real and engaging with my posts. Customer service responded within hours. Amazing experience overall.',
-      fr: 'Mon contenu voyage reçoit enfin l\'attention qu\'il mérite ! Les abonnés sont réels et interagissent avec mes posts. Le service client a répondu en quelques heures. Expérience incroyable !',
+      en: 'Great pacing and the dashboard pricing is transparent. My video gained traction and the overall flow feels premium.',
+      fr: 'Bon pacing et tarifs transparents. Ma vidéo a gagné en traction et l\'expérience globale est premium.',
     },
     date: '1 week ago',
     verified: true,
@@ -107,11 +107,11 @@ const reviews: Review[] = [
     username: '@alexrmusic',
     avatar: 'AR',
     rating: 5,
-    platform: 'tiktok',
-    followers: '+7,500',
+    platform: 'youtube',
+    views: '+75k',
     text: {
-      en: 'As a musician, visibility is everything. SocialOura helped me reach new audiences. My music clips are now getting shared more than ever. The growth feels completely natural!',
-      fr: 'En tant que musicien, la visibilité est primordiale. SocialOura m\'a aidé à atteindre de nouveaux publics. Mes clips sont maintenant partagés plus que jamais. La croissance semble totalement naturelle !',
+      en: 'My music video got a solid visibility boost. The results came in progressively and looked normal in analytics.',
+      fr: 'Mon clip a eu un bon boost de visibilité. Les résultats sont arrivés progressivement et ça reste naturel dans les stats.',
     },
     date: '4 days ago',
     verified: true,
@@ -122,11 +122,11 @@ const reviews: Review[] = [
     username: '@ninabeauty',
     avatar: 'NP',
     rating: 5,
-    platform: 'instagram',
-    followers: '+4,000',
+    platform: 'youtube',
+    views: '+40k',
     text: {
-      en: 'Beauty brands started noticing me after my follower count grew! The process was seamless and secure. No password needed, just my username. Super safe and effective.',
-      fr: 'Les marques de beauté ont commencé à me remarquer après la croissance de mes abonnés ! Le processus était fluide et sécurisé. Pas de mot de passe requis, juste mon nom d\'utilisateur. Super sûr et efficace.',
+      en: 'No weird steps: just choose the package and paste the video link. Clean UI and secure payment.',
+      fr: 'Pas d\'étapes bizarres : tu choisis un pack et tu colles le lien de la vidéo. UI propre et paiement sécurisé.',
     },
     date: '6 days ago',
     verified: true,
@@ -137,11 +137,11 @@ const reviews: Review[] = [
     username: '@tomhcooks',
     avatar: 'TH',
     rating: 5,
-    platform: 'instagram',
-    followers: '+2,000',
+    platform: 'youtube',
+    views: '+20k',
     text: {
-      en: 'Food blogger here! My recipes are reaching so many more people now. The engagement on my posts has doubled. Worth every penny. Thank you SocialOura!',
-      fr: 'Blogueur culinaire ici ! Mes recettes atteignent tellement plus de personnes maintenant. L\'engagement sur mes posts a doublé. Chaque centime en valait la peine. Merci SocialOura !',
+      en: 'Fast support, clear pricing, and the campaign launched quickly. I\'ll use it again for future uploads.',
+      fr: 'Support rapide, prix clairs, et campagne lancée rapidement. Je réutiliserai pour mes prochaines vidéos.',
     },
     date: '1 week ago',
     verified: true,
@@ -158,16 +158,16 @@ export default function ReviewsSection({ lang, platform = 'all' }: ReviewsSectio
 
   const content = {
     en: {
-      title: 'Loved by Creators Worldwide',
-      subtitle: 'Join thousands of satisfied customers who have grown their social media presence with SocialOura',
+      title: 'Trusted for YouTube Views',
+      subtitle: 'Real feedback from customers using ViewPlex to run YouTube visibility campaigns.',
       verified: 'Verified Purchase',
-      followers: 'followers gained',
+      views: 'views delivered',
     },
     fr: {
-      title: 'Adoré par les Créateurs du Monde Entier',
-      subtitle: 'Rejoignez des milliers de clients satisfaits qui ont développé leur présence sur les réseaux sociaux avec SocialOura',
+      title: 'Approuvé pour les vues YouTube',
+      subtitle: 'Retours de clients qui utilisent ViewPlex pour lancer des campagnes de visibilité YouTube.',
       verified: 'Achat Vérifié',
-      followers: 'abonnés gagnés',
+      views: 'vues livrées',
     },
   };
 
@@ -205,43 +205,40 @@ export default function ReviewsSection({ lang, platform = 'all' }: ReviewsSectio
   };
 
   return (
-    <section className="py-20 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/5 to-transparent" />
-      <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl" />
-      <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl" />
+    <section className="py-16 sm:py-20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(900px_circle_at_30%_10%,rgba(239,68,68,0.08),transparent_55%)]" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-gray-900 dark:text-white mb-4">
             {t.title}
           </h2>
-          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto dark:text-gray-300">
             {t.subtitle}
           </p>
           
           {/* Stats */}
           <div className="flex items-center justify-center gap-8 mt-8">
             <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                50K+
-              </div>
-              <div className="text-sm text-gray-500">{lang === 'en' ? 'Happy Customers' : 'Clients Satisfaits'}</div>
-            </div>
-            <div className="w-px h-12 bg-gray-700" />
-            <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <div className="text-3xl font-black text-gray-900 dark:text-white">
                 4.9/5
               </div>
-              <div className="text-sm text-gray-500">{lang === 'en' ? 'Average Rating' : 'Note Moyenne'}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400">{lang === 'en' ? 'Average rating' : 'Note moyenne'}</div>
             </div>
-            <div className="w-px h-12 bg-gray-700" />
+            <div className="w-px h-12 bg-gray-200 dark:bg-gray-800" />
             <div className="text-center">
-              <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <div className="text-3xl font-black text-gray-900 dark:text-white">
+                50K+
+              </div>
+              <div className="text-sm text-gray-500 dark:text-gray-400">{lang === 'en' ? 'Orders processed' : 'Commandes traitées'}</div>
+            </div>
+            <div className="w-px h-12 bg-gray-200 dark:bg-gray-800" />
+            <div className="text-center">
+              <div className="text-3xl font-black text-gray-900 dark:text-white">
                 10M+
               </div>
-              <div className="text-sm text-gray-500">{lang === 'en' ? 'Followers Delivered' : 'Abonnés Livrés'}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400">{lang === 'en' ? 'Views delivered' : 'Vues livrées'}</div>
             </div>
           </div>
         </div>
@@ -251,13 +248,13 @@ export default function ReviewsSection({ lang, platform = 'all' }: ReviewsSectio
           {/* Navigation Buttons */}
           <button
             onClick={prevReview}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 rounded-full bg-gray-800/80 hover:bg-gray-700 border border-gray-700 flex items-center justify-center text-white transition-all hover:scale-110 hidden lg:flex"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 rounded-full bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center text-gray-900 transition-all hover:scale-110 hidden lg:flex dark:bg-gray-900/80 dark:hover:bg-gray-900 dark:border-gray-800 dark:text-white"
           >
             <ChevronLeft className="w-6 h-6" />
           </button>
           <button
             onClick={nextReview}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 rounded-full bg-gray-800/80 hover:bg-gray-700 border border-gray-700 flex items-center justify-center text-white transition-all hover:scale-110 hidden lg:flex"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 rounded-full bg-white/90 hover:bg-white border border-gray-200 flex items-center justify-center text-gray-900 transition-all hover:scale-110 hidden lg:flex dark:bg-gray-900/80 dark:hover:bg-gray-900 dark:border-gray-800 dark:text-white"
           >
             <ChevronRight className="w-6 h-6" />
           </button>
@@ -267,36 +264,32 @@ export default function ReviewsSection({ lang, platform = 'all' }: ReviewsSectio
             {getVisibleReviews().map((review, index) => (
               <div
                 key={`${review.id}-${index}`}
-                className={`relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 border border-gray-700/50 hover:border-purple-500/50 transition-all duration-500 ${
-                  index === 1 ? 'lg:scale-105 lg:z-10' : 'lg:opacity-90'
+                className={`relative bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:-translate-y-1 hover:shadow-md transition-all duration-300 dark:bg-gray-950 dark:border-gray-800 ${
+                  index === 1 ? 'lg:scale-105 lg:z-10' : ''
                 }`}
               >
                 {/* Quote Icon */}
-                <div className="absolute top-4 right-4 text-purple-500/20">
+                <div className="absolute top-4 right-4 text-red-600/10">
                   <Quote className="w-12 h-12" />
                 </div>
 
                 {/* Header */}
                 <div className="flex items-start gap-4 mb-4">
                   {/* Avatar */}
-                  <div className={`w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg ${
-                    review.platform === 'instagram' 
-                      ? 'bg-gradient-to-br from-purple-500 to-pink-500' 
-                      : 'bg-gradient-to-br from-cyan-500 to-blue-500'
-                  }`}>
+                  <div className="w-14 h-14 rounded-full flex items-center justify-center text-white font-black text-lg bg-gradient-to-br from-red-600 to-red-500">
                     {review.avatar}
                   </div>
                   
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <h4 className="font-semibold text-white">{review.name}</h4>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">{review.name}</h4>
                       {review.verified && (
-                        <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-xs rounded-full">
+                        <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full dark:bg-green-900/30 dark:text-green-400">
                           ✓ {t.verified}
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-gray-400">{review.username}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{review.username}</p>
                     
                     {/* Stars */}
                     <div className="flex items-center gap-1 mt-1">
@@ -304,7 +297,7 @@ export default function ReviewsSection({ lang, platform = 'all' }: ReviewsSectio
                         <Star
                           key={i}
                           className={`w-4 h-4 ${
-                            i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'
+                            i < review.rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300 dark:text-gray-700'
                           }`}
                         />
                       ))}
@@ -313,39 +306,24 @@ export default function ReviewsSection({ lang, platform = 'all' }: ReviewsSectio
                 </div>
 
                 {/* Review Text */}
-                <p className="text-gray-300 leading-relaxed mb-4">
+                <p className="text-gray-700 leading-relaxed mb-4 dark:text-gray-300">
                   &ldquo;{review.text[lang]}&rdquo;
                 </p>
 
                 {/* Footer */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-700/50">
+                <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-800">
                   <div className="flex items-center gap-2">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 ${
-                      review.platform === 'instagram'
-                        ? 'bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-pink-400'
-                        : 'bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400'
-                    }`}>
-                      {review.platform === 'instagram' ? (
-                        <>
-                          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                          </svg>
-                          Instagram
-                        </>
-                      ) : (
-                        <>
-                          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
-                          </svg>
-                          TikTok
-                        </>
-                      )}
+                    <span className="px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 bg-red-50 text-red-700 border border-red-200 dark:bg-red-950/30 dark:text-red-300 dark:border-red-900">
+                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M23.498 6.186a2.999 2.999 0 0 0-2.112-2.122C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.386.519A2.999 2.999 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a2.999 2.999 0 0 0 2.112 2.122c1.881.519 9.386.519 9.386.519s7.505 0 9.386-.519a2.999 2.999 0 0 0 2.112-2.122C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                      </svg>
+                      YouTube
                     </span>
-                    <span className="text-sm text-green-400 font-medium">
-                      {review.followers} {t.followers}
+                    <span className="text-sm text-green-600 font-medium dark:text-green-400">
+                      {review.views} {t.views}
                     </span>
                   </div>
-                  <span className="text-xs text-gray-500">{review.date}</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">{review.date}</span>
                 </div>
               </div>
             ))}
@@ -355,7 +333,7 @@ export default function ReviewsSection({ lang, platform = 'all' }: ReviewsSectio
           <div className="flex items-center justify-center gap-4 mt-8 lg:hidden">
             <button
               onClick={prevReview}
-              className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 border border-gray-700 flex items-center justify-center text-white transition-colors"
+              className="w-10 h-10 rounded-full bg-white hover:bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-900 transition-colors dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-800 dark:text-white"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -369,15 +347,15 @@ export default function ReviewsSection({ lang, platform = 'all' }: ReviewsSectio
                   }}
                   className={`w-2 h-2 rounded-full transition-all ${
                     index === currentIndex
-                      ? 'w-6 bg-gradient-to-r from-purple-500 to-pink-500'
-                      : 'bg-gray-600 hover:bg-gray-500'
+                      ? 'w-6 bg-red-600'
+                      : 'bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600'
                   }`}
                 />
               ))}
             </div>
             <button
               onClick={nextReview}
-              className="w-10 h-10 rounded-full bg-gray-800 hover:bg-gray-700 border border-gray-700 flex items-center justify-center text-white transition-colors"
+              className="w-10 h-10 rounded-full bg-white hover:bg-gray-50 border border-gray-200 flex items-center justify-center text-gray-900 transition-colors dark:bg-gray-900 dark:hover:bg-gray-800 dark:border-gray-800 dark:text-white"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -385,7 +363,7 @@ export default function ReviewsSection({ lang, platform = 'all' }: ReviewsSectio
         </div>
 
         {/* Trust Badges */}
-        <div className="mt-16 flex flex-wrap items-center justify-center gap-6 text-gray-500">
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-6 text-gray-500 dark:text-gray-400">
           <div className="flex items-center gap-2">
             <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -399,7 +377,7 @@ export default function ReviewsSection({ lang, platform = 'all' }: ReviewsSectio
             <span className="text-sm">{lang === 'en' ? 'Secure Payments' : 'Paiements Sécurisés'}</span>
           </div>
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
               <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
             </svg>
             <span className="text-sm">{lang === 'en' ? '5-Star Service' : 'Service 5 Étoiles'}</span>
