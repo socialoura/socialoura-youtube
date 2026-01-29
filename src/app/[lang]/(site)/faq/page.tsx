@@ -67,12 +67,12 @@ export default function FAQPage({ params }: PageProps) {
         {
           category: 'payment',
           question: 'What payment methods do you accept?',
-          answer: 'We accept all major credit cards (Visa, Mastercard, American Express), Apple Pay, and Google Pay through our secure Stripe payment processor.',
+          answer: 'We accept all major credit cards (Visa, Mastercard, American Express), Apple Pay, and Google Pay through our secure credit card checkout.',
         },
         {
           category: 'payment',
           question: 'Is my payment information secure?',
-          answer: 'Yes, 100%. We use Stripe, a PCI-compliant payment processor. Your payment details are encrypted and never stored on our servers.',
+          answer: 'Yes, 100%. Payments are processed through a PCI-compliant provider. Your payment details are encrypted and never stored on our servers.',
         },
         {
           category: 'payment',
@@ -144,12 +144,12 @@ export default function FAQPage({ params }: PageProps) {
         {
           category: 'payment',
           question: 'Quels modes de paiement acceptez-vous ?',
-          answer: 'Nous acceptons toutes les principales cartes de crédit (Visa, Mastercard, American Express), Apple Pay et Google Pay via notre processeur de paiement sécurisé Stripe.',
+          answer: 'Nous acceptons toutes les principales cartes bancaires (Visa, Mastercard, American Express), Apple Pay et Google Pay via notre paiement sécurisé par carte bancaire.',
         },
         {
           category: 'payment',
           question: 'Mes informations de paiement sont-elles sécurisées ?',
-          answer: 'Oui, à 100%. Nous utilisons Stripe, un processeur de paiement conforme PCI. Vos informations de paiement sont cryptées et jamais stockées sur nos serveurs.',
+          answer: 'Oui, à 100%. Le paiement est traité via un prestataire conforme PCI. Vos informations de paiement sont cryptées et jamais stockées sur nos serveurs.',
         },
         {
           category: 'payment',

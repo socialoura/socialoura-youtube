@@ -158,7 +158,7 @@ export default function HomePage({ params }: PageProps) {
           },
           {
             title: 'Secure Payments',
-            description: 'Checkout securely with Stripe. No password needed, only your video link.',
+            description: 'Checkout securely by credit card. No password needed, only your video link.',
             icon: MessageCircle,
           },
           {
@@ -221,7 +221,7 @@ export default function HomePage({ params }: PageProps) {
           },
           {
             title: 'Paiement sécurisé',
-            description: 'Paiement sécurisé via Stripe. Aucun mot de passe requis, seulement le lien de la vidéo.',
+            description: 'Paiement sécurisé par carte bancaire. Aucun mot de passe requis, seulement le lien de la vidéo.',
             icon: MessageCircle,
           },
           {
@@ -563,8 +563,8 @@ export default function HomePage({ params }: PageProps) {
                   <div className="text-sm font-black text-gray-900 dark:text-white">{lang === 'fr' ? '3) Paiement' : '3) Checkout'}</div>
                   <div className="mt-2 text-sm text-gray-600 leading-relaxed dark:text-gray-300">
                     {lang === 'fr'
-                      ? 'Paiement sécurisé Stripe, puis démarrage rapide et confirmation.'
-                      : 'Secure Stripe payment, then fast start and confirmation.'}
+                      ? 'Paiement sécurisé par carte bancaire, puis démarrage rapide et confirmation.'
+                      : 'Secure credit card checkout, then fast start and confirmation.'}
                   </div>
                 </div>
               </div>
@@ -601,13 +601,14 @@ export default function HomePage({ params }: PageProps) {
             <div className="grid grid-cols-4 gap-0 border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
               <div className="p-5 text-sm font-bold text-gray-600 dark:text-gray-300">{lang === 'fr' ? 'Critère' : 'Criteria'}</div>
               <div className="p-5">
-                <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center h-12">
                   <Image
                     src="/img/a-modern-flat-vector-logo-design-featuri_ZEbfVp__QiK-0wr5MrgGJg_ZFPYEbSKRM6a11TOK-IQCQ-removebg-preview.png"
                     alt="ViewPlex"
-                    width={120}
-                    height={40}
-                    className="h-8 w-auto"
+                    width={180}
+                    height={56}
+                    priority
+                    className="h-10 w-auto object-contain"
                   />
                 </div>
               </div>
@@ -627,7 +628,7 @@ export default function HomePage({ params }: PageProps) {
               },
               {
                 label: lang === 'fr' ? 'Paiement sécurisé' : 'Secure payment',
-                a: 'Stripe',
+                a: lang === 'fr' ? 'Carte bancaire' : 'Credit Card',
                 b: lang === 'fr' ? 'Pas toujours' : 'Not always',
                 c: lang === 'fr' ? 'Pas clair' : 'Unclear',
                 okA: true,
@@ -789,7 +790,7 @@ export default function HomePage({ params }: PageProps) {
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5" />
-                  <span className="text-gray-700 dark:text-gray-200">{lang === 'fr' ? 'Paiement sécurisé Stripe' : 'Secure Stripe checkout'}</span>
+                  <span className="text-gray-700 dark:text-gray-200">{lang === 'fr' ? 'Paiement sécurisé par carte bancaire' : 'Secure credit card checkout'}</span>
                 </div>
               </div>
 
@@ -886,7 +887,7 @@ export default function HomePage({ params }: PageProps) {
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle2 className="h-5 w-5 text-green-600 mt-0.5" />
-                  <span className="text-gray-700 dark:text-gray-200">{lang === 'fr' ? 'Paiement sécurisé Stripe' : 'Secure Stripe checkout'}</span>
+                  <span className="text-gray-700 dark:text-gray-200">{lang === 'fr' ? 'Paiement sécurisé par carte bancaire' : 'Secure credit card checkout'}</span>
                 </div>
               </div>
 

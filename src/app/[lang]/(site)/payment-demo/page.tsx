@@ -130,7 +130,7 @@ export default function PaymentModalDemo() {
               <svg className="h-6 w-6 text-green-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
-              <span>Stripe Payment Elements with Apple Pay, Google Pay, and card support</span>
+              <span>Credit card checkout with Apple Pay, Google Pay, and card support</span>
             </li>
             <li className="flex items-start">
               <svg className="h-6 w-6 text-green-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">

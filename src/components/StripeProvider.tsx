@@ -142,7 +142,7 @@ export default function StripeProvider({
     return (
       <div className="flex items-center justify-center p-8">
         <p className="text-sm text-gray-500">
-          Stripe is not properly configured. Please check your environment variables.
+          Payment is not properly configured. Please check your environment variables.
         </p>
       </div>
     );

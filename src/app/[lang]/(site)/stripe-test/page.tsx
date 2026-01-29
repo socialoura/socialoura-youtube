@@ -59,10 +59,10 @@ export default function StripeTestPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Stripe API Test Page
+            Credit Card API Test Page
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-400">
-            Test the payment intent creation endpoint
+            Test the credit card checkout intent creation endpoint
           </p>
         </div>
 
@@ -244,7 +244,7 @@ export default function StripeTestPage() {
                 Make sure you have set <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">STRIPE_SECRET_KEY</code> in your <code className="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">.env.local</code> file.
               </p>
               <p className="mt-2">
-                Get your test key from: <a href="https://dashboard.stripe.com/test/apikeys" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 hover:underline">Stripe Dashboard</a>
+                Get your test key from: <a href="https://dashboard.stripe.com/test/apikeys" target="_blank" rel="noopener noreferrer" className="text-indigo-600 dark:text-indigo-400 hover:underline">Payment Dashboard</a>
               </p>
             </div>
           </div>
