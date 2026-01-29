@@ -41,7 +41,7 @@ export default function Header({ lang }: HeaderProps) {
   return (
     <header className="w-full border-b border-gray-200 bg-white/85 backdrop-blur-md sticky top-0 z-50 dark:border-gray-800 dark:bg-gray-950/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-20 sm:h-24">
+        <div className="flex items-center h-16 sm:h-[72px]">
           {/* Logo - Left */}
           <div className="flex items-center">
             <Link 
@@ -49,14 +49,14 @@ export default function Header({ lang }: HeaderProps) {
               className="flex items-center transition-all group"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <div className="relative w-32 h-32 sm:w-44 sm:h-44 shrink-0 -my-2 sm:-my-4">
+              <div className="relative w-20 h-12 sm:w-24 sm:h-14 shrink-0">
                 <Image
                   src="/img/a-modern-flat-vector-logo-design-featuri_ZEbfVp__QiK-0wr5MrgGJg_ZFPYEbSKRM6a11TOK-IQCQ-removebg-preview.png"
                   alt="ViewPlex"
                   width={176}
                   height={176}
                   priority
-                  sizes="(min-width: 640px) 176px, 128px"
+                  sizes="(min-width: 640px) 112px, 96px"
                   className="group-hover:scale-105 transition-transform"
                 />
               </div>
