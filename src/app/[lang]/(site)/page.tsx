@@ -336,7 +336,7 @@ export default function HomePage({ params }: PageProps) {
                       : 'Pick a budget. Checkout opens next and you’ll add your email + YouTube link.'}
                   </div>
 
-                  <div className="mt-4 grid grid-cols-2 gap-3">
+                  <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {regularPacks.map((offer) => {
                       const isSelected = selectedPack?.views === offer.views;
                       return (
@@ -399,7 +399,7 @@ export default function HomePage({ params }: PageProps) {
 
                       return (
                         <div
-                          className={`group relative col-span-2 overflow-hidden rounded-2xl border px-5 py-4 text-left transition-all duration-200 dark:bg-gray-950 ${
+                          className={`group relative col-span-full overflow-hidden rounded-2xl border px-5 py-4 text-left transition-all duration-200 dark:bg-gray-950 ${
                             isCustomSelected
                               ? 'border-red-600 bg-red-50 shadow-sm dark:bg-red-950/30'
                               : 'border-gray-200 bg-white hover:border-gray-300 hover:-translate-y-0.5 hover:shadow-sm dark:border-gray-800 dark:bg-gray-950 dark:hover:border-gray-700'
