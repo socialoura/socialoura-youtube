@@ -142,7 +142,7 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
       {!isOpen && (
         <button
           onClick={toggleChat}
-          className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110 group"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110 group"
           aria-label="Open chat"
         >
           <MessageCircle className="h-6 w-6" />
@@ -158,9 +158,11 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
       {/* Chat Window */}
       {isOpen && (
         <div
-          className={`fixed bottom-6 right-6 z-50 bg-white dark:bg-gray-900 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-800 transition-all duration-300 ${
-            isMinimized ? 'h-16' : 'h-[600px]'
-          } w-[400px] max-w-[calc(100vw-3rem)] flex flex-col overflow-hidden`}
+          className={`fixed z-50 bg-white dark:bg-gray-900 shadow-2xl border border-gray-200 dark:border-gray-800 transition-all duration-300 flex flex-col overflow-hidden
+            inset-4 rounded-2xl w-auto max-w-none
+            sm:inset-auto sm:bottom-6 sm:right-6 sm:rounded-2xl sm:w-[400px] sm:max-w-[calc(100vw-3rem)]
+            ${isMinimized ? 'h-16 sm:h-16' : 'h-[calc(100vh-2rem)] sm:h-[600px]'}
+          `}
         >
           {/* Chat Header */}
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 flex items-center justify-between">

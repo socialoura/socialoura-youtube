@@ -41,11 +41,11 @@ export default function ContactPage({ params }: PageProps) {
         description: 'We usually reply within 24 hours (often faster).',
         email: {
           label: 'Email',
-          value: 'support@viewplex.com',
+          value: 'support@view-plex.com',
         },
         phone: {
           label: 'Phone',
-          value: '+33 1 84 80 00 00',
+          value: '+33 1 84 89 16 79',
         },
         address: {
           label: 'Address',
@@ -83,7 +83,7 @@ export default function ContactPage({ params }: PageProps) {
         description: 'Réponse sous 24h (souvent plus rapide).',
         email: {
           label: 'Email',
-          value: 'support@viewplex.com',
+          value: 'support@view-plex.com',
         },
         phone: {
           label: 'Téléphone',
@@ -157,24 +157,24 @@ export default function ContactPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
-      <main className="pt-20 pb-16">
+      <main className="pt-12 pb-10 sm:pt-20 sm:pb-16">
         {/* Hero Section */}
-        <section className="px-4 sm:px-6 lg:px-8 mb-16">
+        <section className="px-4 sm:px-6 lg:px-8 mb-10 sm:mb-16">
           <div className="max-w-7xl mx-auto text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white mb-6">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white mb-4 sm:mb-6">
               {t.title}
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-base sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               {t.subtitle}
             </p>
           </div>
         </section>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12">
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-8">
+              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-5 sm:p-8">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Name */}
                   <div>
@@ -272,7 +272,7 @@ export default function ContactPage({ params }: PageProps) {
             {/* Contact Information Sidebar */}
             <div className="space-y-6">
               {/* Contact Info Card */}
-              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-6">
+              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-800 p-5 sm:p-6">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                   {t.contactInfo.title}
                 </h3>
@@ -329,7 +329,7 @@ export default function ContactPage({ params }: PageProps) {
               </div>
 
               {/* Response Time Card */}
-              <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 sm:p-6">
                 <div className="flex items-center gap-3 mb-3">
                   <MessageSquare className="h-6 w-6 text-red-700 dark:text-red-200" />
                   <h3 className="text-lg font-black text-gray-900 dark:text-white">
@@ -342,7 +342,7 @@ export default function ContactPage({ params }: PageProps) {
               </div>
 
               {/* 24/7 Support Card */}
-              <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-6">
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-2xl border border-gray-200 dark:border-gray-800 p-5 sm:p-6">
                 <div className="flex items-center gap-3 mb-3">
                   <ShieldCheck className="h-6 w-6 text-green-700 dark:text-green-400" />
                   <h3 className="text-lg font-black text-gray-900 dark:text-white">
@@ -359,7 +359,7 @@ export default function ContactPage({ params }: PageProps) {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 dark:border-gray-800 py-8 mt-16">
+      <footer className="border-t border-gray-200 dark:border-gray-800 py-8 mt-10 sm:mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-gray-600 dark:text-gray-400">
           <p>&copy; 2026 ViewPlex. All rights reserved.</p>
         </div>

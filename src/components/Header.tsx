@@ -49,15 +49,14 @@ export default function Header({ lang }: HeaderProps) {
               className="flex items-center transition-all group"
               onClick={() => setIsMobileMenuOpen(false)}
             >
-              <div className="relative w-20 h-12 sm:w-24 sm:h-14 shrink-0">
+              <div className="relative w-52 h-28 sm:w-64 sm:h-32 shrink-0 -my-8 sm:-my-10 animate-float motion-reduce:animate-none">
                 <Image
                   src="/img/a-modern-flat-vector-logo-design-featuri_ZEbfVp__QiK-0wr5MrgGJg_ZFPYEbSKRM6a11TOK-IQCQ-removebg-preview.png"
                   alt="ViewPlex"
-                  width={176}
-                  height={176}
+                  fill
                   priority
-                  sizes="(min-width: 640px) 112px, 96px"
-                  className="group-hover:scale-105 transition-transform"
+                  sizes="(min-width: 640px) 256px, 208px"
+                  className="object-contain group-hover:scale-105 transition-transform"
                 />
               </div>
             </Link>

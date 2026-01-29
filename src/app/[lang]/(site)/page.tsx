@@ -286,9 +286,9 @@ export default function HomePage({ params }: PageProps) {
         <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(1200px_circle_at_10%_20%,rgba(239,68,68,0.10),transparent_55%),radial-gradient(900px_circle_at_90%_35%,rgba(239,68,68,0.06),transparent_55%)]" />
         <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(2,6,23,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(2,6,23,0.04)_1px,transparent_1px)] bg-[size:72px_72px] opacity-30 dark:opacity-15" />
         <div className="absolute inset-0 pointer-events-none [mask-image:radial-gradient(60%_55%_at_50%_35%,black,transparent)] bg-gradient-to-b from-white/0 via-white/40 to-white dark:from-gray-950/0 dark:via-gray-950/70 dark:to-gray-950" />
-
-        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-20 pb-16 lg:px-8">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center">
+@@
+        <div className="relative z-10 mx-auto max-w-7xl px-6 pt-8 pb-8 sm:pt-14 sm:pb-12 lg:px-8 lg:pt-20 lg:pb-16">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 lg:items-center lg:gap-10">
             <div className="lg:col-span-5">
               <div className="inline-flex items-center gap-3">
                 <span className="text-4xl sm:text-5xl font-black tracking-tight text-gray-900 dark:text-white">
@@ -299,13 +299,13 @@ export default function HomePage({ params }: PageProps) {
                 </span>
               </div>
 
-              <p className="mt-5 text-lg leading-relaxed text-gray-600 dark:text-gray-300">
+              <p className="mt-4 text-lg leading-relaxed text-gray-600 dark:text-gray-300">
                 {lang === 'fr'
                   ? 'ViewPlex est une solution simple pour lancer une campagne de visibilité sur votre vidéo. Choisissez un pack, payez en toute sécurité et démarrez rapidement.'
                   : 'ViewPlex is a simple way to start a visibility campaign for your video. Choose a pack, checkout securely, and get started fast.'}
               </p>
 
-              <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
+              <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
                 <div className="inline-flex items-center gap-2">
                   <ShieldCheck className="h-4 w-4 text-green-600" />
                   <span>{lang === 'fr' ? 'Paiement sécurisé' : 'Secure payment'}</span>
@@ -323,13 +323,13 @@ export default function HomePage({ params }: PageProps) {
 
             <div className="lg:col-span-7">
               <div className="rounded-3xl border border-gray-200 bg-white shadow-sm overflow-hidden dark:border-gray-800 dark:bg-gray-950">
-                <div className="border-b border-gray-200 bg-gray-50 px-6 py-4 dark:border-gray-800 dark:bg-gray-900">
+                <div className="border-b border-gray-200 bg-gray-50 px-6 py-3 dark:border-gray-800 dark:bg-gray-900">
                   <div className="text-sm font-black text-gray-900 dark:text-white">
-                    {lang === 'fr' ? 'Regular Views' : 'Regular Views'}
+                    {lang === 'fr' ? 'Vues' : 'Views'}
                   </div>
                 </div>
 
-                <div className="p-6 sm:p-7">
+                <div className="p-4 sm:p-6">
                   <div className="rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-xs text-gray-600 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300">
                     <span className="font-bold">{lang === 'fr' ? 'Info' : 'Info'}:</span>{' '}
                     {lang === 'fr'
@@ -337,7 +337,7 @@ export default function HomePage({ params }: PageProps) {
                       : 'Pick a package. Checkout opens next and you’ll add your email + YouTube link.'}
                   </div>
 
-                  <div className="mt-6 grid grid-cols-2 gap-3">
+                  <div className="mt-4 grid grid-cols-2 gap-3">
                     {regularPacks.map((offer) => {
                       const isSelected = selectedPack?.views === offer.views;
                       return (
@@ -474,12 +474,12 @@ export default function HomePage({ params }: PageProps) {
                   <button
                     type="button"
                     onClick={handleHeroBuyNow}
-                    className="mt-6 w-full rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black py-4 px-6 transition-colors"
+                    className="mt-4 w-full rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black py-3 px-6 transition-colors"
                   >
                     {lang === 'fr' ? 'Acheter maintenant' : 'Buy now'}
                   </button>
 
-                  <div className="mt-6 grid grid-cols-2 gap-3 border-t border-gray-200 pt-6 text-sm text-gray-700 dark:border-gray-800 dark:text-gray-200">
+                  <div className="mt-4 hidden grid-cols-2 gap-3 border-t border-gray-200 pt-4 text-sm text-gray-700 dark:border-gray-800 dark:text-gray-200 sm:grid">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="h-4 w-4 text-red-600" />
                       <span>{lang === 'fr' ? 'Vues réelles & organiques' : 'Real & organic views'}</span>
@@ -505,11 +505,11 @@ export default function HomePage({ params }: PageProps) {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 sm:py-28 bg-white relative overflow-hidden dark:bg-gray-950">
+      <section className="py-6 sm:py-20 lg:py-28 bg-white relative overflow-hidden dark:bg-gray-950">
         <div className="absolute inset-0 bg-[radial-gradient(900px_circle_at_10%_30%,rgba(239,68,68,0.06),transparent_55%)]" />
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
             <h2 className="text-3xl font-black tracking-tight text-gray-900 sm:text-4xl mb-4 dark:text-white">
               {lang === 'fr' ? 'Comment ça marche' : 'How it works'}
             </h2>
@@ -582,7 +582,7 @@ export default function HomePage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="py-20 sm:py-28 bg-gray-50 relative overflow-hidden dark:bg-gray-950">
+      <section className="py-12 sm:py-20 lg:py-28 bg-gray-50 relative overflow-hidden dark:bg-gray-950">
         <div className="absolute inset-0 bg-[radial-gradient(900px_circle_at_80%_20%,rgba(239,68,68,0.06),transparent_55%)]" />
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-14">
@@ -596,89 +596,82 @@ export default function HomePage({ params }: PageProps) {
             </p>
             <div className="w-20 h-1 bg-red-600 mx-auto rounded-full mt-6" />
           </div>
-
+@@
           <div className="overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-gray-950">
-            <div className="grid grid-cols-4 gap-0 border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
-              <div className="p-5 text-sm font-bold text-gray-600 dark:text-gray-300">{lang === 'fr' ? 'Critère' : 'Criteria'}</div>
-              <div className="p-5">
-                <div className="flex items-center justify-center h-12">
-                  <Image
-                    src="/img/a-modern-flat-vector-logo-design-featuri_ZEbfVp__QiK-0wr5MrgGJg_ZFPYEbSKRM6a11TOK-IQCQ-removebg-preview.png"
-                    alt="ViewPlex"
-                    width={180}
-                    height={56}
-                    priority
-                    className="h-10 w-auto object-contain"
-                  />
+            <div className="overflow-x-auto">
+              <div className="min-w-[720px]">
+                <div className="grid grid-cols-4 gap-0 border-b border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-gray-900">
+                  <div className="p-5 text-sm font-bold text-gray-600 dark:text-gray-300">{lang === 'fr' ? 'Critère' : 'Criteria'}</div>
+                  <div className="p-5 text-sm font-black text-red-700 bg-red-50/60 dark:bg-red-950/25 dark:text-red-200">ViewPlex</div>
+                  <div className="p-5 text-sm font-bold text-gray-600 dark:text-gray-300">{lang === 'fr' ? 'Sponsoring' : 'Sponsorships'}</div>
+                  <div className="p-5 text-sm font-bold text-gray-600 dark:text-gray-300">{lang === 'fr' ? 'Options aléatoires' : 'Random options'}</div>
                 </div>
-              </div>
-              <div className="p-5 text-sm font-bold text-gray-600 dark:text-gray-300">{lang === 'fr' ? 'Sponsoring' : 'Sponsorships'}</div>
-              <div className="p-5 text-sm font-bold text-gray-600 dark:text-gray-300">{lang === 'fr' ? 'Options aléatoires' : 'Random options'}</div>
-            </div>
 
-            {[
-              {
-                label: lang === 'fr' ? 'Mise en place' : 'Setup',
-                a: lang === 'fr' ? 'En quelques minutes' : 'In minutes',
-                b: lang === 'fr' ? 'Variable' : 'Varies',
-                c: lang === 'fr' ? 'Souvent longue' : 'Often slow',
-                okA: true,
-                okB: false,
-                okC: false,
-              },
-              {
-                label: lang === 'fr' ? 'Paiement sécurisé' : 'Secure payment',
-                a: lang === 'fr' ? 'Carte bancaire' : 'Credit Card',
-                b: lang === 'fr' ? 'Pas toujours' : 'Not always',
-                c: lang === 'fr' ? 'Pas clair' : 'Unclear',
-                okA: true,
-                okB: false,
-                okC: false,
-              },
-              {
-                label: lang === 'fr' ? 'Accès au compte requis' : 'Account access required',
-                a: lang === 'fr' ? 'Non' : 'No',
-                b: lang === 'fr' ? 'Parfois' : 'Sometimes',
-                c: lang === 'fr' ? 'Parfois' : 'Sometimes',
-                okA: true,
-                okB: false,
-                okC: false,
-              },
-              {
-                label: lang === 'fr' ? 'Rythme progressif' : 'Progressive pacing',
-                a: lang === 'fr' ? 'Oui' : 'Yes',
-                b: lang === 'fr' ? 'Variable' : 'Varies',
-                c: lang === 'fr' ? 'Non' : 'No',
-                okA: true,
-                okB: false,
-                okC: false,
-              },
-              {
-                label: lang === 'fr' ? 'Support' : 'Support',
-                a: '24/7',
-                b: lang === 'fr' ? 'Selon le partenaire' : 'Partner-dependent',
-                c: lang === 'fr' ? 'Limité' : 'Limited',
-                okA: true,
-                okB: false,
-                okC: false,
-              },
-            ].map((row, idx) => (
-              <div key={idx} className="grid grid-cols-4 gap-0 border-b border-gray-100 last:border-b-0 dark:border-gray-800">
-                <div className="p-5 text-sm font-semibold text-gray-900 dark:text-white">{row.label}</div>
-                <div className="p-5 text-sm text-gray-700 flex items-center justify-between gap-3">
-                  <span className="truncate">{row.a}</span>
-                  {row.okA ? <CheckCircle2 className="h-5 w-5 text-green-600" /> : <X className="h-5 w-5 text-gray-300" />}
-                </div>
-                <div className="p-5 text-sm text-gray-700 flex items-center justify-between gap-3">
-                  <span className="truncate">{row.b}</span>
-                  {row.okB ? <CheckCircle2 className="h-5 w-5 text-green-600" /> : <X className="h-5 w-5 text-gray-300" />}
-                </div>
-                <div className="p-5 text-sm text-gray-700 flex items-center justify-between gap-3">
-                  <span className="truncate">{row.c}</span>
-                  {row.okC ? <CheckCircle2 className="h-5 w-5 text-green-600" /> : <X className="h-5 w-5 text-gray-300" />}
-                </div>
+                {[
+                  {
+                    label: lang === 'fr' ? 'Mise en place' : 'Setup',
+                    a: lang === 'fr' ? 'En quelques minutes' : 'In minutes',
+                    b: lang === 'fr' ? 'Variable' : 'Varies',
+                    c: lang === 'fr' ? 'Souvent longue' : 'Often slow',
+                    okA: true,
+                    okB: false,
+                    okC: false,
+                  },
+                  {
+                    label: lang === 'fr' ? 'Paiement sécurisé' : 'Secure payment',
+                    a: lang === 'fr' ? 'Carte bancaire' : 'Credit Card',
+                    b: lang === 'fr' ? 'Pas toujours' : 'Not always',
+                    c: lang === 'fr' ? 'Pas clair' : 'Unclear',
+                    okA: true,
+                    okB: false,
+                    okC: false,
+                  },
+                  {
+                    label: lang === 'fr' ? 'Accès au compte requis' : 'Account access required',
+                    a: lang === 'fr' ? 'Non' : 'No',
+                    b: lang === 'fr' ? 'Parfois' : 'Sometimes',
+                    c: lang === 'fr' ? 'Parfois' : 'Sometimes',
+                    okA: true,
+                    okB: false,
+                    okC: false,
+                  },
+                  {
+                    label: lang === 'fr' ? 'Rythme progressif' : 'Progressive pacing',
+                    a: lang === 'fr' ? 'Oui' : 'Yes',
+                    b: lang === 'fr' ? 'Variable' : 'Varies',
+                    c: lang === 'fr' ? 'Non' : 'No',
+                    okA: true,
+                    okB: false,
+                    okC: false,
+                  },
+                  {
+                    label: lang === 'fr' ? 'Support' : 'Support',
+                    a: '24/7',
+                    b: lang === 'fr' ? 'Selon le partenaire' : 'Partner-dependent',
+                    c: lang === 'fr' ? 'Limité' : 'Limited',
+                    okA: true,
+                    okB: false,
+                    okC: false,
+                  },
+                ].map((row, idx) => (
+                  <div key={idx} className="grid grid-cols-4 gap-0 border-b border-gray-100 last:border-b-0 dark:border-gray-800">
+                    <div className="p-5 text-sm font-semibold text-gray-900 dark:text-white">{row.label}</div>
+                    <div className="p-5 text-sm text-gray-700 flex items-center justify-between gap-3">
+                      <span className="truncate">{row.a}</span>
+                      {row.okA ? <CheckCircle2 className="h-5 w-5 text-green-600" /> : <X className="h-5 w-5 text-gray-300" />}
+                    </div>
+                    <div className="p-5 text-sm text-gray-700 flex items-center justify-between gap-3">
+                      <span className="truncate">{row.b}</span>
+                      {row.okB ? <CheckCircle2 className="h-5 w-5 text-green-600" /> : <X className="h-5 w-5 text-gray-300" />}
+                    </div>
+                    <div className="p-5 text-sm text-gray-700 flex items-center justify-between gap-3">
+                      <span className="truncate">{row.c}</span>
+                      {row.okC ? <CheckCircle2 className="h-5 w-5 text-green-600" /> : <X className="h-5 w-5 text-gray-300" />}
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
 
           <div className="mt-10 flex justify-center">
@@ -694,7 +687,7 @@ export default function HomePage({ params }: PageProps) {
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-20 sm:py-28 bg-gray-50 relative overflow-hidden dark:bg-gray-950">
+      <section id="faq" className="py-12 sm:py-20 lg:py-28 bg-gray-50 relative overflow-hidden dark:bg-gray-950">
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl" />
         
         <div className="relative mx-auto max-w-4xl px-6 lg:px-8">
@@ -742,7 +735,7 @@ export default function HomePage({ params }: PageProps) {
         </div>
       </section>
 
-      <section id="services" className="py-20 sm:py-28 bg-white relative overflow-hidden dark:bg-gray-950">
+      <section id="services" className="py-12 sm:py-20 lg:py-28 bg-white relative overflow-hidden dark:bg-gray-950">
         <div className="absolute inset-0 bg-[radial-gradient(900px_circle_at_20%_0%,rgba(239,68,68,0.08),transparent_55%)]" />
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">

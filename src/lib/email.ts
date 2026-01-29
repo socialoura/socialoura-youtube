@@ -169,7 +169,7 @@ export async function sendOrderConfirmationEmail({
             <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px;">
                 ${isEnglish ? 'Questions? Contact us at' : 'Des questions ? Contactez-nous à'}
-                <a href="mailto:support@socialoura.com" style="color: #8B5CF6; text-decoration: none;"> support@socialoura.com</a>
+                <a href="mailto:support@view-plex.com" style="color: #8B5CF6; text-decoration: none;"> support@socialoura.com</a>
               </p>
               <p style="margin: 0; color: #9ca3af; font-size: 12px;">
                 © ${new Date().getFullYear()} SocialOura. ${isEnglish ? 'All rights reserved.' : 'Tous droits réservés.'}

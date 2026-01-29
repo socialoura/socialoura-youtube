@@ -52,24 +52,24 @@ export default function PricingPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
-      <main className="pt-20 pb-16">
+      <main className="pt-12 pb-10 sm:pt-20 sm:pb-16">
         {/* Hero Section */}
-        <section className="px-4 sm:px-6 lg:px-8 mb-16">
+        <section className="px-4 sm:px-6 lg:px-8 mb-10 sm:mb-16">
           <div className="max-w-7xl mx-auto text-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6">
               {t.title}
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-base sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               {t.subtitle}
             </p>
           </div>
         </section>
 
         {/* Pricing Card */}
-        <section className="py-24 sm:py-32 bg-gray-50 dark:bg-gray-900">
+        <section className="py-14 sm:py-24 lg:py-32 bg-gray-50 dark:bg-gray-900">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-lg">
-              <div className="rounded-3xl p-8 ring-2 ring-indigo-600 dark:ring-indigo-500 bg-white dark:bg-gray-800 shadow-2xl">
+              <div className="rounded-3xl p-6 sm:p-8 ring-2 ring-indigo-600 dark:ring-indigo-500 bg-white dark:bg-gray-800 shadow-2xl">
                 <h3 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400 mb-6">
                   {t.plan.name}
                 </h3>

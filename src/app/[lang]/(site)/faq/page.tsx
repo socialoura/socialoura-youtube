@@ -82,7 +82,7 @@ export default function FAQPage({ params }: PageProps) {
         {
           category: 'support',
           question: 'How can I contact support?',
-          answer: 'Use the chat widget on the site or email support@viewplex.com. We typically respond within 24 hours.',
+          answer: 'Use the chat widget on the site or email support@view-plex.com. We typically respond within 24 hours.',
         },
         {
           category: 'support',
@@ -159,7 +159,7 @@ export default function FAQPage({ params }: PageProps) {
         {
           category: 'support',
           question: 'Comment puis-je contacter le support ?',
-          answer: 'Via le widget de chat sur le site, ou par email à support@viewplex.com. Réponse généralement sous 24 heures.',
+          answer: 'Via le widget de chat sur le site, ou par email à support@view-plex.com. Réponse généralement sous 24 heures.',
         },
         {
           category: 'support',
@@ -188,23 +188,23 @@ export default function FAQPage({ params }: PageProps) {
         <div className="absolute inset-0 bg-[radial-gradient(1200px_circle_at_10%_20%,rgba(239,68,68,0.10),transparent_55%),radial-gradient(900px_circle_at_90%_35%,rgba(239,68,68,0.06),transparent_55%)]" />
         <div className="absolute inset-0 bg-[linear-gradient(rgba(2,6,23,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(2,6,23,0.04)_1px,transparent_1px)] bg-[size:72px_72px] opacity-30 dark:opacity-15" />
         <div className="absolute inset-0 [mask-image:radial-gradient(60%_55%_at_50%_35%,black,transparent)] bg-gradient-to-b from-white/0 via-white/40 to-white dark:from-gray-950/0 dark:via-gray-950/70 dark:to-gray-950" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-red-600 shadow-sm mb-6 border border-red-700/10">
-            <HelpCircle className="w-8 h-8 text-white" />
+@@
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-10 sm:pt-28 sm:pb-16 text-center">
+          <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-red-600 shadow-sm mb-5 sm:mb-6 border border-red-700/10">
+            <HelpCircle className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white mb-4">
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-gray-900 dark:text-white mb-3 sm:mb-4">
             {t.title}
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-base sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             {t.subtitle}
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
+          <div className="mt-8 sm:mt-10 flex flex-wrap items-center justify-center gap-2">
             <button
               type="button"
               onClick={() => setActiveCategory('all')}
-              className={`rounded-full px-4 py-2 text-sm font-semibold border transition-colors ${
+              className={`rounded-full px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-semibold border transition-colors ${
                 activeCategory === 'all'
                   ? 'bg-red-600 text-white border-red-600'
                   : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50 dark:bg-gray-950 dark:text-gray-200 dark:border-gray-800 dark:hover:bg-gray-900'
@@ -217,7 +217,7 @@ export default function FAQPage({ params }: PageProps) {
                 key={category}
                 type="button"
                 onClick={() => setActiveCategory(category)}
-                className={`rounded-full px-4 py-2 text-sm font-semibold border transition-colors ${
+                className={`rounded-full px-3 py-1.5 sm:px-4 sm:py-2 text-sm font-semibold border transition-colors ${
                   activeCategory === category
                     ? 'bg-red-600 text-white border-red-600'
                     : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50 dark:bg-gray-950 dark:text-gray-200 dark:border-gray-800 dark:hover:bg-gray-900'
@@ -230,7 +230,7 @@ export default function FAQPage({ params }: PageProps) {
         </div>
       </section>
 
-      <section className="py-16">
+      <section className="py-10 sm:py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-4">
             {filteredFaqs.map((faq, index) => {
@@ -245,13 +245,13 @@ export default function FAQPage({ params }: PageProps) {
                 >
                   <button
                     onClick={() => toggleFaq(globalIndex)}
-                    className="w-full flex items-center justify-between text-left p-6 hover:bg-gray-50 transition-colors dark:hover:bg-gray-900"
+                    className="w-full flex items-center justify-between text-left p-4 sm:p-6 hover:bg-gray-50 transition-colors dark:hover:bg-gray-900"
                   >
                     <div className="min-w-0">
                       <div className="text-xs text-gray-500 dark:text-gray-400">
                         {categoryLabel}
                       </div>
-                      <div className="mt-1 text-lg font-semibold text-gray-900 dark:text-white">
+                      <div className="mt-1 text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
                         {faq.question}
                       </div>
                     </div>
@@ -264,7 +264,7 @@ export default function FAQPage({ params }: PageProps) {
                     </div>
                   </button>
                   {isOpen && (
-                    <div className="px-6 pb-6 text-base leading-7 text-gray-600 dark:text-gray-300">
+                    <div className="px-4 pb-4 sm:px-6 sm:pb-6 text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300">
                       {faq.answer}
                     </div>
                   )}
@@ -276,22 +276,22 @@ export default function FAQPage({ params }: PageProps) {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 border-t border-gray-200 dark:border-gray-800">
+      <section className="py-10 sm:py-16 border-t border-gray-200 dark:border-gray-800">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="rounded-3xl border border-gray-200 bg-gray-50 p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900">
+          <div className="rounded-3xl border border-gray-200 bg-gray-50 p-5 sm:p-8 shadow-sm dark:border-gray-800 dark:bg-gray-900">
             <div className="mx-auto flex items-center justify-center w-12 h-12 rounded-2xl bg-white border border-gray-200 mb-4 dark:bg-gray-950 dark:border-gray-800">
               <ShieldCheck className="w-6 h-6 text-gray-700 dark:text-gray-200" />
             </div>
-            <h2 className="text-3xl font-black text-gray-900 dark:text-white mb-3">
+            <h2 className="text-2xl sm:text-3xl font-black text-gray-900 dark:text-white mb-3">
               {t.contactTitle}
             </h2>
-            <p className="text-gray-600 dark:text-gray-300 mb-8">
+            <p className="text-gray-600 dark:text-gray-300 mb-6 sm:mb-8">
               {t.contactSubtitle}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
-                href={`mailto:support@viewplex.com`}
+                href={`mailto:support@view-plex.com`}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white font-bold rounded-xl transition-colors"
               >
                 <Mail className="w-5 h-5" />
