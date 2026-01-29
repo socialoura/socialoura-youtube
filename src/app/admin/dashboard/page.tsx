@@ -580,15 +580,41 @@ export default function AdminDashboard() {
     setIsSaving(true);
     setMessage('');
 
+    const normalizeNumberString = (value: string) => value.replace(/[^0-9.]/g, '').trim();
+    const normalizeFollowers = (value: string) => value.replace(/\D/g, '').trim();
+
+    const cleanedPricing: PricingData = {
+      youtube: pricing.youtube
+        .map((goal) => {
+          const followers = normalizeFollowers(goal.followers);
+          const price = normalizeNumberString(goal.price);
+          const originalPrice = normalizeNumberString(goal.originalPrice || '');
+          return {
+            ...goal,
+            followers,
+            price,
+            originalPrice: originalPrice || undefined,
+          };
+        })
+        .filter((goal) => goal.followers && goal.price)
+        .sort((a, b) => {
+          const av = parseInt(a.followers, 10);
+          const bv = parseInt(b.followers, 10);
+          if (!Number.isFinite(av) || !Number.isFinite(bv)) return 0;
+          return av - bv;
+        }),
+    };
+
     try {
       const token = localStorage.getItem('adminToken');
+      setPricing(cleanedPricing);
       const response = await fetch('/api/admin/pricing', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(pricing),
+        body: JSON.stringify(cleanedPricing),
       });
 
       if (response.ok) {
