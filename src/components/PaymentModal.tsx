@@ -221,6 +221,7 @@ function PaymentForm({
                     month: 'long',
                     day: 'numeric',
                   }),
+                  videoUrl: youtubeVideoUrl.trim(),
                 },
                 language,
               }),

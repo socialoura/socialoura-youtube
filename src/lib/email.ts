@@ -19,6 +19,7 @@ interface OrderConfirmationEmailProps {
     price: string;
     orderId: string;
     date: string;
+    videoUrl?: string;
   };
   language?: 'en' | 'fr';
 }
@@ -54,10 +55,6 @@ export async function sendOrderConfirmationEmail({
           <!-- Header with Logo -->
           <tr>
             <td style="background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%); padding: 40px 30px; text-align: center;">
-              <!-- Logo -->
-              <div style="margin-bottom: 15px;">
-                <img src="https://www.view-plex.com/logo.png" alt="ViewPlex" style="height: 50px; width: auto;" onerror="this.style.display='none'">
-              </div>
               <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">
                 ViewPlex
               </h1>
@@ -85,7 +82,7 @@ export async function sendOrderConfirmationEmail({
               <p style="margin: 15px 0 0; color: #6b7280; font-size: 16px; line-height: 1.6;">
                 ${isEnglish 
                   ? `Hi${customerName ? ` ${customerName}` : ''}, your payment has been successfully processed.`
-                  : `Bonjour${customerName ? ` ${customerName}` : ''}, votre paiement a été traité avec succès.`
+                  : `Bonjour : ''}, votre paiement a été traité avec succès.`
                 }
               </p>
             </td>
@@ -126,6 +123,16 @@ export async function sendOrderConfirmationEmail({
                           ${platformName}
                         </td>
                       </tr>
+                      ${orderDetails.videoUrl ? `
+                      <tr>
+                        <td style="padding: 10px 0; color: #6b7280; font-size: 14px;">
+                          ${isEnglish ? 'Video link' : 'Lien de la vidéo'}
+                        </td>
+                        <td style="padding: 10px 0; color: #1f2937; font-size: 14px; font-weight: 600; text-align: right;">
+                          <a href="${orderDetails.videoUrl}" style="color: #DC2626; text-decoration: none;">${orderDetails.videoUrl}</a>
+                        </td>
+                      </tr>
+                      ` : ''}
                       <tr>
                         <td style="padding: 10px 0; color: #6b7280; font-size: 14px;">
                           ${isEnglish ? 'Followers' : 'Abonnés'}
