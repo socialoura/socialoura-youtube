@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllOrders, initDatabase, isDBConfigured } from '@/lib/db';
+import { initDatabase, isDBConfigured } from '@/lib/db';
 import { sql } from '@vercel/postgres';
 
 export const dynamic = 'force-dynamic';
@@ -48,7 +48,8 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const orders = await getAllOrders();
+    const ordersResult = await sql`SELECT * FROM orders ORDER BY created_at DESC`;
+    const orders = ordersResult.rows;
 
     if (debug) {
       const countResult = await sql`SELECT COUNT(*)::int AS count FROM orders`;
