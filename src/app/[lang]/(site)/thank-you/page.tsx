@@ -48,7 +48,7 @@ export default function ThankYouPage({ params }: PageProps) {
     if (!googleAdsId || !googleAdsConversionLabel) return;
     if (!paymentId) return;
     const w = window as unknown as {
-      gtag?: (...args: any[]) => void;
+      gtag?: (...args: unknown[]) => void;
     };
     if (typeof w.gtag !== 'function') return;
 
