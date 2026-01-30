@@ -142,7 +142,7 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
       {!isOpen && (
         <button
           onClick={toggleChat}
-          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110 group"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-full p-4 shadow-2xl transition-all duration-300 hover:scale-110 group"
           aria-label="Open chat"
         >
           <MessageCircle className="h-6 w-6" />
@@ -165,17 +165,17 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
           `}
         >
           {/* Chat Header */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 flex items-center justify-between">
+          <div className="bg-gradient-to-r from-red-600 to-red-700 p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="relative">
                 <div className="h-10 w-10 rounded-full bg-white flex items-center justify-center">
-                  <MessageCircle className="h-6 w-6 text-blue-600" />
+                  <MessageCircle className="h-6 w-6 text-red-600" />
                 </div>
                 <span className="absolute bottom-0 right-0 h-3 w-3 bg-green-500 rounded-full border-2 border-white"></span>
               </div>
               <div className="text-white">
                 <div className="font-semibold">{t.title}</div>
-                <div className="text-xs text-blue-100 flex items-center gap-1">
+                <div className="text-xs text-red-100 flex items-center gap-1">
                   <span className="h-2 w-2 bg-green-400 rounded-full"></span>
                   {t.online}
                 </div>
@@ -211,14 +211,14 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
                     <div
                       className={`max-w-[80%] rounded-2xl px-4 py-2.5 ${
                         msg.sender === 'user'
-                          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-br-sm'
+                          ? 'bg-gradient-to-r from-red-600 to-red-700 text-white rounded-br-sm'
                           : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-bl-sm'
                       }`}
                     >
                       <p className="text-sm">{msg.text}</p>
                       <div
                         className={`text-xs mt-1 ${
-                          msg.sender === 'user' ? 'text-blue-100' : 'text-gray-500 dark:text-gray-400'
+                          msg.sender === 'user' ? 'text-red-100' : 'text-gray-500 dark:text-gray-400'
                         }`}
                       >
                         {msg.timestamp.toLocaleTimeString(lang === 'en' ? 'en-US' : 'fr-FR', {
@@ -239,7 +239,7 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={t.emailPlaceholder}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors text-sm"
+                  className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-600 transition-colors text-sm"
                 />
                 <div className="flex gap-2">
                   <input
@@ -247,12 +247,12 @@ export default function ChatWidget({ lang }: ChatWidgetProps) {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder={t.placeholder}
-                    className="flex-1 px-4 py-2.5 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600 transition-colors"
+                    className="flex-1 px-4 py-2.5 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-500 dark:focus:ring-red-600 transition-colors"
                   />
                   <button
                     type="submit"
                     disabled={!message.trim() || isSending}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed text-white rounded-full p-2.5 transition-all hover:scale-105 disabled:hover:scale-100"
+                    className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:from-gray-400 disabled:to-gray-400 disabled:cursor-not-allowed text-white rounded-full p-2.5 transition-all hover:scale-105 disabled:hover:scale-100"
                     aria-label={t.send}
                   >
                     {isSending ? (

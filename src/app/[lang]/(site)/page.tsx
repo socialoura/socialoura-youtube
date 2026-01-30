@@ -336,7 +336,7 @@ export default function HomePage({ params }: PageProps) {
                       : 'Pick a pack. Checkout opens next and you’ll add your email + YouTube link.'}
                   </div>
 
-                  <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  <div className="mt-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {regularPacks.map((offer) => {
                       const isSelected = selectedPack?.views === offer.views;
                       return (
@@ -366,7 +366,7 @@ export default function HomePage({ params }: PageProps) {
                                 </div>
                               </div>
                             )}
-                            <div className="text-lg font-black text-gray-900 dark:text-white">
+                            <div className="text-base sm:text-lg font-black text-gray-900 dark:text-white">
                               {offer.label}
                             </div>
                             <div className="text-xs text-gray-500 dark:text-gray-400">
@@ -374,7 +374,7 @@ export default function HomePage({ params }: PageProps) {
                             </div>
                           </div>
                           <div className="text-right">
-                            <div className="text-base font-black text-red-600">
+                            <div className="text-sm sm:text-base font-black text-red-600">
                               {formatHeroPrice(offer.amount)}
                             </div>
                             {offer.original && (
