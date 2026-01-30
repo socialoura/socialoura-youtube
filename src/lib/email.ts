@@ -197,11 +197,17 @@ export async function sendOrderConfirmationEmail({
       return { success: false, error: 'Email service not configured' };
     }
 
+    const from =
+      process.env.RESEND_FROM ||
+      process.env.RESEND_FROM_EMAIL ||
+      'ViewPlex <onboarding@resend.dev>';
+
     const { data, error } = await resend.emails.send({
-      from: 'ViewPlex <noreply@view-plex.com>',
+      from,
       to: [to],
       subject,
       html: htmlContent,
+      replyTo: 'support@view-plex.com',
     });
 
     if (error) {

@@ -205,7 +205,7 @@ function PaymentForm({
           
           // Send confirmation email
           try {
-            await fetch('/api/send-confirmation-email', {
+            const emailResponse = await fetch('/api/send-confirmation-email', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -225,6 +225,11 @@ function PaymentForm({
                 language,
               }),
             });
+
+            if (!emailResponse.ok) {
+              const errorData = await emailResponse.json().catch(() => ({}));
+              console.error('Failed to send confirmation email:', errorData);
+            }
           } catch (emailError) {
             console.error('Failed to send confirmation email:', emailError);
           }
