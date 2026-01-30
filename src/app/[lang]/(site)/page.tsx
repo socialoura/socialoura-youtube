@@ -946,7 +946,7 @@ export default function HomePage({ params }: PageProps) {
           onClose={() => setIsPaymentModalOpen(false)}
           onCollectedDetails={(details) => setCheckoutDetails(details)}
           onSuccess={handlePaymentSuccess}
-          productName={`Regular Views — ${formatViewsLabel(selectedPack.views)} ${lang === 'fr' ? 'vues' : 'views'}`}
+          productName={`${lang === 'fr' ? 'Pack' : 'Package'} — ${formatViewsLabel(selectedPack.views)} ${lang === 'fr' ? 'vues' : 'views'}`}
           language={lang}
           orderDetails={{
             platform: 'youtube',
