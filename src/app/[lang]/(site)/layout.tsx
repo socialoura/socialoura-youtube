@@ -15,27 +15,24 @@ export default function SiteLayout({ children, params }: LayoutProps) {
   }
 
   const lang = params.lang as Language;
-  const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
+  const googleAdsId = 'AW-17912563309';
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
-      {googleAdsId ? (
-        <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`}
-            strategy="afterInteractive"
-          />
-          <Script
-            id="google-gtag-init"
-            strategy="afterInteractive"
-          >
-            {`window.dataLayer = window.dataLayer || [];
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${googleAdsId}`}
+        strategy="afterInteractive"
+      />
+      <Script
+        id="google-gtag-init"
+        strategy="afterInteractive"
+      >
+        {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);} 
 gtag('js', new Date());
+
 gtag('config', '${googleAdsId}');`}
-          </Script>
-        </>
-      ) : null}
+      </Script>
       <Header lang={lang} />
       <main className="flex-1">{children}</main>
       <Footer lang={lang} />
