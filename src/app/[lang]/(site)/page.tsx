@@ -110,21 +110,27 @@ export default function HomePage({ params }: PageProps) {
     };
   }, [lang]);
 
-  const handlePaymentSuccess = async (paymentIntentIdParam: string) => {
+  const handlePaymentSuccess = async (
+    paymentIntentIdParam: string,
+    details?: { email: string; youtubeVideoUrl: string }
+  ) => {
     setIsPaymentModalOpen(false);
+
+    const email = details?.email || checkoutDetails?.email || '';
+    const youtubeVideoUrl = details?.youtubeVideoUrl || checkoutDetails?.youtubeVideoUrl || '';
 
     try {
       const response = await fetch('/api/orders/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          username: checkoutDetails?.youtubeVideoUrl || '',
-          email: checkoutDetails?.email || '',
+          username: youtubeVideoUrl,
+          email,
           platform: 'youtube',
           followers: selectedPack?.views || 0,
           amount: selectedPack?.amount || 0,
           paymentId: paymentIntentIdParam,
-          youtubeVideoUrl: checkoutDetails?.youtubeVideoUrl || '',
+          youtubeVideoUrl,
         }),
       });
 
@@ -136,7 +142,15 @@ export default function HomePage({ params }: PageProps) {
       console.error('Order creation failed');
     }
 
-    router.push(`/${lang}?success=1&payment_id=${encodeURIComponent(paymentIntentIdParam)}`);
+    // Redirect to thank-you page with all order details
+    const thankYouParams = new URLSearchParams({
+      payment_id: paymentIntentIdParam,
+      email: email,
+      views: String(selectedPack?.views || 0),
+      amount: String(selectedPack?.amount || 0),
+      video: youtubeVideoUrl,
+    });
+    router.push(`/${lang}/thank-you?${thankYouParams.toString()}`);
   };
   
   const content = {

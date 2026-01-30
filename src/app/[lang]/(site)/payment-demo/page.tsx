@@ -56,7 +56,10 @@ export default function PaymentModalDemo() {
     setTimeout(() => setSelectedPlan(null), 300); // Reset after animation
   };
 
-  const handlePaymentSuccess = (paymentIntentId: string) => {
+  const handlePaymentSuccess = (
+    paymentIntentId: string,
+    _details?: { email: string; youtubeVideoUrl: string }
+  ) => {
     console.log('Payment successful!', paymentIntentId);
     // You can add additional logic here, like:
     // - Show a success notification

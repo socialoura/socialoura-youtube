@@ -10,7 +10,7 @@ interface PaymentModalProps {
   amount: number;
   currency: string;
   onClose: () => void;
-  onSuccess?: (paymentIntentId: string, email?: string) => void;
+  onSuccess?: (paymentIntentId: string, details?: { email: string; youtubeVideoUrl: string }) => void;
   onCollectedDetails?: (details: { email: string; youtubeVideoUrl: string }) => void;
   productName?: string;
   language?: 'en' | 'fr';
@@ -180,11 +180,12 @@ function PaymentForm({
         setPaymentIntentId(paymentIntent.id);
         setPaymentStatus('success');
 
+        const details = { email: customerEmail.trim(), youtubeVideoUrl: youtubeVideoUrl.trim() };
         if (onCollectedDetails) {
-          onCollectedDetails({ email: customerEmail.trim(), youtubeVideoUrl: youtubeVideoUrl.trim() });
+          onCollectedDetails(details);
         }
         if (onSuccess) {
-          onSuccess(paymentIntent.id, customerEmail.trim());
+          onSuccess(paymentIntent.id, details);
         }
 
         // Google Ads Conversion Tracking

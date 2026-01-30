@@ -51,9 +51,13 @@ export async function sendOrderConfirmationEmail({
       <td align="center" style="padding: 40px 20px;">
         <table role="presentation" style="width: 100%; max-width: 600px; border-collapse: collapse; background-color: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
           
-          <!-- Header -->
+          <!-- Header with Logo -->
           <tr>
-            <td style="background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%); padding: 40px 30px; text-align: center;">
+            <td style="background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%); padding: 40px 30px; text-align: center;">
+              <!-- Logo -->
+              <div style="margin-bottom: 15px;">
+                <img src="https://www.view-plex.com/logo.png" alt="ViewPlex" style="height: 50px; width: auto;" onerror="this.style.display='none'">
+              </div>
               <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700;">
                 ViewPlex
               </h1>
@@ -134,7 +138,7 @@ export async function sendOrderConfirmationEmail({
                         <td style="padding: 15px 0 0; color: #374151; font-size: 16px; font-weight: 600;">
                           ${isEnglish ? 'Total' : 'Total'}
                         </td>
-                        <td style="padding: 15px 0 0; color: #8B5CF6; font-size: 20px; font-weight: 700; text-align: right;">
+                        <td style="padding: 15px 0 0; color: #DC2626; font-size: 20px; font-weight: 700; text-align: right;">
                           ${orderDetails.price}
                         </td>
                       </tr>
@@ -148,10 +152,10 @@ export async function sendOrderConfirmationEmail({
           <!-- Info Box -->
           <tr>
             <td style="padding: 0 30px 30px;">
-              <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #EEF2FF; border-radius: 12px; border-left: 4px solid #8B5CF6;">
+              <table role="presentation" style="width: 100%; border-collapse: collapse; background-color: #FEF2F2; border-radius: 12px; border-left: 4px solid #DC2626;">
                 <tr>
                   <td style="padding: 20px;">
-                    <p style="margin: 0; color: #4338CA; font-size: 14px; line-height: 1.6;">
+                    <p style="margin: 0; color: #991B1B; font-size: 14px; line-height: 1.6;">
                       <strong>${isEnglish ? 'What happens next?' : 'Et maintenant ?'}</strong><br>
                       ${isEnglish 
                         ? 'Your campaign is being set up. You will receive updates within 24-48 hours. Delivery is progressive for a natural distribution.'
@@ -169,7 +173,7 @@ export async function sendOrderConfirmationEmail({
             <td style="background-color: #f9fafb; padding: 30px; text-align: center; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0 0 10px; color: #6b7280; font-size: 14px;">
                 ${isEnglish ? 'Questions? Contact us at' : 'Des questions ? Contactez-nous à'}
-                <a href="mailto:support@view-plex.com" style="color: #8B5CF6; text-decoration: none;"> support@view-plex.com</a>
+                <a href="mailto:support@view-plex.com" style="color: #DC2626; text-decoration: none;"> support@view-plex.com</a>
               </p>
               <p style="margin: 0; color: #9ca3af; font-size: 12px;">
                 © ${new Date().getFullYear()} ViewPlex. ${isEnglish ? 'All rights reserved.' : 'Tous droits réservés.'}
