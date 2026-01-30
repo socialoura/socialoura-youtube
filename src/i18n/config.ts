@@ -1,7 +1,7 @@
 export const languages = ['en', 'fr'] as const;
 export type Language = typeof languages[number];
 
-export const defaultLanguage: Language = 'en';
+export const defaultLanguage: Language = 'fr';
 
 export function isValidLanguage(lang: string): lang is Language {
   return languages.includes(lang as Language);
