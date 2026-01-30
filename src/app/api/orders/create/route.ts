@@ -31,6 +31,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if order with this payment_id already exists
+    const existing = await sql`
+      SELECT id FROM orders WHERE payment_id = ${paymentId} OR payment_intent_id = ${paymentId}
+    `;
+    
+    if (existing.rows.length > 0) {
+      // Order already exists, return existing ID (idempotent)
+      return NextResponse.json({
+        success: true,
+        orderId: existing.rows[0].id,
+        existing: true
+      });
+    }
+
     // Insert the order
     const result = await sql`
       INSERT INTO orders (username, email, platform, followers, amount, price, payment_id, payment_intent_id, status, payment_status, youtube_video_url) 
@@ -38,9 +52,12 @@ export async function POST(request: NextRequest) {
       RETURNING id
     `;
 
+    console.log('Order created:', result.rows[0]?.id, 'for payment:', paymentId);
+
     return NextResponse.json({
       success: true,
-      orderId: result.rows[0].id
+      orderId: result.rows[0].id,
+      created: true
     });
   } catch (error) {
     console.error('Error saving order:', error);
