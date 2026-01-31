@@ -192,7 +192,7 @@ export async function createOrder(data: {
 }) {
   try {
     const result = await sql`
-      INSERT INTO orders (email, platform, followers, price, payment_intent_id, amount, username) 
+      INSERT INTO public.orders (email, platform, followers, price, payment_intent_id, amount, username) 
       VALUES (${data.email}, ${data.platform}, ${data.followers}, ${data.price}, ${data.payment_intent_id || null}, ${data.price}, ${data.email})
       RETURNING id
     `;
@@ -206,7 +206,7 @@ export async function createOrder(data: {
 export async function updateOrderPaymentStatus(payment_intent_id: string, status: string) {
   try {
     await sql`
-      UPDATE orders SET payment_status = ${status}, updated_at = CURRENT_TIMESTAMP
+      UPDATE public.orders SET payment_status = ${status}, updated_at = CURRENT_TIMESTAMP
       WHERE payment_intent_id = ${payment_intent_id}
     `;
   } catch (error) {
@@ -218,7 +218,7 @@ export async function updateOrderPaymentStatus(payment_intent_id: string, status
 export async function getAllOrders() {
   try {
     const result = await sql`
-      SELECT * FROM orders ORDER BY created_at DESC
+      SELECT * FROM public.orders ORDER BY created_at DESC
     `;
     return result.rows;
   } catch (error) {
@@ -310,7 +310,7 @@ export async function updateStripeSettings(secretKey: string, publishableKey: st
 export async function updateOrderStatus(orderId: number, orderStatus: string) {
   try {
     await sql`
-      UPDATE orders SET order_status = ${orderStatus}, updated_at = CURRENT_TIMESTAMP
+      UPDATE public.orders SET order_status = ${orderStatus}, updated_at = CURRENT_TIMESTAMP
       WHERE id = ${orderId}
     `;
   } catch (error) {
@@ -322,7 +322,7 @@ export async function updateOrderStatus(orderId: number, orderStatus: string) {
 export async function updateOrderNotes(orderId: number, notes: string) {
   try {
     await sql`
-      UPDATE orders SET notes = ${notes}, updated_at = CURRENT_TIMESTAMP
+      UPDATE public.orders SET notes = ${notes}, updated_at = CURRENT_TIMESTAMP
       WHERE id = ${orderId}
     `;
   } catch (error) {
@@ -334,7 +334,7 @@ export async function updateOrderNotes(orderId: number, notes: string) {
 export async function updateOrderCost(orderId: number, cost: number) {
   try {
     await sql`
-      UPDATE orders SET cost = ${cost}, updated_at = CURRENT_TIMESTAMP
+      UPDATE public.orders SET cost = ${cost}, updated_at = CURRENT_TIMESTAMP
       WHERE id = ${orderId}
     `;
   } catch (error) {
@@ -373,7 +373,7 @@ export async function upsertMarketingCost(month: string, googleAdsCost: number) 
 export async function getOrderById(orderId: number) {
   try {
     const result = await sql`
-      SELECT * FROM orders WHERE id = ${orderId}
+      SELECT * FROM public.orders WHERE id = ${orderId}
     `;
     return result.rows.length > 0 ? result.rows[0] : null;
   } catch (error) {
