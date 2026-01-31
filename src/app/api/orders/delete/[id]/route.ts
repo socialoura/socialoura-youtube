@@ -9,7 +9,7 @@ export async function DELETE(
 ) {
   try {
     // Verify admin token
-    const authHeader = request.headers.get('authorization');
+    const authHeader = request.headers.get('authorization') ?? request.headers.get('Authorization');
     if (!authHeader?.startsWith('Bearer ')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
@@ -34,7 +34,7 @@ export async function DELETE(
 
     // Delete the order
     await sql`
-      DELETE FROM orders WHERE id = ${orderId}
+      DELETE FROM public.orders WHERE id = ${orderId}
     `;
 
     return NextResponse.json({ success: true });
